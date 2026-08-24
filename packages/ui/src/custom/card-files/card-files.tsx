@@ -6,11 +6,11 @@ import { FaCheck, FaRegCopy, FaRegEye } from "react-icons/fa6";
 import { MdDeleteOutline, MdOutlineEdit } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { BadgeFileStatus } from "../badge-file-status/badge-file-status";
+import { BadgeFileStatus } from "../badge-file-status";
 import Link from "next/link";
 import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
-import DialogDelete from "../dialog-delete/dialog-delete";
-import { getFullFileNo } from "../../../../core/utils";
+import { DialogDelete } from "../dialog-delete";
+import { getFullFileNo } from "@repo/core";
 
 export function CardFile({
   year,
@@ -53,7 +53,7 @@ export function CardFile({
         />
       </div>
       <div className="font-semibold">{data.importer}</div>
-      <div className="text-muted">
+      <div className="text-muted text-[13px]">
         {data.itemName} • {data.itemPackage}
       </div>
       {(data.bl || data.be || data.lc) && (
@@ -62,6 +62,7 @@ export function CardFile({
           <CopyText label="B/L" text={data.bl} />
           <CopyText label="B.E." text={data.be?.toString()} />
           <CopyText label="LC" text={data.lc} />
+          <CopyText label="ROT" text={data.rotNo} />
           <hr className="my-2" />
         </>
       )}
@@ -118,7 +119,7 @@ function CopyText({ label, text }: { label?: string; text?: string }) {
 
   return (
     <div
-      className={`flex items-center py-1 border ${copied ? "border-success" : "hover:border-primary"}  rounded px-2 font-mono bg-background text-muted group cursor-pointer transition-all`}
+      className={`flex items-center text-[13px] py-1 border ${copied ? "border-success" : "hover:border-primary"}  rounded px-2 font-mono bg-background text-muted group cursor-pointer transition-all`}
       onClick={onCopyText}
     >
       <div className="w-16">{label}</div>
@@ -147,7 +148,7 @@ function CopyText({ label, text }: { label?: string; text?: string }) {
             transition={{ duration: 0.25 }}
           >
             <motion.span
-              className="text-success text-sm font-semibold ml-1"
+              className="text-success font-semibold ml-1"
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
