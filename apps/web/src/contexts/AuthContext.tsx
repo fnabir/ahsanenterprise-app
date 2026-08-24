@@ -28,10 +28,16 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const PUBLIC_ROUTES = ["/login", "/forgot-password"];
-const ADMIN_ROUTES = ["/staff", "/conveyance"];
+const ADMIN_ROUTES = [
+  "/importer-balance",
+  "/staff-balance",
+  "/importer-info",
+  "/staff-info",
+];
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, userLoading, userError] = useAuthState(auth);
+
   const router = useRouter();
   const pathname = usePathname();
 
@@ -86,10 +92,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     // Redirect to home if authenticated user tries to access login
-    if (user && isPublicRoute) {
+    if (user && isPublicRoute && !isUnauthorized) {
       router.push("/");
     }
-  }, [user, loading, pathname, router]);
+  }, [user, loading, pathname, router, isUnauthorized]);
 
   return (
     <AuthContext.Provider

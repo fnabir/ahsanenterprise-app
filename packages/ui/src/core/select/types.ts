@@ -1,4 +1,8 @@
-import { SelectOption } from '@repo/app';
+export type SelectOption = {
+  value: string;
+  label: string;
+  disabled?: boolean;
+};
 export interface SelectProps {
   value?: string | null;
   onChange?: (value: string) => void;

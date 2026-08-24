@@ -1,23 +1,26 @@
+"use client";
+
 import { Badge, Card } from "../../core";
 import { changelog } from "@repo/core";
 import packageJson from "../../../../../package.json";
 import { FaAnglesRight } from "react-icons/fa6";
+import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
 
 const currentVersion = packageJson.version;
 
 export function CardVersion({
   version = currentVersion,
-  isAdmin,
   showCurrentVersion = false,
   clickable = false,
 }: {
   version?: string;
-  isAdmin: boolean;
   showCurrentVersion?: boolean;
   clickable?: boolean;
 }) {
   const log = changelog[version] ?? null;
   const date = log?.date;
+
+  const { isAdmin } = useAuth();
 
   const filteredDetails =
     log?.details.filter((detail) => {
@@ -64,20 +67,20 @@ export function CardVersion({
     <Card className="flex flex-col items-center px-4!" clickable={clickable}>
       <div className="text-sm lg:text-base font-semibold">AHSAN ENTERPRISE</div>
       <div className="flex gap-2 items-center">
-        <div className="text-2xl lg:text-3xl font-mono text-primary">
+        <div className="text-2xl lg:text-2xl font-mono text-primary">
           {version}
         </div>
         {showCurrentVersion && <Badge variant="success">Current</Badge>}
       </div>
-      {date && (
-        <div className="text-muted text-center text-sm lg:text-base">
-          {new Date(date).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-          })}
-        </div>
-      )}
+      <div className="text-muted text-center text-xs lg:text-sm">
+        {date
+          ? new Date(date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })
+          : "Beta Version"}
+      </div>
       <div className="w-full h-px bg-muted my-3" />
       {filteredDetails.length > 0 ? (
         filteredDetails.map((detail, index) => renderDetail(detail, index))

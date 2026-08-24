@@ -8,9 +8,7 @@ export default function FileStoreInitializer() {
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (loading) return;
-    if (!user) return;
-
+    if (loading || !user) return;
     useFileStore.getState().init();
   }, [user, loading]);
 

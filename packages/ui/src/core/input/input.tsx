@@ -38,7 +38,7 @@ export function Input(props: InputProps) {
       <div
         className={`${inputStyles.fieldWrapper}
           ${error ? "border-error" : "border-border"}
-          focus-within:border-accent
+          focus-within:border-primary
           ${disabled ? "opacity-70 pointer-events-none" : ""}
         `}
       >

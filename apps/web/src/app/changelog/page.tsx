@@ -3,7 +3,6 @@ import { CardVersion } from "@repo/ui";
 import { changelog } from "@repo/core";
 import packageJson from "../../../../../package.json";
 import BreadcrumbSetter from "@/components/breadcrumb-setter";
-import { useAuth } from "@/contexts/AuthContext";
 
 const BREADCRUMB_ITEMS = [{ label: "Changelog" }];
 
@@ -12,8 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function ChangelogPage() {
-  const { isAdmin } = useAuth();
-
   return (
     <>
       <BreadcrumbSetter items={BREADCRUMB_ITEMS} />
@@ -22,7 +19,6 @@ export default function ChangelogPage() {
           return (
             <CardVersion
               key={index}
-              isAdmin={isAdmin}
               version={version}
               showCurrentVersion={version === packageJson.version}
             />

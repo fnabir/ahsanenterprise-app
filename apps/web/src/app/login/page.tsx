@@ -19,9 +19,11 @@ export default function LoginPage() {
           className="mx-auto mb-4"
         />
         <h1 className="text-2xl font-bold">AHSAN ENTERPRISE</h1>
-        <div className="text-center my-8">
-          <div className="text-3xl font-semibold mb-2">Welcome Back</div>
-          <div className="text-muted">Login to your account to continue</div>
+        <div className="text-center my-4">
+          <div className="text-xl font-semibold">Welcome Back</div>
+          <div className="text-sm text-muted">
+            Login to your account to continue
+          </div>
         </div>
 
         <LoginForm />

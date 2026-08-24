@@ -12,8 +12,7 @@ export function CardFilesTotal({
   count: number;
   className?: string;
 }) {
-  console.log("year", getCurrentYear());
-  const href = year === 2026 ? `/files` : `/files?year=${year}`;
+  const href = year === getCurrentYear() ? `/files` : `/files?year=${year}`;
   return (
     <Link href={href} className="w-full">
       <Card

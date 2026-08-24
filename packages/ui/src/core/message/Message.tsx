@@ -6,18 +6,18 @@ export function Message({
   message,
   type = "info",
   variant = "outline",
+  className = "",
 }: {
   message: string;
   type?: "info" | "success" | "error" | "warning";
   variant?: "soft" | "outline";
+  className?: string;
 }) {
   const typeStyle = {
-    info: "bg-blue-900/50 text-blue-600 dark:text-blue-400 border-blue-500",
-    success:
-      "bg-green-900/50 text-green-600 dark:text-green-400 border-green-500",
-    error: "bg-red-900/50 text-red-600 dark:text-red-400 border-red-500",
-    warning:
-      "bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 border-yellow-500",
+    info: "bg-primary-subtle text-primary border-primary",
+    success: "bg-success-subtle text-success border-success",
+    error: "bg-danger-subtle text-danger border-danger",
+    warning: "bg-warning-subtle text-warning border-warning",
   };
 
   const variantStyle = {
@@ -39,7 +39,7 @@ export function Message({
           <motion.div
             layout
             transition={{ duration: 0.2, ease: "easeInOut" }}
-            className={`px-3 py-1.5 rounded-lg border transition-colors duration-200 ${typeStyle[type]} ${variantStyle[variant]}`}
+            className={`px-3 py-1.5 text-sm rounded-lg border transition-colors duration-200 ${typeStyle[type]} ${variantStyle[variant]} ${className}`}
           >
             {message}
           </motion.div>
