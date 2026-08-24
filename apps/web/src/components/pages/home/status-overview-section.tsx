@@ -56,8 +56,6 @@ export default function StatusOverviewSection() {
     ];
   }, [filesByStatus]);
 
-  console.log(pieData);
-
   if (filteredStatuses.length === 0) {
     return null;
   }
@@ -66,7 +64,7 @@ export default function StatusOverviewSection() {
     <Card className="flex flex-col gap-2 items-center justify-center px-2!">
       <h3 className="font-semibold">Status Overview</h3>
       <div className="flex divide-x-2 w-full">
-        <div className="flex-1/2 flex flex-col justify-center items-center text-sm pr-4 gap-1">
+        <div className="flex-1/2 flex flex-col justify-center items-center text-sm pl-2 pr-4 gap-1">
           {pieData.map((item) => {
             const status = item.name;
             const count = item.value;
