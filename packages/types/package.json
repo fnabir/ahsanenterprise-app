@@ -1,0 +1,11 @@
+{
+  "name": "@repo/types",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "ahsanenterprise-app",
+  "version": "1.0.0",
+  "author": "Farhan Noor Abir",
+  "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
+    "firebase": "^12.18.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-hook-form": "^7.86.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "^4.3.3",
+    "turbo": "^2.10.11",
+    "typescript": "^6.0.3",
+    "zustand": "^5.0.15"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "check-types": "turbo run check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  }
+}

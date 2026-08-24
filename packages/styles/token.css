@@ -1,0 +1,115 @@
+/**
+ * packages/styles/tokens.css
+ *
+ * Single source of truth for color tokens. Hex only — React Native / NativeWind
+ * cannot parse oklch(), so hex is the lowest common denominator both platforms
+ * can consume without a build step.
+ *
+ * Import this file directly in each app's globals.css:
+ *   apps/web/app/globals.css     -> @import "@repo/styles/tokens.css";
+ *   apps/mobile/global.css       -> @import "@repo/styles/tokens.css";
+ * then add platform-specific rules (fonts, resets, safe-area, etc.) after the import.
+ *
+ * Two color patterns are provided per semantic color:
+ *   --color-X            text color, paired with --color-X-subtle as a tinted background
+ *                         (status pills, badges — low-intensity, appears many times per screen)
+ *   --color-X-foreground  text color to place ON TOP of --color-X used as a SOLID fill
+ *                         (buttons, filled badges, chart bars — high-intensity, used sparingly)
+ *
+ * All pairs below are WCAG 2.1 AA verified (>=4.5:1 for text, >=3:1 for large/UI elements).
+ * warning and success text were darkened slightly from the original picks to clear AA on
+ * their subtle backgrounds in light mode; hue was preserved.
+ */
+
+:root {
+  /* Surfaces & text */
+  --color-bg: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-border: #e2e5ea;
+  --color-border-strong: #cbd1da;
+  --color-border-focus: #2e5c86;
+  --color-text: #171a21;
+  --color-text-secondary: #5b6472;
+  --color-text-tertiary: #8b93a1;
+
+  /* Primary (brand — buttons, links) */
+  --color-primary: #2e5c86;
+  --color-primary-hover: #24486b;
+  --color-primary-foreground: #ffffff;
+  --color-primary-subtle: #e7eff6;
+
+  /* Semantic / status colors — text+subtle pattern (pills, badges) */
+  --color-muted: #5b6472;
+  --color-muted-subtle: #eef0f3;
+  --color-muted-foreground: #ffffff;
+
+  --color-info: #2a6fa8;
+  --color-info-subtle: #e5f1fa;
+  --color-info-foreground: #ffffff;
+
+  --color-warning: #97630b; /* darkened from #B8790E to clear AA on warning-subtle */
+  --color-warning-subtle: #fcf1dc;
+  --color-warning-foreground: #171a21; /* dark text — warning is the one color too light for white text */
+
+  --color-accent: #6b4fa0;
+  --color-accent-subtle: #efe8f8;
+  --color-accent-foreground: #ffffff;
+
+  --color-secondary: #a23d6e;
+  --color-secondary-subtle: #fae6ef;
+  --color-secondary-foreground: #ffffff;
+
+  --color-success: #2e7a5b; /* darkened from #2F7D5D to clear AA on success-subtle */
+  --color-success-subtle: #e4f3ec;
+  --color-success-foreground: #ffffff;
+
+  --color-danger: #b23b3b;
+  --color-danger-subtle: #fbe7e7;
+  --color-danger-foreground: #ffffff;
+}
+
+.dark {
+  --color-bg: #12151b;
+  --color-surface: #1a1f28;
+  --color-surface-raised: #20262f;
+  --color-border: #2a303b;
+  --color-border-strong: #3a4250;
+  --color-border-focus: #6fa8d6;
+  --color-text: #e7eaef;
+  --color-text-secondary: #9aa3b2;
+  --color-text-tertiary: #6b7383;
+
+  --color-primary: #6fa8d6;
+  --color-primary-hover: #8fbbe0;
+  --color-primary-foreground: #0e1520; /* dark-mode accents are light-toned, so foreground flips to dark */
+  --color-primary-subtle: #1f3347;
+
+  --color-muted: #9aa3b2;
+  --color-muted-subtle: #232833;
+  --color-muted-foreground: #0e1520;
+
+  --color-info: #6fb3e0;
+  --color-info-subtle: #1b2e3d;
+  --color-info-foreground: #0e1520;
+
+  --color-warning: #e0a83d;
+  --color-warning-subtle: #332608;
+  --color-warning-foreground: #0e1520;
+
+  --color-accent: #b79ce0;
+  --color-accent-subtle: #2a2140;
+  --color-accent-foreground: #0e1520;
+
+  --color-secondary: #e091b8;
+  --color-secondary-subtle: #3a1e2c;
+  --color-secondary-foreground: #0e1520;
+
+  --color-success: #5fbf93;
+  --color-success-subtle: #16302a;
+  --color-success-foreground: #0e1520;
+
+  --color-danger: #e27575;
+  --color-danger-subtle: #341717;
+  --color-danger-foreground: #0e1520; /* only color where dark-text still beats white (6.13:1 vs 2.99:1) */
+}

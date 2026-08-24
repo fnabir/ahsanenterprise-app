@@ -1,0 +1,13 @@
+{
+  "name": "@repo/core",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "@repo/firebase": "workspace:*",
+    "@repo/types": "workspace:*"
+  }
+}

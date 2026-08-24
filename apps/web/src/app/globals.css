@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@import "@repo/styles/token.css";
+@source "../../../../packages/ui/src";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Public Sans", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-text);
+
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-primary-subtle: var(--color-primary-subtle);
+
+  --color-info: var(--color-info);
+  --color-info-subtle: var(--color-info-subtle);
+  --color-info-foreground: var(--color-info-foreground);
+
+  --color-warning: var(--color-warning);
+  --color-warning-subtle: var(--color-warning-subtle);
+  --color-warning-foreground: var(--color-warning-foreground);
+
+  --color-accent: var(--color-accent);
+  --color-accent-subtle: var(--color-accent-subtle);
+  --color-accent-foreground: var(--color-accent-foreground);
+
+  --color-secondary: var(--color-secondary);
+  --color-secondary-subtle: var(--color-secondary-subtle);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+
+  --color-success: var(--color-success);
+  --color-success-subtle: var(--color-success-subtle);
+  --color-success-foreground: var(--color-success-foreground);
+
+  --color-danger: var(--color-danger);
+  --color-danger-subtle: var(--color-danger-subtle);
+  --color-danger-foreground: var(--color-danger-foreground);
+
+  --color-muted: var(--color-muted);
+  --color-muted-subtle: var(--color-muted-subtle);
+  --color-muted-foreground: var(--color-muted-foreground);
+
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-border-focus: var(--color-border-focus);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans), sans-serif;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono), monospace;
+  }
+
+  /* Remove the default yellow background color for autofilled inputs in Chrome and Safari */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px var(--background) inset !important;
+    box-shadow: 0 0 0px 1000px var(--background) inset !important;
+    -webkit-text-fill-color: var(--primary) !important;
+  }
+}
+
+@keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-loading-bar {
+  animation: loading-bar 2s ease-in-out infinite;
+}

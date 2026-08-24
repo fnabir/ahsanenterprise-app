@@ -1,0 +1,16 @@
+{
+  "extends": "../config/src/typescript/base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "strict": true,
+    "types": ["node"],
+    "paths": {
+      "@repo/database": ["./src"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

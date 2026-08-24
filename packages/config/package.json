@@ -1,0 +1,25 @@
+{
+  "name": "@repo/config",
+  "main": "src/index.js",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./src/index.js",
+    "./eslint": "./src/eslint/base.js",
+    "./eslint/nextjs": "./src/eslint/nextjs.js",
+    "./eslint/reactInternal": "./src/eslint/react-internal.js",
+    "./tailwind": "./src/tailwind/index.js",
+    "./typescript": "./src/typescript/base.json",
+    "./typescript/nextjs": "./src/typescript/nextjs.json"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9",
+    "@next/eslint-plugin-next": "^16",
+    "eslint-plugin-only-warn": "^1",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-turbo": "^2",
+    "globals": "^16",
+    "typescript-eslint": "^8"
+  }
+}

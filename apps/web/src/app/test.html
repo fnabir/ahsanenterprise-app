@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ahsan Enterprise — Design System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font-ui: "Public Sans", -apple-system, sans-serif;
+        --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+        /* ===== LIGHT MODE ===== */
+        --bg: #f7f8fa;
+        --surface: #ffffff;
+        --surface-raised: #ffffff;
+        --border: #e2e5ea;
+        --border-strong: #cbd1da;
+        --text: #171a21;
+        --text-secondary: #5b6472;
+        --text-tertiary: #8b93a1;
+
+        --primary: #2e5c86;
+        --primary-hover: #24486b;
+        --primary-text: #ffffff;
+        --primary-subtle: #e7eff6;
+        --primary-subtle-text: #24486b;
+
+        --success: #2e7a5b;
+        --success-subtle: #e4f3ec;
+        --warning: #97630b;
+        --warning-subtle: #fcf1dc;
+        --info: #2a6fa8;
+        --info-subtle: #e5f1fa;
+        --muted: #5b6472;
+        --muted-subtle: #eef0f3;
+        --accent: #6b4fa0;
+        --accent-subtle: #efe8f8;
+        --secondary: #a23d6e;
+        --secondary-subtle: #fae6ef;
+        --danger: #b23b3b;
+        --danger-subtle: #fbe7e7;
+
+        --border-focus: #2e5c86;
+
+        --shadow-card:
+          0 1px 2px rgba(23, 26, 33, 0.04), 0 1px 8px rgba(23, 26, 33, 0.04);
+        --radius: 8px;
+      }
+
+      html.dark {
+        --bg: #12151b;
+        --surface: #1a1f28;
+        --surface-raised: #20262f;
+        --border: #2a303b;
+        --border-strong: #3a4250;
+        --text: #e7eaef;
+        --text-secondary: #9aa3b2;
+        --text-tertiary: #6b7383;
+
+        --primary: #6fa8d6;
+        --primary-hover: #8fbbe0;
+        --primary-text: #0e1520;
+        --primary-subtle: #1f3347;
+        --primary-subtle-text: #9cc5e8;
+
+        --success: #5fbf93;
+        --success-subtle: #16302a;
+        --warning: #e0a83d;
+        --warning-subtle: #332608;
+        --info: #6fb3e0;
+        --info-subtle: #1b2e3d;
+        --muted: #9aa3b2;
+        --muted-subtle: #232833;
+        --accent: #b79ce0;
+        --accent-subtle: #2a2140;
+        --secondary: #e091b8;
+        --secondary-subtle: #3a1e2c;
+        --danger: #e27575;
+        --danger-subtle: #341717;
+
+        --border-focus: #6fa8d6;
+
+        --shadow-card:
+          0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-ui);
+        background: var(--bg);
+        color: var(--text);
+        padding: 40px 24px 80px;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease;
+      }
+      .wrap {
+        max-width: 1040px;
+        margin: 0 auto;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 48px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand-mark {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-text);
+        font-weight: 800;
+        font-size: 14px;
+      }
+      .brand-name {
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: -0.01em;
+      }
+      .brand-sub {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        font-family: var(--font-mono);
+        letter-spacing: 0.02em;
+      }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 4px;
+      }
+      .toggle button {
+        border: none;
+        background: transparent;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-family: var(--font-ui);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        cursor: pointer;
+      }
+      .toggle button.active {
+        background: var(--primary);
+        color: var(--primary-text);
+      }
+
+      section {
+        margin-bottom: 56px;
+      }
+      .section-label {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-tertiary);
+        margin-bottom: 14px;
+      }
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin: 0 0 20px;
+      }
+
+      /* Palette */
+      .swatch-row {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+      }
+      .swatch {
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .swatch-fill {
+        height: 56px;
+      }
+      .swatch-label {
+        padding: 8px 10px;
+        background: var(--surface);
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        color: var(--text-secondary);
+      }
+      .swatch-label b {
+        display: block;
+        color: var(--text);
+        font-size: 11.5px;
+        margin-bottom: 2px;
+        font-family: var(--font-ui);
+      }
+
+      /* Type */
+      .type-row {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .type-row:last-child {
+        border-bottom: none;
+      }
+      .type-tag {
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        color: var(--text-tertiary);
+        width: 150px;
+        flex-shrink: 0;
+      }
+      .type-sample-mono {
+        font-family: var(--font-mono);
+      }
+
+      /* Cards / components grid */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        box-shadow: var(--shadow-card);
+      }
+      .card-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin: 0 0 16px;
+      }
+
+      /* Buttons */
+      .btn-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .btn {
+        font-family: var(--font-ui);
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 9px 16px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--primary-text);
+      }
+      .btn-secondary {
+        background: var(--surface);
+        color: var(--text);
+        border-color: var(--border-strong);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-secondary);
+      }
+      .btn-danger {
+        background: var(--danger-subtle);
+        color: var(--danger);
+      }
+
+      /* Status pills */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11.5px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-family: var(--font-ui);
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .pill-success {
+        background: var(--success-subtle);
+        color: var(--success);
+      }
+      .pill-success .dot {
+        background: var(--success);
+      }
+      .pill-warning {
+        background: var(--warning-subtle);
+        color: var(--warning);
+      }
+      .pill-warning .dot {
+        background: var(--warning);
+      }
+      .pill-info {
+        background: var(--info-subtle);
+        color: var(--info);
+      }
+      .pill-info .dot {
+        background: var(--info);
+      }
+      .pill-muted {
+        background: var(--muted-subtle);
+        color: var(--muted);
+      }
+      .pill-muted .dot {
+        background: var(--muted);
+      }
+      .pill-accent {
+        background: var(--accent-subtle);
+        color: var(--accent);
+      }
+      .pill-accent .dot {
+        background: var(--accent);
+      }
+      .pill-secondary {
+        background: var(--secondary-subtle);
+        color: var(--secondary);
+      }
+      .pill-secondary .dot {
+        background: var(--secondary);
+      }
+      .pill-danger {
+        background: var(--danger-subtle);
+        color: var(--danger);
+      }
+      .pill-danger .dot {
+        background: var(--danger);
+      }
+
+      /* Manifest tracker (signature element) */
+      .tracker {
+        display: flex;
+        align-items: center;
+        margin: 8px 0 4px;
+      }
+      .tstop {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        width: 78px;
+      }
+      .tsq {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        border: 2px solid var(--border-strong);
+        background: var(--surface);
+      }
+      .tsq.done {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+      .tsq.current {
+        border-color: var(--primary);
+        background: var(--primary-subtle);
+      }
+      .tline {
+        flex: 1;
+        height: 2px;
+        background: var(--border-strong);
+        margin: 0 -2px;
+      }
+      .tline.done {
+        background: var(--primary);
+      }
+      .tlabel {
+        font-size: 10px;
+        margin-top: 8px;
+        color: var(--text-tertiary);
+        font-family: var(--font-mono);
+        text-align: center;
+      }
+      .tlabel.active {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* File card */
+      .file-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 14px;
+      }
+      .file-ref {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-tertiary);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        padding: 3px 7px;
+        border-radius: 4px;
+        letter-spacing: 0.02em;
+      }
+      .file-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 6px 0 2px;
+      }
+      .file-meta {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      /* Real file card (v2 — compact) */
+      .fc {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        max-width: 320px;
+      }
+      .fc-top {
+        padding: 12px 14px 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      .fc-toprow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        gap: 8px;
+      }
+      .fc-toprow-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .fc-fileno {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 700;
+        background: var(--primary-subtle);
+        color: var(--primary-subtle-text);
+        padding: 2px 7px;
+        border-radius: 4px;
+        letter-spacing: 0.02em;
+      }
+      .fc-editbtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 5px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text-tertiary);
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .fc-editbtn svg {
+        width: 12px;
+        height: 12px;
+      }
+      .fc-editbtn:hover {
+        color: var(--text);
+        border-color: var(--border-strong);
+      }
+      .fc-client {
+        font-size: 13.5px;
+        font-weight: 700;
+        letter-spacing: -0.005em;
+        margin: 0 0 2px;
+      }
+      .fc-line2 {
+        font-size: 11px;
+        color: var(--text-secondary);
+      }
+      .fc-line2 .sep {
+        color: var(--text-tertiary);
+        margin: 0 4px;
+      }
+
+      .fc-refs {
+        padding: 8px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .fc-refrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        padding: 5px 8px;
+        cursor: pointer;
+        transition: border-color 0.15s ease;
+      }
+      .fc-refrow:hover {
+        border-color: var(--border-strong);
+      }
+      .fc-reflabel {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--text-tertiary);
+        width: 42px;
+        flex-shrink: 0;
+      }
+      .fc-refval {
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        color: var(--text);
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .fc-copybtn {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        color: var(--text-tertiary);
+      }
+      .fc-copybtn svg {
+        width: 12px;
+        height: 12px;
+        display: block;
+      }
+      .fc-copybtn.copied {
+        color: var(--success);
+      }
+
+      .fc-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 14px;
+        border-top: 1px solid var(--border);
+      }
+      .fc-track-mini {
+        display: flex;
+        align-items: center;
+        gap: 2.5px;
+      }
+      .fc-track-mini .seg {
+        width: 11px;
+        height: 3.5px;
+        border-radius: 2px;
+        background: var(--border-strong);
+      }
+      .fc-track-mini .seg.done {
+        background: var(--primary);
+      }
+      .fc-track-mini .seg.current {
+        background: var(--warning);
+      }
+      .fc-actions {
+        display: flex;
+        gap: 6px;
+      }
+      .fc-iconbtn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 5px 9px;
+        border-radius: 5px;
+        border: 1px solid var(--border-strong);
+        background: var(--surface);
+        color: var(--text-secondary);
+        cursor: pointer;
+      }
+      .fc-iconbtn.delete {
+        color: var(--danger);
+        border-color: var(--danger-subtle);
+        background: var(--danger-subtle);
+      }
+      .fc-iconbtn.delete.confirming {
+        background: var(--danger);
+        color: #fff;
+        border-color: var(--danger);
+      }
+      .fc-iconbtn svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* Table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th {
+        text-align: left;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-tertiary);
+        font-weight: 600;
+        padding: 0 0 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      td {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      .txn-id {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .amt {
+        font-family: var(--font-mono);
+        font-weight: 600;
+        text-align: right;
+      }
+      .amt.pos {
+        color: var(--success);
+      }
+      .amt.neg {
+        color: var(--danger);
+      }
+
+      /* Balance card */
+      .balance-figure {
+        font-family: var(--font-mono);
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin: 4px 0 2px;
+      }
+      .balance-sub {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .balance-trend {
+        font-size: 11px;
+        font-family: var(--font-mono);
+      }
+
+      /* Input */
+      .field-label {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+        color: var(--text-secondary);
+      }
+      .field {
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--border-strong);
+        border-radius: 6px;
+        padding: 9px 12px;
+        font-family: var(--font-ui);
+        font-size: 13px;
+        color: var(--text);
+        outline: none;
+        transition:
+          border-color 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      .field:focus {
+        border-color: var(--border-focus);
+        box-shadow: 0 0 0 3px
+          color-mix(in srgb, var(--border-focus) 20%, transparent);
+      }
+      .field:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px var(--bg) inset;
+        -webkit-text-fill-color: var(--text);
+        caret-color: var(--text);
+      }
+      .field::placeholder {
+        color: var(--text-tertiary);
+      }
+
+      @media (max-width: 720px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .swatch-row {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div>
+            <div class="brand-name">Ahsan Enterprise</div>
+            <div class="brand-sub">CLEARING &amp; FORWARDING</div>
+          </div>
+        </div>
+        <div class="toggle">
+          <button id="btn-light" class="active" onclick="setMode(false)">
+            Light
+          </button>
+          <button id="btn-dark" onclick="setMode(true)">Dark</button>
+        </div>
+      </div>
+
+      <section>
+        <div class="section-label">01 — Palette</div>
+        <h2>Harbor Blue on Neutral Ledger Gray</h2>
+        <div class="swatch-row" id="palette"></div>
+      </section>
+
+      <section>
+        <div class="section-label">02 — Typography</div>
+        <h2>Public Sans + IBM Plex Mono</h2>
+        <div class="card">
+          <div class="type-row">
+            <span class="type-tag">Display / 28·700</span
+            ><span
+              style="
+                font-size: 28px;
+                font-weight: 700;
+                letter-spacing: -0.015em;
+              "
+              >Client Balances Overview</span
+            >
+          </div>
+          <div class="type-row">
+            <span class="type-tag">Heading / 16·700</span
+            ><span style="font-size: 16px; font-weight: 700"
+              >Shipment Files — In Progress</span
+            >
+          </div>
+          <div class="type-row">
+            <span class="type-tag">Body / 14·400</span
+            ><span style="font-size: 14px"
+              >Track file status, generate bills and reconcile client
+              transactions.</span
+            >
+          </div>
+          <div class="type-row">
+            <span class="type-tag">Label / 11·600</span
+            ><span
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                color: var(--text-secondary);
+              "
+              >Outstanding Balance</span
+            >
+          </div>
+          <div class="type-row">
+            <span class="type-tag">Data mono / 14·500</span
+            ><span
+              class="type-sample-mono"
+              style="font-size: 14px; font-weight: 500"
+              >BL-2026-00193 · TRX-88214 · $12,450.00</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">03 — Buttons &amp; Status</div>
+        <h2>Actions &amp; Status Pills</h2>
+        <div class="grid">
+          <div class="card">
+            <p class="card-title">Buttons</p>
+            <div class="btn-row">
+              <button class="btn btn-primary">Create File</button>
+              <button class="btn btn-secondary">Export</button>
+              <button class="btn btn-ghost">Cancel</button>
+              <button class="btn btn-danger">Void Bill</button>
+            </div>
+          </div>
+          <div class="card">
+            <p class="card-title">Status pills</p>
+            <div class="btn-row">
+              <span class="pill pill-success"
+                ><span class="dot"></span>Cleared</span
+              >
+              <span class="pill pill-info"
+                ><span class="dot"></span>Assessment</span
+              >
+              <span class="pill pill-warning"
+                ><span class="dot"></span>Duty Payment</span
+              >
+              <span class="pill pill-danger"
+                ><span class="dot"></span>Customs Hold</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">04 — Signature Element</div>
+        <h2>Manifest Tracker</h2>
+        <div class="card">
+          <p class="card-title">File FCL-2601-0193 — routing status</p>
+          <div class="tracker">
+            <div class="tstop">
+              <div
+                class="tsq done"
+                style="background: var(--muted); border-color: var(--muted)"
+              ></div>
+              <div class="tlabel">New</div>
+            </div>
+            <div class="tline done" style="background: var(--muted)"></div>
+            <div class="tstop">
+              <div
+                class="tsq done"
+                style="background: var(--info); border-color: var(--info)"
+              ></div>
+              <div class="tlabel">Assessment</div>
+            </div>
+            <div class="tline done" style="background: var(--info)"></div>
+            <div class="tstop">
+              <div
+                class="tsq current"
+                style="
+                  border-color: var(--warning);
+                  background: var(--warning-subtle);
+                "
+              ></div>
+              <div class="tlabel active" style="color: var(--warning)">
+                Duty Payment
+              </div>
+            </div>
+            <div class="tline"></div>
+            <div class="tstop">
+              <div class="tsq"></div>
+              <div class="tlabel">Delivery</div>
+            </div>
+            <div class="tline"></div>
+            <div class="tstop">
+              <div class="tsq"></div>
+              <div class="tlabel">Bill</div>
+            </div>
+            <div class="tline"></div>
+            <div class="tstop">
+              <div class="tsq"></div>
+              <div class="tlabel">Done</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-label">05 — Core Components</div>
+        <h2>File Card, Balance &amp; Transactions</h2>
+        <div class="grid">
+          <div class="fc">
+            <div class="fc-top">
+              <div class="fc-toprow">
+                <div class="fc-toprow-left">
+                  <span class="fc-fileno">#33</span>
+                  <span
+                    class="pill pill-warning"
+                    style="padding: 3px 8px; font-size: 10.5px"
+                    ><span class="dot"></span>Duty Payment</span
+                  >
+                </div>
+                <button class="fc-editbtn" title="Edit basic info">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <p class="fc-client">Nordic Freight Ltd.</p>
+              <p class="fc-line2">
+                Ceramic Floor Tiles<span class="sep">·</span>2×40ft FCL<span
+                  class="sep"
+                  >·</span
+                >1,840 ctns
+              </p>
+            </div>
+
+            <div class="fc-refs">
+              <div class="fc-refrow" onclick="copyRef(this, 'BL-NRD-88214')">
+                <span class="fc-reflabel">B/L</span>
+                <span class="fc-refval">BL-NRD-88214</span>
+                <span class="fc-copybtn">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="9" y="9" width="12" height="12" rx="2" />
+                    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                  </svg>
+                </span>
+              </div>
+              <div class="fc-refrow" onclick="copyRef(this, 'BE-2026-441209')">
+                <span class="fc-reflabel">B.E.</span>
+                <span class="fc-refval">BE-2026-441209</span>
+                <span class="fc-copybtn">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="9" y="9" width="12" height="12" rx="2" />
+                    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                  </svg>
+                </span>
+              </div>
+              <div class="fc-refrow" onclick="copyRef(this, 'LC-0091827')">
+                <span class="fc-reflabel">LC</span>
+                <span class="fc-refval">LC-0091827</span>
+                <span class="fc-copybtn">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect x="9" y="9" width="12" height="12" rx="2" />
+                    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            <div class="fc-bottom">
+              <div
+                class="fc-track-mini"
+                title="New → Assessment → Duty Payment → Delivery → Bill → Done"
+              >
+                <div class="seg done"></div>
+                <div class="seg done"></div>
+                <div class="seg current"></div>
+                <div class="seg"></div>
+                <div class="seg"></div>
+                <div class="seg"></div>
+              </div>
+              <div class="fc-actions">
+                <button class="fc-iconbtn">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  View
+                </button>
+                <button class="fc-iconbtn delete" onclick="confirmDelete(this)">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"
+                    />
+                  </svg>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <p class="card-title">Client Balance</p>
+            <p
+              style="
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--text-secondary);
+                margin: 0 0 2px;
+              "
+            >
+              Nordic Freight Ltd.
+            </p>
+            <div class="balance-figure">$12,450.00</div>
+            <div class="balance-sub" style="color: var(--danger)">
+              Outstanding balance
+            </div>
+            <div
+              class="balance-trend"
+              style="
+                color: var(--text-tertiary);
+                margin-top: 12px;
+                padding-top: 12px;
+                border-top: 1px solid var(--border);
+              "
+            >
+              Updated Aug 10, 2026
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="grid"
+          style="
+            margin-top: 20px;
+            grid-template-columns: 1fr 320px;
+            align-items: start;
+          "
+        >
+          <div class="card">
+            <p class="card-title">Recent transactions — web (dense table)</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Transaction</th>
+                  <th style="text-align: right">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="txn-id" style="white-space: nowrap">Aug 10</td>
+                  <td>
+                    <span style="font-weight: 600">Duty invoice — FCL #33</span
+                    ><br /><span
+                      style="font-size: 11.5px; color: var(--text-secondary)"
+                      >Customs duty + VAT, Ctg port</span
+                    >
+                  </td>
+                  <td class="amt neg">-$4,200.00</td>
+                </tr>
+                <tr>
+                  <td class="txn-id" style="white-space: nowrap">Aug 6</td>
+                  <td>
+                    <span style="font-weight: 600">Payment received</span
+                    ><br /><span
+                      style="font-size: 11.5px; color: var(--text-secondary)"
+                      >Bank transfer, ref TRX-88201</span
+                    >
+                  </td>
+                  <td class="amt pos">+$6,300.00</td>
+                </tr>
+                <tr>
+                  <td class="txn-id" style="white-space: nowrap">Jul 28</td>
+                  <td>
+                    <span style="font-weight: 600">C&amp;F service invoice</span
+                    ><br /><span
+                      style="font-size: 11.5px; color: var(--text-secondary)"
+                      >Handling &amp; documentation fee</span
+                    >
+                  </td>
+                  <td class="amt neg">-$1,180.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card" style="padding: 0">
+            <p class="card-title" style="padding: 16px 16px 0">
+              Same list — mobile (stacked)
+            </p>
+            <div
+              style="display: flex; flex-direction: column; margin-top: 12px"
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  padding: 12px 16px;
+                  border-top: 1px solid var(--border);
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 10.5px;
+                      color: var(--text-tertiary);
+                      margin-bottom: 3px;
+                    "
+                  >
+                    Aug 10
+                  </div>
+                  <div style="font-size: 13px; font-weight: 600">
+                    Duty invoice — FCL #33
+                  </div>
+                  <div
+                    style="
+                      font-size: 11.5px;
+                      color: var(--text-secondary);
+                      margin-top: 2px;
+                    "
+                  >
+                    Customs duty + VAT, Ctg port
+                  </div>
+                </div>
+                <div class="amt neg" style="font-size: 13px">-$4,200.00</div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  padding: 12px 16px;
+                  border-top: 1px solid var(--border);
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 10.5px;
+                      color: var(--text-tertiary);
+                      margin-bottom: 3px;
+                    "
+                  >
+                    Aug 6
+                  </div>
+                  <div style="font-size: 13px; font-weight: 600">
+                    Payment received
+                  </div>
+                  <div
+                    style="
+                      font-size: 11.5px;
+                      color: var(--text-secondary);
+                      margin-top: 2px;
+                    "
+                  >
+                    Bank transfer, ref TRX-88201
+                  </div>
+                </div>
+                <div class="amt pos" style="font-size: 13px">+$6,300.00</div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  padding: 12px 16px;
+                  border-top: 1px solid var(--border);
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 10.5px;
+                      color: var(--text-tertiary);
+                      margin-bottom: 3px;
+                    "
+                  >
+                    Jul 28
+                  </div>
+                  <div style="font-size: 13px; font-weight: 600">
+                    C&amp;F service invoice
+                  </div>
+                  <div
+                    style="
+                      font-size: 11.5px;
+                      color: var(--text-secondary);
+                      margin-top: 2px;
+                    "
+                  >
+                    Handling &amp; documentation fee
+                  </div>
+                </div>
+                <div class="amt neg" style="font-size: 13px">-$1,180.00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px; max-width: 340px">
+          <p class="card-title">Field example</p>
+          <label class="field-label">Client name</label>
+          <input class="field" placeholder="Search clients…" />
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const palette = [
+        ["Primary", "var(--primary)", "brand · buttons/links"],
+        ["Muted", "var(--muted)", "New"],
+        ["Info", "var(--info)", "Assessment"],
+        ["Warning", "var(--warning)", "Duty Payment"],
+        ["Accent", "var(--accent)", "Delivery"],
+        ["Secondary", "var(--secondary)", "Bill"],
+        ["Success", "var(--success)", "Done"],
+        ["Danger", "var(--danger)", "exceptions only"],
+      ];
+      const paletteEl = document.getElementById("palette");
+      palette.forEach(([name, cssvar, hex]) => {
+        const d = document.createElement("div");
+        d.className = "swatch";
+        d.innerHTML = `<div class="swatch-fill" style="background:${cssvar}"></div><div class="swatch-label"><b>${name}</b>${hex}</div>`;
+        paletteEl.appendChild(d);
+      });
+
+      function confirmDelete(btn) {
+        if (!btn.classList.contains("confirming")) {
+          btn.classList.add("confirming");
+          btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>Confirm?`;
+          btn._revert = setTimeout(() => {
+            btn.classList.remove("confirming");
+            btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>Delete`;
+          }, 2500);
+        } else {
+          clearTimeout(btn._revert);
+          const card = btn.closest(".fc");
+          card.style.transition = "opacity .25s ease, transform .25s ease";
+          card.style.opacity = "0";
+          card.style.transform = "scale(0.97)";
+        }
+      }
+
+      function copyRef(row, value) {
+        navigator.clipboard?.writeText(value).catch(() => {});
+        const btn = row.querySelector(".fc-copybtn");
+        const original = btn.innerHTML;
+        btn.classList.add("copied");
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Copied`;
+        setTimeout(() => {
+          btn.classList.remove("copied");
+          btn.innerHTML = original;
+        }, 1400);
+      }
+
+      function setMode(dark) {
+        document.documentElement.classList.toggle("dark", dark);
+        document.getElementById("btn-light").classList.toggle("active", !dark);
+        document.getElementById("btn-dark").classList.toggle("active", dark);
+      }
+    </script>
+  </body>
+</html>

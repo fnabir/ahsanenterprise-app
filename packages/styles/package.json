@@ -1,0 +1,11 @@
+{
+  "name": "@repo/styles",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./token.css": "./token.css"
+  },
+  "files": [
+    "token.css"
+  ]
+}

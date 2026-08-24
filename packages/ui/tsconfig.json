@@ -1,0 +1,17 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "types": ["react-native-css/types"]
+  },
+  "include": [
+    "src/**/*",
+    "nativewind-env.d.ts",
+    "../core/stores/useFileStore.ts",
+    "../core/data/changelog.ts"
+  ]
+}

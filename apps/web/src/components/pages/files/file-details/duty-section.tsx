@@ -1,0 +1,63 @@
+import { FileData } from "@repo/types";
+import { Card } from "@repo/ui";
+import { FILE_DUTY_ORDER } from "@repo/core";
+import DataRow from "./data-row";
+
+export default function DutySection({
+  data,
+  total,
+}: {
+  data: FileData;
+  total: number;
+}) {
+  const dutyRef = {
+    "Assessment Reference": data.assessmentRef
+      ? `A-${data.assessmentRef}`
+      : undefined,
+    "Release Order No.": data.dutyRef ? `R-${data.dutyRef}` : undefined,
+  };
+
+  const dutyData = data.duty ?? {};
+  const fallbackIndex = FILE_DUTY_ORDER.indexOf("ZZZ");
+  const getDutyOrderIndex = (key: string) => {
+    const index = FILE_DUTY_ORDER.indexOf(
+      key as (typeof FILE_DUTY_ORDER)[number],
+    );
+    return index === -1 ? fallbackIndex : index;
+  };
+
+  const sortedDutyData = Object.entries(dutyData).sort(
+    ([keyA], [keyB]) => getDutyOrderIndex(keyA) - getDutyOrderIndex(keyB),
+  );
+
+  const dutyRows = sortedDutyData.map(([key, value]) => {
+    const label = key === "DF" ? "DF/VAT" : key;
+    return {
+      label: value.percentage ? `${label} - ${value.percentage}%` : label,
+      value: value.value,
+    };
+  });
+
+  return (
+    <Card className="col-span-4 flex flex-col divide-y-2 px-2! text-sm">
+      <div className="font-semibold pb-1 text-base">Duty</div>
+      {Object.entries(dutyRef).map(([key, value]) => (
+        <DataRow key={key} label={key} value={value} />
+      ))}
+      {dutyRows.map(({ label, value }) => (
+        <DataRow key={label} label={label} value={value} valueType="currency" />
+      ))}
+      <DataRow
+        key="total-duty"
+        label="Total Duty"
+        value={total}
+        valueType="currency"
+        className={{
+          label: "font-semibold text-foreground!",
+          value: "font-semibold",
+        }}
+      />
+      <DataRow label="Note" value={data.dutyPaid} />
+    </Card>
+  );
+}
