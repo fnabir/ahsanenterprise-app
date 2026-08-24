@@ -1,5 +1,6 @@
 "use client";
 
+import { TotalBalanceSync } from "@repo/core";
 import { getDatabaseReference } from "@repo/firebase";
 import { BalanceTotal } from "@repo/types";
 import { CardBalanceTotal, CardInfo, Skeleton, CardTotal } from "@repo/ui";
@@ -24,8 +25,8 @@ export default function BalanceSection({ id }: { id: string }) {
   );
 
   return (
-    <div className="grow flex flex-col divide-y-2">
-      <div className="grow overflow-y-auto grid grid-cols-4 gap-4 px-2 lg:px-4 py-2 lg:py-4">
+    <div className="h-full flex flex-col divide-y-2">
+      <div className="flex-1 overflow-y-auto grid grid-cols-4 gap-4 px-2 lg:px-4 py-2 lg:py-4 place-items-start">
         {loading ? (
           Array.from({ length: 4 }).map((_, i) => (
             <Skeleton key={i} className="col-span-1">
@@ -65,6 +66,7 @@ export default function BalanceSection({ id }: { id: string }) {
         )}
       </div>
       <CardTotal value={total} date={totalBalanceVal?.date} />
+      <TotalBalanceSync path={`balance/total/${id}`} total={total || 0} />
     </div>
   );
 }

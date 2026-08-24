@@ -13,7 +13,7 @@ export function CardBalanceTotal({
   className?: string;
 }) {
   return (
-    <Link href={`/${id}-balance`} key={id}>
+    <Link href={`/${id}-balance`} key={id} className="w-full">
       <Card className={className} clickable>
         <p className="text-lg capitalize font-medium mb-0 lg:mb-1">{id}</p>
         <Number
