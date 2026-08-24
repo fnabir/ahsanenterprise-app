@@ -1,9 +1,11 @@
 "use client";
 
 import { create } from "zustand";
-import { onValue } from "firebase/database";
-import { getDatabaseReference } from "@repo/firebase";
+import { onValue, off } from "firebase/database";
+import { onIdTokenChanged } from "firebase/auth";
+import { getDatabaseReference, auth } from "@repo/firebase";
 import type { FileRoot } from "@repo/types";
+import type { FirebaseError } from "firebase/app";
 
 interface FileStoreState {
   file: FileRoot | null;
@@ -21,28 +23,34 @@ export const useFileStore = create<FileStoreState>((set, get) => ({
 
   init: () => {
     if (get().initialized) return;
-
     set({ initialized: true, loading: true, error: null });
+
     const ref = getDatabaseReference("file");
+    let attached = false;
 
-    onValue(
-      ref,
-      (snapshot) => {
-        const value = snapshot.val();
+    const attach = () => {
+      if (attached) return;
+      attached = true;
+      onValue(
+        ref,
+        (snapshot) =>
+          set({ file: snapshot.val(), loading: false, error: null }),
+        (error) => {
+          attached = false;
+          const err = error as FirebaseError;
+          if (err.code !== "PERMISSION_DENIED") {
+            set({ file: null, loading: false, error: err.message });
+          }
+        },
+      );
+    };
 
-        set({
-          file: value,
-          loading: false,
-          error: null,
-        });
-      },
-      (error) => {
-        set({
-          file: null,
-          loading: false,
-          error: error.message,
-        });
-      },
-    );
+    onIdTokenChanged(auth, (user) => {
+      off(ref);
+      attached = false;
+      if (user) attach();
+    });
+
+    attach();
   },
 }));
