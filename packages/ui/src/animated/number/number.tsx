@@ -35,9 +35,7 @@ export function Number({
   return (
     <div className={`flex items-center gap-1 lg:gap-2 ${className}`}>
       {valueType === "currency" && (
-        <span className={`translate-y-0.5 ${currencyClassName}`}>
-          {currency ?? "৳"}
-        </span>
+        <span className={currencyClassName}>{currency ?? "৳"}</span>
       )}
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.pre

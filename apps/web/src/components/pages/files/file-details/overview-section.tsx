@@ -32,6 +32,7 @@ export default function OverviewSection({
   const values = {
     "C&F": { value: data.cnfValue, currency: "$" },
     Assessable: { value: data.assessableValue, currency: "৳" },
+    Duty: { value: totals.duty, currency: "৳" },
   };
 
   const dates = {
@@ -41,7 +42,7 @@ export default function OverviewSection({
   };
 
   return (
-    <div className="col-span-12 grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-4 mb-2">
       <Card
         className={`px-2! bg-${balance.className}-subtle! border-${balance.className} flex flex-col gap-2 items-start justify-center`}
       >
@@ -71,8 +72,9 @@ export default function OverviewSection({
           />
         </div>
       </Card>
+
       {isValuesAvailable ? (
-        <Card className="flex flex-col gap-2 justify-center text-center px-2!">
+        <Card className="flex flex-col gap-2 justify-center text-center px-2! text-sm divide-y-2">
           {Object.entries(values).map(([key, data]) => (
             <DataRow
               key={key}
@@ -85,13 +87,13 @@ export default function OverviewSection({
         </Card>
       ) : null}
       {isDatesAvailable ? (
-        <Card className="flex flex-col justify-center text-center px-2!">
+        <Card className="flex flex-col justify-center text-center px-2! text-sm divide-y-2">
           {Object.entries(dates).map(([key, value]) => (
             <DataRow key={key} label={`${key} Date`} value={value} />
           ))}
         </Card>
       ) : null}
-      <div className="col-span-12 flex gap-2 text-sm">
+      <div className="col-span-3 flex gap-2 text-sm">
         <div className="font-semibold text-muted">Remarks:</div>
         <pre>{data.remarks}</pre>
       </div>

@@ -39,7 +39,7 @@ export default function DutySection({
   });
 
   return (
-    <Card className="col-span-4 flex flex-col divide-y-2 px-2! text-sm">
+    <Card className="flex flex-col divide-y-2 px-2! text-sm">
       <div className="font-semibold pb-1 text-base">Duty</div>
       {Object.entries(dutyRef).map(([key, value]) => (
         <DataRow key={key} label={key} value={value} />

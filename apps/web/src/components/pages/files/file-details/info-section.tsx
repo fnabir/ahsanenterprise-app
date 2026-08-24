@@ -16,7 +16,7 @@ export default function InfoSection({ data }: { data: FileData }) {
   };
 
   return (
-    <Card className="col-span-4 flex flex-col divide-y-2 px-2! text-sm">
+    <Card className="flex flex-col divide-y-2 px-2! text-sm">
       <div className="flex items-center justify-between gap-2 pb-1">
         <div className="font-semibold text-base">File Details</div>
         <Button

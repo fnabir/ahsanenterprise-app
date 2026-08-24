@@ -18,7 +18,7 @@ export default function TotalSection({ data }: { data: FileTotals }) {
   const balanceTextStyle = data.balance > 0 ? "text-danger!" : "text-success!";
 
   return (
-    <Card className="col-span-4 flex flex-col divide-y-2 px-2! text-sm">
+    <Card className="flex flex-col divide-y-2 px-2! text-sm">
       <div className="font-semibold pb-1 text-base">Total</div>
       {Object.entries(totalInfo).map(([key, value]) => (
         <DataRow key={key} label={key} value={value} valueType="currency" />

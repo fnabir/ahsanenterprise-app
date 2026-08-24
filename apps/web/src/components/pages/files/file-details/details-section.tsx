@@ -72,9 +72,11 @@ export default function FileDetailsSection({
         <BadgeFileStatus status={data.status ?? "unknown"} />
       </div>
 
-      <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2">
-        <div className="grid grid-cols-12 gap-4">
+      <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4">
+        <div>
           <OverviewSection data={data} totals={totals} />
+        </div>
+        <div className="grid grid-cols-3 gap-4">
           <InfoSection data={data} />
           <DutySection data={data} total={totals.duty} />
           <PortExpenseSection data={data} total={totals.port} />
