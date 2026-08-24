@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Button,
   Dialog,
@@ -14,7 +13,7 @@ import {
 } from "../..";
 import { MdDeleteOutline } from "react-icons/md";
 
-export default function DialogDelete({
+export function DialogDelete({
   title,
   description,
   trigger,
