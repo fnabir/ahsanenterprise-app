@@ -1,4 +1,5 @@
 export interface BalanceTotal {
+  name?: string;
   value: number;
   date?: string;
 }
