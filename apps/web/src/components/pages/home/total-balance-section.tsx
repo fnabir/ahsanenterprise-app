@@ -38,12 +38,27 @@ export default function TotalBalanceSection() {
           balanceData.map((item) => {
             const key = item.key!;
             const val = item.val() as BalanceTotal;
+            const value = val.value;
             return (
               <CardBalanceTotal
                 key={key}
                 id={key}
-                value={val.value}
+                value={value}
                 date={val.date}
+                note={
+                  key === "staff" && value !== 0
+                    ? value < 0
+                      ? "Outstanding Balance"
+                      : "Payable to Staff"
+                    : undefined
+                }
+                noteClassName={
+                  key === "staff" && value !== 0
+                    ? value < 0
+                      ? "text-danger!"
+                      : "text-success!"
+                    : ""
+                }
               />
             );
           })

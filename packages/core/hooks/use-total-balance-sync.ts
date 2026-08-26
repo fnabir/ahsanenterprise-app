@@ -7,10 +7,10 @@ import { set } from "firebase/database";
 
 export function TotalBalanceSync({
   path,
-  total,
+  total = 0,
 }: {
   path: string;
-  total: number;
+  total?: number;
 }) {
   const ref = getDatabaseReference(`${path}/value`);
 

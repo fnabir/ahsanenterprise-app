@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function ImporterBalancePage() {
   return (
-    <>
+    <div className="h-full flex flex-col divide-y-2">
       <BreadcrumbSetter items={BREADCRUMB_ITEMS} />
       <BalanceSection id="importer" />
-    </>
+    </div>
   );
 }
