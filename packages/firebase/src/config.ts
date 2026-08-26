@@ -6,6 +6,7 @@ export interface FirebaseConfig {
   messagingSenderId: string;
   appId: string;
   measurementId?: string;
+  recaptchaV3SiteKey: string;
 }
 
 export function getFirebaseConfig(): FirebaseConfig {
@@ -30,6 +31,9 @@ export function getFirebaseConfig(): FirebaseConfig {
   const measurementId =
     process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ??
     process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID;
+  const recaptchaV3SiteKey =
+    process.env.NEXT_PUBLIC_FIREBASE_RECAPTCHA_V3_SITE_KEY ??
+    process.env.EXPO_PUBLIC_FIREBASE_RECAPTCHA_V3_SITE_KEY;
 
   if (
     !apiKey ||
@@ -37,7 +41,8 @@ export function getFirebaseConfig(): FirebaseConfig {
     !databaseURL ||
     !projectId ||
     !messagingSenderId ||
-    !appId
+    !appId ||
+    !recaptchaV3SiteKey
   ) {
     throw new Error("Missing Firebase configuration!");
   }
@@ -50,5 +55,6 @@ export function getFirebaseConfig(): FirebaseConfig {
     messagingSenderId,
     appId,
     measurementId,
+    recaptchaV3SiteKey,
   };
 }
