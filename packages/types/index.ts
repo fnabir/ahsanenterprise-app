@@ -70,3 +70,19 @@ export type GroupedFileItem = {
   fileNo: string;
   data: FileData;
 };
+
+export type ImporterInfo = {
+  address1?: string;
+  address2?: string;
+  address3?: string;
+  commission?: number;
+  minCommission?: number;
+  miscExpense?: number;
+};
+
+export type TransactionData = {
+  date: string;
+  title: string;
+  details?: string;
+  value: number;
+};
