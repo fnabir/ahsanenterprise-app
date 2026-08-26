@@ -7,4 +7,5 @@ export type NumberProps = {
   className?: string;
   currencyClassName?: string;
   valueClassName?: string;
+  signMode?: "-" | "-+" | "+-" | "";
 };

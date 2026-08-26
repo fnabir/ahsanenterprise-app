@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useTransform } from "framer-motion";
-import type { NumberProps } from "./types";
+import { type NumberProps } from "./types";
 import { useAnimatedNumber } from "./useAnimatedNumber";
 
 function formatAmount(
@@ -26,16 +26,26 @@ export function Number({
   className = "",
   currencyClassName = "",
   valueClassName = "",
+  signMode = "-",
 }: NumberProps) {
-  const animated = useAnimatedNumber(value);
+  const isNegative = value < 0;
+  const absValue = Math.abs(value);
+  const animated = useAnimatedNumber(absValue);
   const formattedValue = useTransform(animated, (v) =>
     formatAmount(v, fractionDigits, locale, valueType),
   );
 
+  const showNegativeSign = isNegative && signMode.includes("-");
+  const showPositiveSign = !isNegative && signMode.includes("-+");
+  const sign = showNegativeSign ? "-" : showPositiveSign ? "+" : "";
+
   return (
     <div className={`flex items-center gap-1 lg:gap-2 ${className}`}>
       {valueType === "currency" && (
-        <span className={currencyClassName}>{currency ?? "৳"}</span>
+        <span className={currencyClassName}>
+          {value !== 0 ? sign : null}
+          {currency ?? " ৳"}
+        </span>
       )}
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.pre
