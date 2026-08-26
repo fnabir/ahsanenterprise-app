@@ -41,7 +41,7 @@ export default function RootLayout({
           <AuthProvider>
             <BreadcrumbProvider>
               <FileStoreInitializer />
-              <div className="h-svh flex flex-col divide-y-2 gap-2 overflow-hidden">
+              <div className="h-svh flex flex-col divide-y-2 overflow-hidden">
                 <Header />
                 <div className="flex-1 min-h-0 flex flex-col">{children}</div>
               </div>

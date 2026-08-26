@@ -16,7 +16,7 @@ export default function LoginPage() {
           alt="Ahsan Enterprise Logo"
           width={50}
           height={50}
-          className="mx-auto mb-4"
+          className="mx-auto mb-4 h-auto"
         />
         <h1 className="text-2xl font-bold">AHSAN ENTERPRISE</h1>
         <div className="text-center my-4">
