@@ -1,5 +1,4 @@
-import { Card } from "@repo/ui";
-import { MdMoreVert } from "react-icons/md";
+import { Card, CardFileStatusList } from "@repo/ui";
 import type { GroupedFileItem } from "@repo/types";
 
 export default function StatusFilesList({
@@ -40,26 +39,7 @@ export default function StatusFilesList({
       </div>
       <ul className="flex flex-col divide-y-2 gap-2 pt-1">
         {files.map((file) => (
-          <li
-            key={file.fileNo}
-            className="flex items-center gap-2 px-2 pb-1 text-xs"
-          >
-            <div>
-              <div
-                className={`text-[11px] text-muted bg-muted-subtle py-px px-1 w-fit rounded-lg`}
-              >
-                #{file.fileNo}
-              </div>
-              {file.data.importer && (
-                <div className="font-semibold">{file.data.importer}</div>
-              )}
-              {file.data.itemName && (
-                <div className="text-muted">{file.data.itemName}</div>
-              )}
-            </div>
-
-            <MdMoreVert className="ml-auto text-muted" size={16} />
-          </li>
+          <CardFileStatusList key={file.fileNo} file={file} />
         ))}
       </ul>
     </Card>
