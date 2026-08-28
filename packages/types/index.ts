@@ -61,9 +61,29 @@ export type FileTotals = {
   balance: number;
 };
 
-export type Files = Record<string, any>;
+export type Files = Record<string, FileData>;
 export type FileYear = Record<string, Files>;
 export type FileRoot = Record<string, FileYear>;
+
+export type RequisitionFile = {
+  assessment?: number;
+  examine?: number;
+  labour?: number;
+  noc?: number;
+  port?: number;
+  section?: number;
+  truck?: number;
+};
+
+export type RequisitionData = {
+  arrival: string;
+  delivery: string;
+  letterDate: number;
+  files: Record<string, RequisitionFile>;
+};
+
+export type RequisitionYear = Record<string, RequisitionData>;
+export type RequisitionRoot = Record<string, RequisitionYear>;
 
 export type GroupedFileItem = {
   year: string;

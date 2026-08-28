@@ -4,8 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { BreadcrumbProvider } from "@/contexts/BreadcrumbContext";
-import FileStoreInitializer from "@/components/file-store-initializer";
 import Header from "@/components/header";
+import StoreInitializer from "@/components/store-initializer";
 
 const publicSans = Public_Sans({
   variable: "--font-sans",
@@ -40,7 +40,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <BreadcrumbProvider>
-              <FileStoreInitializer />
+              <StoreInitializer />
               <div className="h-svh flex flex-col divide-y-2 overflow-hidden">
                 <Header />
                 <div className="flex-1 min-h-0 flex flex-col">{children}</div>

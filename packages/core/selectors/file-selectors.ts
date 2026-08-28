@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { useFileStore } from "../stores/useFileStore";
-import type { FileData } from "@repo/types";
+import { useFileStore } from "../stores/use-file-store";
+import type { FileData, Files } from "@repo/types";
 
 const EMPTY_YEARS: Array<{ year: string; count: number }> = [];
 const EMPTY_YEAR_FILES: Record<string, FileData> = {};
@@ -59,7 +59,7 @@ export const useStatusCounts = () => {
     const counts: Record<string, number> = {};
 
     for (const year in file) {
-      const yearFiles = file[year];
+      const yearFiles: Files = file[year];
       for (const fileNo in yearFiles) {
         const status = yearFiles[fileNo].status ?? "unknown";
         counts[status] = (counts[status] || 0) + 1;
@@ -82,7 +82,7 @@ export const useFilesGroupedByStatus = () => {
     > = {};
 
     for (const year in file) {
-      const yearFiles = file[year];
+      const yearFiles: Files = file[year];
       for (const fileNo in yearFiles) {
         const data = yearFiles[fileNo];
         const status = data.status ?? "unknown";
