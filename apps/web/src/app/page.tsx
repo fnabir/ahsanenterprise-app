@@ -1,7 +1,8 @@
 import BalanceSection from "@/components/pages/home/balance-section";
 import ChangelogSection from "@/components/pages/home/changelog-section";
 import FilesSection from "@/components/pages/home/files-section";
-import ImporterInfoButton from "@/components/pages/home/importer-infp-button";
+import ImporterInfoButton from "@/components/pages/home/importer-info-button";
+import RequisitionSection from "@/components/pages/home/requisition-section";
 import StatusOverviewSection from "@/components/pages/home/status-overview-section";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <div className="w-full lg:w-1/5 shrink-0 flex flex-col gap-4 pt-1.5 lg:pt-3 pb-2 lg:pb-4">
         <ChangelogSection />
         <StatusOverviewSection />
+        <RequisitionSection />
         <ImporterInfoButton />
       </div>
     </div>
