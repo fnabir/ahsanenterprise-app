@@ -2,12 +2,16 @@
 
 import {
   getFullRequisitionNo,
+  useFileLoading,
   useFilesByYear,
   useRequisitionDetails,
+  useRequisitionLoading,
 } from "@repo/core";
 import ExpenseSection from "./expense-section";
 import type { RequisitionExpense } from "./expense-section";
 import { Files } from "@repo/types";
+import AccountSection from "./account-section";
+import Loading from "@/components/loading";
 
 export default function RequisitionDetailsSection({
   year,
@@ -16,9 +20,16 @@ export default function RequisitionDetailsSection({
   year: string;
   requisitionNo: string;
 }) {
+  const requisitionLoading = useRequisitionLoading();
+  const fileLoading = useFileLoading();
+
   const requistionRef = getFullRequisitionNo(requisitionNo, year);
   const data = useRequisitionDetails(year, requisitionNo);
   const files: Files = useFilesByYear(year);
+
+  if (requisitionLoading || fileLoading) {
+    return <Loading />;
+  }
 
   const expenses: RequisitionExpense[] = Object.entries(data?.files ?? {}).map(
     ([fileNo, fileExpense]) => ({
@@ -71,7 +82,11 @@ export default function RequisitionDetailsSection({
         Agency, Labor and other charges to our bank account as per the details
         below:
       </p>
+
+      <AccountSection />
+
       <ExpenseSection data={expenses} />
+
       <p>
         Please confirm with the deposit slip or confirmation at your earliest
         convenience to avoid any delay or port demurrage.
