@@ -1,7 +1,6 @@
 import { FileData } from "@repo/types";
-import { Card } from "@repo/ui";
+import { Card, RowData } from "@repo/ui";
 import { FILE_DUTY_ORDER } from "@repo/core";
-import DataRow from "./data-row";
 
 export default function DutySection({
   data,
@@ -46,12 +45,12 @@ export default function DutySection({
     <Card className="flex flex-col divide-y-2 px-2! text-sm">
       <div className="font-semibold pb-1 text-base">Duty</div>
       {Object.entries(dutyRef).map(([key, value]) => (
-        <DataRow key={key} label={key} value={value} />
+        <RowData key={key} label={key} value={value} />
       ))}
       {dutyRows.map(({ label, value }) => (
-        <DataRow key={label} label={label} value={value} valueType="currency" />
+        <RowData key={label} label={label} value={value} valueType="currency" />
       ))}
-      <DataRow
+      <RowData
         key="total-duty"
         label="Total Duty"
         value={total}
@@ -61,7 +60,7 @@ export default function DutySection({
           value: "font-semibold",
         }}
       />
-      <DataRow label="Note" value={data.dutyPaid} />
+      <RowData label="Note" value={data.dutyPaid} />
     </Card>
   );
 }

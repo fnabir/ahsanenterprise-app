@@ -1,6 +1,5 @@
 import { FileTotals } from "@repo/types";
-import { Card } from "@repo/ui";
-import DataRow from "./data-row";
+import { Card, RowData } from "@repo/ui";
 
 export default function TotalSection({ data }: { data: FileTotals }) {
   const totalInfo = {
@@ -26,9 +25,9 @@ export default function TotalSection({ data }: { data: FileTotals }) {
     <Card className="flex flex-col divide-y-2 px-2! text-sm">
       <div className="font-semibold pb-1 text-base">Total</div>
       {Object.entries(totalInfo).map(([key, value]) => (
-        <DataRow key={key} label={key} value={value} valueType="currency" />
+        <RowData key={key} label={key} value={value} valueType="currency" />
       ))}
-      <DataRow
+      <RowData
         label="Balance"
         value={data.balance}
         valueType="currency"

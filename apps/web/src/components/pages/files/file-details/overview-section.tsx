@@ -1,6 +1,5 @@
 import { FileData, FileTotals } from "@repo/types";
-import { Card, Number } from "@repo/ui";
-import DataRow from "./data-row";
+import { Card, Number, RowData } from "@repo/ui";
 
 export default function OverviewSection({
   data,
@@ -13,16 +12,19 @@ export default function OverviewSection({
     totals.balance > 0
       ? {
           title: "OUTSTANDING BALANCE",
-          className: "danger",
+          cardClassName: "bg-danger-subtle! border-danger",
+          textClassName: `text-danger`,
         }
       : totals.balance < 0
         ? {
             title: "OVERPAID BALANCE",
-            className: "warning",
+            cardClassName: "bg-warning-subtle! border-warning",
+            textClassName: `text-warning`,
           }
         : {
             title: "BALANCE",
-            className: "success",
+            cardClassName: "bg-success-subtle! border-success",
+            textClassName: `text-success`,
           };
 
   const isValuesAvailable = data.cnfValue || data.assessableValue;
@@ -44,16 +46,16 @@ export default function OverviewSection({
   return (
     <div className="grid grid-cols-3 gap-4 mb-2">
       <Card
-        className={`px-2! bg-${balance.className}-subtle! border-${balance.className} flex flex-col gap-2 items-start justify-center`}
+        className={`px-2! flex flex-col gap-2 items-start justify-center ${balance.cardClassName}`}
       >
-        <div className={`font-bold text-${balance.className}`}>
+        <div className={`font-bold ${balance.textClassName}`}>
           {balance.title}
         </div>
         <Number
           value={totals.balance}
           fractionDigits={2}
           valueType="currency"
-          className={`text-3xl font-bold text-${balance.className}`}
+          className={`text-3xl font-bold ${balance.textClassName}`}
         />
         <div className="flex items-center gap-2 mt-2 text-sm">
           Total
@@ -76,7 +78,7 @@ export default function OverviewSection({
       {isValuesAvailable ? (
         <Card className="flex flex-col gap-2 justify-center text-center px-2! text-sm divide-y-2">
           {Object.entries(values).map(([key, data]) => (
-            <DataRow
+            <RowData
               key={key}
               label={`${key} Value`}
               value={data.value}
@@ -89,7 +91,7 @@ export default function OverviewSection({
       {isDatesAvailable ? (
         <Card className="flex flex-col justify-center text-center px-2! text-sm divide-y-2">
           {Object.entries(dates).map(([key, value]) => (
-            <DataRow key={key} label={`${key} Date`} value={value} />
+            <RowData key={key} label={`${key} Date`} value={value} />
           ))}
         </Card>
       ) : null}

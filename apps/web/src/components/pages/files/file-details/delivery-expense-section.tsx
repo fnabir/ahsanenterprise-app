@@ -1,6 +1,5 @@
 import { FileData } from "@repo/types";
-import { Card } from "@repo/ui";
-import DataRow from "./data-row";
+import { Card, RowData } from "@repo/ui";
 
 export default function DeliveryExpenseSection({
   data,
@@ -19,14 +18,14 @@ export default function DeliveryExpenseSection({
     <Card className="flex flex-col divide-y-2 px-2! text-sm">
       <div className="font-semibold pb-1 text-base">Delivery Expense</div>
       {Object.entries(expenseData).map(([key, value]) => (
-        <DataRow
+        <RowData
           key={key}
           label={value.details}
           value={value.value}
           valueType="currency"
         />
       ))}
-      <DataRow
+      <RowData
         label="Total"
         value={total}
         valueType="currency"

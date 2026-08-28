@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button, Card } from "../..";
-import { DialogDelete } from "../dialog-delete";
-import RowData from "../row-data/row-data";
+import { Button, Card, DialogDelete, RowData } from "../..";
 import { FaRegEye } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";

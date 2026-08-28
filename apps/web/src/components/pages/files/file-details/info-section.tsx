@@ -1,5 +1,5 @@
 import { FileData } from "@repo/types";
-import { Button, Card } from "@repo/ui";
+import { Button, Card, RowData } from "@repo/ui";
 import { MdOutlineEdit } from "react-icons/md";
 
 export default function InfoSection({ data }: { data: FileData }) {
@@ -26,19 +26,16 @@ export default function InfoSection({ data }: { data: FileData }) {
           }
         />
       </div>
-      {Object.entries(info).map(([key, value]) =>
-        value ? (
-          <div
-            key={key}
-            className="flex gap-2 justify-between items-center py-1"
-          >
-            <div className="text-muted">{key}</div>
-            <div className={key === "Importer" ? "font-semibold" : ""}>
-              {value}
-            </div>
-          </div>
-        ) : null,
-      )}
+      {Object.entries(info).map(([key, value]) => (
+        <RowData
+          key={key}
+          label={key}
+          value={value}
+          className={{
+            value: key === "Importer" ? "font-semibold" : "",
+          }}
+        />
+      ))}
     </Card>
   );
 }
