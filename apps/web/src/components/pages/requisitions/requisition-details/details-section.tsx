@@ -41,6 +41,8 @@ export default function RequisitionDetailsSection({
     }),
   );
 
+  const lcs = Object.values(expenses).map((file) => file.lc);
+
   const arrival = data?.arrival
     ? new Date(data.arrival).toLocaleDateString("en-GB")
     : null;
@@ -67,7 +69,7 @@ export default function RequisitionDetailsSection({
       </p>
       <p>
         <strong>Subject:</strong> Payment Request for Customs Clearance and
-        Delivery for L/C Nos.
+        Delivery for L/C Nos. {lcs.join(", ")}
       </p>
       <p>Dear Sir,</p>
       <p>Assalamualikum Wrt. Wbr.</p>
