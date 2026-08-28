@@ -1,5 +1,5 @@
-import Loading from "@/components/loading";
+import LoadingBar from "@/components/loading-bar";
 
 export default function LoadingPage() {
-  return <Loading />;
+  return <LoadingBar />;
 }
