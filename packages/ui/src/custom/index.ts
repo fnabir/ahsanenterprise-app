@@ -7,3 +7,4 @@ export * from "./card-file";
 export * from "./card-total";
 export * from "./card-info-importer";
 export * from "./card-file-status-list";
+export * from "./card-requisition";
