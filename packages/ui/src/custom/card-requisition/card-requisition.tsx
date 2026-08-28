@@ -86,7 +86,7 @@ export function CardRequisition({
           setOpen={setOpen}
         >
           <div className="text-sm">
-            Are you sure you want to delete file
+            Are you sure you want to delete the P.O. Requisition
             <span className="rounded-md px-1 py-px text-info bg-primary-subtle ml-1">
               {getFullRequisitionNo(Number(requisitionNo), Number(year))}
             </span>

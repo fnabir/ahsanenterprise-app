@@ -95,3 +95,18 @@
 .animate-loading-bar {
   animation: loading-bar 2s ease-in-out infinite;
 }
+
+@media print {
+  @page {
+    size: A4 portrait;
+  }
+
+  .print-requisition {
+    margin: 2in 0.4in 0.5in;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

@@ -20,6 +20,18 @@ export function Button({
     danger: "bg-danger text-white hover:bg-danger/85",
     outline: "border text-foreground hover:bg-card hover:border-muted",
     transparent: "bg-transparent text-primary hover:bg-background/10",
+    subtle:
+      "bg-primary-subtle text-primary hover:bg-primary/10 border border-primary",
+    custom: "",
+  };
+
+  const loadingStyle = {
+    default: "border-background",
+    primary: "border-background",
+    danger: "border-white",
+    outline: "border-foreground",
+    transparent: "border-primary",
+    subtle: "border-primary",
     custom: "",
   };
 
@@ -43,7 +55,7 @@ export function Button({
         {loading ? (
           <motion.div
             key="loading"
-            className="size-5 animate-spin rounded-full border-2 border-t-transparent border-white"
+            className={`size-4 animate-spin rounded-full border-2 border-t-transparent ${loadingStyle[variant]}`}
           />
         ) : Icon ? (
           <motion.div key="icon">{Icon}</motion.div>

@@ -1,5 +1,11 @@
 export type ButtonVariant =
-  "default" | "primary" | "danger" | "outline" | "transparent" | "custom";
+  | "default"
+  | "primary"
+  | "danger"
+  | "outline"
+  | "transparent"
+  | "custom"
+  | "subtle";
 
 export interface ButtonProps {
   label?: string;

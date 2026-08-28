@@ -8,7 +8,7 @@ export default function InfoSection({ data }: { data: FileData }) {
     Item: data.itemName,
     Package: data.itemPackage,
     "B/L No.": data.bl,
-    "L/C No.": data.lc,
+    "L/C No.": data.lc && data.lc !== "0" ? data.lc : undefined,
     Vessel: data.vessel,
     "Rot No.": data.rotNo,
     "B/E No.": data.be && data.be !== 0 ? `C-${data.be}` : undefined,
