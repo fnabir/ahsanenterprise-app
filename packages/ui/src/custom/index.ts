@@ -3,6 +3,7 @@ export * from "./card-info";
 export * from "./card-balance-total";
 export * from "./card-files-total";
 export * from "./card-version";
-export * from "./card-files";
+export * from "./card-file";
 export * from "./card-total";
 export * from "./card-info-importer";
+export * from "./card-file-status-list";

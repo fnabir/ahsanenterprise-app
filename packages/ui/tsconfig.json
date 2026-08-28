@@ -8,10 +8,5 @@
     "allowImportingTsExtensions": true,
     "types": ["react-native-css/types", "node"]
   },
-  "include": [
-    "src/**/*",
-    "nativewind-env.d.ts",
-    "../core/stores/useFileStore.ts",
-    "../core/data/changelog.ts"
-  ]
+  "include": ["src/**/*", "nativewind-env.d.ts"]
 }
