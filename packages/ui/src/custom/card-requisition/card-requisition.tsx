@@ -35,15 +35,15 @@ export function CardRequisition({
       <div className="py-1">
         <RowData
           label="Letter Date"
-          value={new Date(data.letterDate).toLocaleDateString()}
+          value={new Date(data.letterDate).toLocaleDateString("en-GB")}
         />
         <RowData
           label="Arrival Date"
-          value={new Date(data.arrival).toLocaleDateString()}
+          value={new Date(data.arrival).toLocaleDateString("en-GB")}
         />
         <RowData
           label="Delivery Date"
-          value={new Date(data.delivery).toLocaleDateString()}
+          value={new Date(data.delivery).toLocaleDateString("en-GB")}
         />
       </div>
       <div className="flex items-center justify-between gap-2 py-1">
