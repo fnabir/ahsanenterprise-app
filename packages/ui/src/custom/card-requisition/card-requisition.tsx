@@ -13,7 +13,7 @@ export function CardRequisition({
   requisitionNo,
   data,
 }: {
-  year: number;
+  year: string;
   requisitionNo: string;
   data: any;
 }) {
@@ -62,7 +62,7 @@ export function CardRequisition({
           </div>
         )}
       </div>
-      <div className="flex gap-2 justify-end py-2">
+      <div className="flex gap-2 justify-end pt-2">
         <Link href={`/requisition/${year}-${requisitionNo}`}>
           <Button
             variant="custom"

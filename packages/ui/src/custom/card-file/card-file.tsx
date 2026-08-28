@@ -32,8 +32,8 @@ export function CardFile({
   };
 
   return (
-    <Card className="p-2! text-sm space-y-1">
-      <div className="flex items-center justify-between">
+    <Card className="p-2! text-sm divide-y-2">
+      <div className="flex items-center justify-between pb-1">
         <div className="flex gap-2">
           <div
             className={`text-primary bg-primary-subtle py-px px-1.25 w-fit rounded-lg`}
@@ -52,21 +52,21 @@ export function CardFile({
           }
         />
       </div>
-      <div className="font-semibold">{data.importer}</div>
-      <div className="text-muted text-[13px]">
-        {data.itemName} • {data.itemPackage}
+      <div className="py-1">
+        <div className="font-semibold">{data.importer}</div>
+        <div className="text-muted text-[13px]">
+          {data.itemName} • {data.itemPackage}
+        </div>
       </div>
       {(data.bl || data.be || data.lc) && (
-        <>
-          <hr className="my-2" />
+        <div className="py-2 space-y-1">
           <CopyText label="B/L" text={data.bl} />
           <CopyText label="B.E." text={data.be?.toString()} />
           <CopyText label="LC" text={data.lc} />
           <CopyText label="ROT" text={data.rotNo} />
-          <hr className="my-2" />
-        </>
+        </div>
       )}
-      <div className="flex gap-2 justify-end">
+      <div className="flex gap-2 pt-2 justify-end">
         <Link href={`/files/${year}-${fileNo}`}>
           <Button
             variant="custom"

@@ -35,16 +35,19 @@ export default function RequisitionSection() {
     );
 
   return (
-    <div className="grow grid grid-cols-1 lg:grid-cols-5 gap-3">
-      {Object.entries(requisitions)
-        .reverse()
-        .map(([requisitionNo, data]) => (
-          <CardRequisition
-            key={requisitionNo}
-            requisitionNo={requisitionNo}
-            data={data}
-          />
-        ))}
+    <div className="flex-1 overflow-y-auto pt-1.5 lg:pt-3 pb-2 lg:pb-4 px-2 lg:px-4">
+      <div className="grow grid grid-cols-1 lg:grid-cols-5 gap-3">
+        {Object.entries(requisitions)
+          .reverse()
+          .map(([requisitionNo, data]) => (
+            <CardRequisition
+              key={requisitionNo}
+              year={year}
+              requisitionNo={requisitionNo}
+              data={data}
+            />
+          ))}
+      </div>
     </div>
   );
 }
