@@ -66,38 +66,40 @@ export function CardFile({
           <CopyText label="ROT" text={data.rotNo} />
         </div>
       )}
-      <div className="flex gap-2 pt-2 justify-end">
-        <Link href={`/files/${year}-${fileNo}`}>
-          <Button
-            variant="custom"
-            label="View"
-            Icon={<FaRegEye />}
-            className="text-foreground border border-muted/50 hover:bg-muted-subtle"
-          />
-        </Link>
-        <DialogDelete
-          title="Delete File"
-          trigger={
+      {isAdmin && (
+        <div className="flex gap-2 pt-2 justify-end">
+          <Link href={`/files/${year}-${fileNo}`}>
             <Button
               variant="custom"
-              label="Delete"
-              Icon={<MdDeleteOutline size={16} />}
-              className="text-danger border bg-danger-subtle hover:border-danger"
+              label="View"
+              Icon={<FaRegEye />}
+              className="text-foreground border border-muted/50 hover:bg-muted-subtle"
             />
-          }
-          onDelete={() => onDeleteFile()}
-          open={open}
-          setOpen={setOpen}
-        >
-          <div className="text-sm">
-            Are you sure you want to delete file
-            <span className="rounded-md px-1 py-px text-info bg-primary-subtle ml-1">
-              {getFullFileNo(Number(fileNo), Number(year))}
-            </span>
-            ? This action cannot be undone.
-          </div>
-        </DialogDelete>
-      </div>
+          </Link>
+          <DialogDelete
+            title="Delete File"
+            trigger={
+              <Button
+                variant="custom"
+                label="Delete"
+                Icon={<MdDeleteOutline size={16} />}
+                className="text-danger border bg-danger-subtle hover:border-danger"
+              />
+            }
+            onDelete={() => onDeleteFile()}
+            open={open}
+            setOpen={setOpen}
+          >
+            <div className="text-sm">
+              Are you sure you want to delete file
+              <span className="rounded-md px-1 py-px text-info bg-primary-subtle ml-1">
+                {getFullFileNo(Number(fileNo), Number(year))}
+              </span>
+              ? This action cannot be undone.
+            </div>
+          </DialogDelete>
+        </div>
+      )}
     </Card>
   );
 }
