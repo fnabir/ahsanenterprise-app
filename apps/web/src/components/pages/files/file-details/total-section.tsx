@@ -15,6 +15,11 @@ export default function TotalSection({ data }: { data: FileTotals }) {
     Paid: data.paid,
   };
 
+  const isAllZero = Object.values(totalInfo).every((value) => value === 0);
+  if (isAllZero) {
+    return null;
+  }
+
   const balanceTextStyle = data.balance > 0 ? "text-danger!" : "text-success!";
 
   return (

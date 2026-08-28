@@ -10,14 +10,11 @@ export default function DutySection({
   data: FileData;
   total: number;
 }) {
-  const dutyRef = {
-    "Assessment Reference": data.assessmentRef
-      ? `A-${data.assessmentRef}`
-      : undefined,
-    "Release Order No.": data.dutyRef ? `R-${data.dutyRef}` : undefined,
-  };
-
   const dutyData = data.duty ?? {};
+  if (!dutyData || Object.keys(dutyData).length === 0) {
+    return null;
+  }
+
   const fallbackIndex = FILE_DUTY_ORDER.indexOf("ZZZ");
   const getDutyOrderIndex = (key: string) => {
     const index = FILE_DUTY_ORDER.indexOf(
@@ -37,6 +34,13 @@ export default function DutySection({
       value: value.value,
     };
   });
+
+  const dutyRef = {
+    "Assessment Reference": data.assessmentRef
+      ? `A-${data.assessmentRef}`
+      : undefined,
+    "Release Order No.": data.dutyRef ? `R-${data.dutyRef}` : undefined,
+  };
 
   return (
     <Card className="flex flex-col divide-y-2 px-2! text-sm">

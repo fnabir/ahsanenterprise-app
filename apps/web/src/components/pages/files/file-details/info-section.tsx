@@ -11,7 +11,7 @@ export default function InfoSection({ data }: { data: FileData }) {
     "L/C No.": data.lc,
     Vessel: data.vessel,
     "Rot No.": data.rotNo,
-    "B/E No.": `C-${data.be}`,
+    "B/E No.": data.be && data.be !== 0 ? `C-${data.be}` : undefined,
     "B/E Date": data.beDate,
   };
 
