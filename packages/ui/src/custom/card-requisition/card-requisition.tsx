@@ -13,7 +13,7 @@ export function CardRequisition({
   requisitionNo,
   data,
 }: {
-  year: string;
+  year: number | string;
   requisitionNo: string;
   data: any;
 }) {

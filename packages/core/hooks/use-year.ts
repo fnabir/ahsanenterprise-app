@@ -55,5 +55,5 @@ export function useYear(validYears: number[]) {
     router.replace(`${pathname}?${params.toString()}`);
   };
 
-  return { year: String(year), changeYear };
+  return { year, changeYear };
 }

@@ -15,7 +15,7 @@ const validYears = getYearsRange().map((y) => y.value);
 
 export default function FilesSection() {
   const { year, changeYear } = useYear(validYears);
-  const files = useFilesByYear(year);
+  const files = useFilesByYear(String(year));
   const isLoading = files === null || files === undefined;
   const isEmpty = !isLoading && Object.keys(files).length === 0;
 

@@ -17,7 +17,7 @@ export function CardFile({
   fileNo,
   data,
 }: {
-  year: string;
+  year: number | string;
   fileNo: string;
   data: FileData;
 }) {

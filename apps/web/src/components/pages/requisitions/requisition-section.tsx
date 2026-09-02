@@ -24,7 +24,7 @@ export default function RequisitionSection() {
   const error = useRequisitionError();
 
   const { year, changeYear } = useYear(validYears);
-  const requisitions = useRequisitionsByYear(year);
+  const requisitions = useRequisitionsByYear(String(year));
   const isLoading = requisitions === null || requisitions === undefined;
   const isEmpty = !isLoading && Object.keys(requisitions).length === 0;
 
