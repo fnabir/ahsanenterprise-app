@@ -10,7 +10,9 @@ export function Label({
   if (!text) return null;
 
   return (
-    <label className={`text-[13px] text-primary select-none ${className}`}>
+    <label
+      className={`text-[13px] font-semibold text-primary select-none ${className}`}
+    >
       {text}
       {required && <span className="text-danger">*</span>}
     </label>

@@ -41,7 +41,7 @@ export function Select<T extends SelectValue = string>({
           onBlur={() => onBlur?.()}
           disabled={disabled}
           className={`
-            w-full px-3 py-1 text-sm rounded-lg bg-transparent text-foreground
+            w-full px-3 py-1.5 text-sm rounded-lg bg-transparent text-foreground
             outline-none appearance-none pr-10 border-none
             focus:outline-none focus:ring-0
             disabled:cursor-not-allowed
