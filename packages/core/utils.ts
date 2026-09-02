@@ -1,3 +1,12 @@
+type ClassValue = string | number | boolean | undefined | null;
+
+export function cn(...inputs: (ClassValue | ClassValue[])[]): string {
+  return inputs
+    .flat(Infinity)
+    .filter((x) => typeof x === "string" && x.length > 0)
+    .join(" ");
+}
+
 export function getCurrentYear(): number {
   return new Date().getFullYear();
 }
