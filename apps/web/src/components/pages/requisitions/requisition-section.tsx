@@ -8,21 +8,25 @@ import {
   useYear,
 } from "@repo/core";
 import Loading from "@/components/loading";
-import { CardRequisition } from "@repo/ui";
+import { Button, CardRequisition, Skeleton, Select, Label } from "@repo/ui";
+import { AnimatePresence, motion } from "framer-motion";
+import { FaPlus } from "react-icons/fa";
 
 const currentYear = getCurrentYear();
 const getYearsRange = (start = 2021, end = currentYear) =>
   Array.from({ length: end - start + 1 }, (_, i) => ({
-    value: String(start + i),
+    value: start + i,
   })).reverse();
-const validYears = getYearsRange().map((y) => Number(y.value));
+const validYears = getYearsRange().map((y) => y.value);
 
 export default function RequisitionSection() {
   const loading = useRequisitionLoading();
   const error = useRequisitionError();
 
-  const { year } = useYear(validYears);
+  const { year, changeYear } = useYear(validYears);
   const requisitions = useRequisitionsByYear(year);
+  const isLoading = requisitions === null || requisitions === undefined;
+  const isEmpty = !isLoading && Object.keys(requisitions).length === 0;
 
   if (loading) return <Loading />;
 
@@ -35,18 +39,69 @@ export default function RequisitionSection() {
     );
 
   return (
-    <div className="flex-1 overflow-y-auto pt-1.5 lg:pt-3 pb-2 lg:pb-4 px-2 lg:px-4">
-      <div className="grow grid grid-cols-1 lg:grid-cols-5 gap-3">
-        {Object.entries(requisitions)
-          .reverse()
-          .map(([requisitionNo, data]) => (
-            <CardRequisition
-              key={requisitionNo}
-              year={year}
-              requisitionNo={requisitionNo}
-              data={data}
-            />
-          ))}
+    <div className="flex flex-col h-full divide-y-2">
+      <div className="flex py-2 px-2 lg:px-4 gap-2 items-center">
+        <Label text="Year" className="text-base!" />
+        <Select
+          value={year}
+          onChange={changeYear}
+          options={getYearsRange()}
+          className="max-w-28"
+        />
+        <Button
+          label="Add Requisition"
+          variant="subtle"
+          Icon={<FaPlus />}
+          className="w-fit"
+        />
+      </div>
+      <div className="flex-1 overflow-y-auto pt-1.5 lg:pt-3 pb-2 lg:pb-4 px-2 lg:px-4">
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <motion.div
+              key="loading"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 lg:grid-cols-5 gap-3"
+            >
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Skeleton key={i} />
+              ))}
+            </motion.div>
+          ) : isEmpty ? (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 lg:grid-cols-5 gap-3"
+            >
+              <p className="col-span-full text-center text-muted">
+                No P.O. Requisition found for the year of {year}.
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div
+              key={year}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 lg:grid-cols-5 gap-3"
+            >
+              {Object.entries(requisitions)
+                .reverse()
+                .map(([requisitionNo, data]) => (
+                  <CardRequisition
+                    key={requisitionNo}
+                    year={year}
+                    requisitionNo={requisitionNo}
+                    data={data}
+                  />
+                ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
