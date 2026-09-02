@@ -25,8 +25,7 @@ export default function RequisitionSection() {
 
   const { year, changeYear } = useYear(validYears);
   const requisitions = useRequisitionsByYear(String(year));
-  const isLoading = requisitions === null || requisitions === undefined;
-  const isEmpty = !isLoading && Object.keys(requisitions).length === 0;
+  const isEmpty = !loading && Object.keys(requisitions).length === 0;
 
   if (loading) return <Loading />;
 
@@ -57,19 +56,7 @@ export default function RequisitionSection() {
       </div>
       <div className="flex-1 overflow-y-auto pt-1.5 lg:pt-3 pb-2 lg:pb-4 px-2 lg:px-4">
         <AnimatePresence mode="wait">
-          {isLoading ? (
-            <motion.div
-              key="loading"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="grid grid-cols-1 lg:grid-cols-5 gap-3"
-            >
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Skeleton key={i} />
-              ))}
-            </motion.div>
-          ) : isEmpty ? (
+          {isEmpty ? (
             <motion.div
               key="empty"
               initial={{ opacity: 0 }}
