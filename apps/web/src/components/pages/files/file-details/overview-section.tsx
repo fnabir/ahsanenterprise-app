@@ -44,7 +44,7 @@ export default function OverviewSection({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4 mb-2">
+    <div className="grid grid-cols-3 gap-4 mb-4">
       <Card
         className={`px-2! flex flex-col gap-2 items-start justify-center ${balance.cardClassName}`}
       >
@@ -95,10 +95,12 @@ export default function OverviewSection({
           ))}
         </Card>
       ) : null}
-      <div className="col-span-3 flex gap-2 text-sm">
-        <div className="font-semibold text-muted">Remarks:</div>
-        <pre>{data.remarks}</pre>
-      </div>
+      {data.remarks && (
+        <div className="col-span-3 flex gap-2 text-sm">
+          <div className="font-semibold text-muted">Remarks:</div>
+          <pre>{data.remarks}</pre>
+        </div>
+      )}
     </div>
   );
 }
