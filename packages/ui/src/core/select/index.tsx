@@ -1,1 +1,2 @@
-export { Select } from './Select';
+export { Select } from "./select";
+export type { SelectOption } from "./types";

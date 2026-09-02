@@ -1,11 +1,14 @@
-export type SelectOption = {
-  value: string;
-  label: string;
+export type SelectValue = string | number;
+
+export type SelectOption<T extends SelectValue = string> = {
+  value: T;
+  label?: string;
   disabled?: boolean;
 };
-export interface SelectProps {
-  value?: string | null;
-  onChange?: (value: string) => void;
+
+export interface SelectProps<T extends SelectValue = string> {
+  value?: T | null;
+  onChange?: (value: T) => void;
   onBlur?: () => void;
 
   label?: string;
@@ -15,7 +18,7 @@ export interface SelectProps {
   disabled?: boolean;
   required?: boolean;
 
-  options: SelectOption[];
+  options: SelectOption<T>[];
 
   className?: string;
 }

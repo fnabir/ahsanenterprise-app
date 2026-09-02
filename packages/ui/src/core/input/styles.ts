@@ -1,10 +1,4 @@
 export const inputStyles = {
-  container: `
-    w-full space-y-1 text-start
-  `,
-  label: `
-    text-[13px] text-primary select-none
-  `,
   fieldWrapper: `
     flex items-center px-3 gap-2
     border rounded-lg bg-card
@@ -15,11 +9,5 @@ export const inputStyles = {
     placeholder:text-neutral-500
     outline-none border-none
     focus:outline-none focus:ring-0
-  `,
-  helper: `
-    text-xs text-muted
-  `,
-  error: `
-    text-xs text-danger
   `,
 };

@@ -3,6 +3,7 @@
 import { InputProps } from "./types";
 import { inputStyles } from "./styles";
 import { useState } from "react";
+import { Label } from "../label";
 
 export function Input(props: InputProps) {
   const {
@@ -28,12 +29,8 @@ export function Input(props: InputProps) {
   const isNumber = type === "number";
 
   return (
-    <div className={`${inputStyles.container} ${className}`}>
-      {label && (
-        <label className={inputStyles.label}>
-          {label} {required && <span className="text-error">*</span>}
-        </label>
-      )}
+    <div className={`w-full space-y-1 text-start ${className}`}>
+      <Label text={label} required={required} />
 
       <div
         className={`${inputStyles.fieldWrapper}
@@ -86,11 +83,15 @@ export function Input(props: InputProps) {
         {endAdornment}
       </div>
 
-      {error ? (
-        <p className={inputStyles.error}>{error}</p>
-      ) : (
-        helperText && <p className={inputStyles.helper}>{helperText}</p>
-      )}
+      {error || helperText ? (
+        <div className="text-xs text-muted mt-1">
+          {error ? (
+            <p className="text-danger">{error}</p>
+          ) : (
+            helperText && <p>{helperText}</p>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }
