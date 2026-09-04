@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useFileStore } from "../stores/use-file-store";
 import type { FileData, Files } from "@repo/types";
+import { fromFileDbKey, toFileDbKey } from "../utils";
 
 const EMPTY_YEARS: Array<{ year: string; count: number }> = [];
 const EMPTY_YEAR_FILES: Record<string, FileData> = {};
@@ -27,6 +28,32 @@ const EMPTY_ALL_TOTALS = {
   grandTotal: 0,
   paid: 0,
   balance: 0,
+};
+
+const normalizeYearFiles = (yearFiles?: Record<string, FileData> | null) => {
+  if (!yearFiles) return EMPTY_YEAR_FILES;
+
+  const normalized: Record<string, FileData> = {};
+
+  for (const [dbKey, data] of Object.entries(yearFiles)) {
+    normalized[fromFileDbKey(dbKey)] = data;
+  }
+
+  return normalized;
+};
+
+const getFileByAnyKey = (
+  yearFiles: Record<string, FileData> | undefined,
+  fileNo: string,
+) => {
+  if (!yearFiles) return null;
+
+  return (
+    yearFiles[fileNo] ??
+    yearFiles[toFileDbKey(fileNo)] ??
+    yearFiles[fromFileDbKey(fileNo)] ??
+    null
+  );
 };
 
 const sumExpenseValues = (
@@ -83,9 +110,10 @@ export const useFilesGroupedByStatus = () => {
 
     for (const year in file) {
       const yearFiles: Files = file[year];
-      for (const fileNo in yearFiles) {
-        const data = yearFiles[fileNo];
+      for (const dbKey in yearFiles) {
+        const data = yearFiles[dbKey];
         const status = data.status ?? "unknown";
+        const fileNo = fromFileDbKey(dbKey);
 
         if (!grouped[status]) {
           grouped[status] = [];
@@ -109,8 +137,9 @@ export const useFilesByStatus = (status: string) => {
 
     for (const year in file) {
       const yearFiles = file[year];
-      for (const fileNo in yearFiles) {
-        const data = yearFiles[fileNo];
+      for (const dbKey in yearFiles) {
+        const data = yearFiles[dbKey];
+        const fileNo = fromFileDbKey(dbKey);
         if ((data.status ?? "unknown") === status) {
           result.push({ year, fileNo, data });
         }
@@ -122,8 +151,8 @@ export const useFilesByStatus = (status: string) => {
 };
 
 export const useFileTotals = (year: string, fileNo: string) => {
-  const data: FileData | null = useFileStore(
-    (s) => s.file?.[year]?.[fileNo] ?? null,
+  const data: FileData | null = useFileStore((s) =>
+    getFileByAnyKey(s.file?.[year], fileNo),
   );
 
   return useMemo(() => {
@@ -162,14 +191,17 @@ export const useFileTotals = (year: string, fileNo: string) => {
   }, [data]);
 };
 
-export const useFilesByYear = (year: string) =>
-  useFileStore((s) => s.file?.[year] ?? EMPTY_YEAR_FILES);
+export const useFilesByYear = (year: string) => {
+  const yearFiles = useFileStore((s) => s.file?.[year]);
+
+  return useMemo(() => normalizeYearFiles(yearFiles), [yearFiles]);
+};
 
 export const useFileDetails: (
   year: string,
   fileNo: string,
 ) => FileData | null = (year: string, fileNo: string) =>
-  useFileStore((s) => s.file?.[year]?.[fileNo] ?? null);
+  useFileStore((s) => getFileByAnyKey(s.file?.[year], fileNo));
 
 export const useFileLoading = () => useFileStore((s) => s.loading);
 

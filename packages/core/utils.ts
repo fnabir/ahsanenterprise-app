@@ -1,3 +1,5 @@
+import { FILE_DB_KEY_PREFIX } from "./constants";
+
 type ClassValue = string | number | boolean | undefined | null;
 
 export function cn(...inputs: (ClassValue | ClassValue[])[]): string {
@@ -9,6 +11,19 @@ export function cn(...inputs: (ClassValue | ClassValue[])[]): string {
 
 export function getCurrentYear(): number {
   return new Date().getFullYear();
+}
+
+export function toFileDbKey(fileNo: number | string): string {
+  const normalized = String(fileNo).trim();
+  return normalized.startsWith(FILE_DB_KEY_PREFIX)
+    ? normalized
+    : `${FILE_DB_KEY_PREFIX}${normalized}`;
+}
+
+export function fromFileDbKey(fileKey: string): string {
+  return fileKey.startsWith(FILE_DB_KEY_PREFIX)
+    ? fileKey.slice(FILE_DB_KEY_PREFIX.length)
+    : fileKey;
 }
 
 export function getFullFileNo(

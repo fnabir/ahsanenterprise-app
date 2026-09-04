@@ -18,3 +18,11 @@ export const FILE_DUTY_ORDER = [
   "DF",
   "ZZZ",
 ];
+
+export const FILE_STATUS_OPTIONS = FILE_STATUSES.map((status) => ({
+  label: status,
+  value: status,
+}));
+
+export const FILE_DB_KEY_PREFIX = "f_";
+export const REQUISITION_DB_KEY_PREFIX = "r_";
