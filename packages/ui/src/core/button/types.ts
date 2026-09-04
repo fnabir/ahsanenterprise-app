@@ -5,7 +5,8 @@ export type ButtonVariant =
   | "outline"
   | "transparent"
   | "custom"
-  | "subtle";
+  | "subtle"
+  | "muted";
 
 export interface ButtonProps {
   label?: string;
