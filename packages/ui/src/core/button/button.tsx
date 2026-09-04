@@ -22,6 +22,8 @@ export function Button({
     transparent: "bg-transparent text-primary hover:bg-background/10",
     subtle:
       "bg-primary-subtle text-primary hover:bg-primary/10 border border-primary",
+    muted:
+      "bg-muted-subtle text-muted hover:text-foreground border hover:border-muted",
     custom: "",
   };
 
@@ -32,6 +34,7 @@ export function Button({
     outline: "border-foreground",
     transparent: "border-primary",
     subtle: "border-primary",
+    muted: "border-foreground",
     custom: "",
   };
 
