@@ -1,12 +1,12 @@
 import { Card, Number } from "../..";
-import type { ImporterInfo } from "@repo/types";
+import type { ImporterData } from "@repo/types";
 
 export function CardInfoImporter({
   id,
   data,
 }: {
   id: string;
-  data: ImporterInfo;
+  data: ImporterData;
 }) {
   const isAddressAvailable = data.address1 || data.address2 || data.address3;
   const isCommissionAvailable = data.commission ? data.commission !== 0 : false;
