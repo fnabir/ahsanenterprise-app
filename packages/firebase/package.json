@@ -8,6 +8,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@repo/types": "workspace:*"
+    "@repo/core": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/ui": "workspace:*"
   }
 }
