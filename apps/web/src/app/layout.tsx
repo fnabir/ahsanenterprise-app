@@ -6,6 +6,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { BreadcrumbProvider } from "@/contexts/BreadcrumbContext";
 import Header from "@/components/header";
 import StoreInitializer from "@/components/store-initializer";
+import { ToastProvider } from "@repo/ui";
 
 const publicSans = Public_Sans({
   variable: "--font-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <BreadcrumbProvider>
+              <ToastProvider />
               <StoreInitializer />
               <div className="h-svh flex flex-col divide-y-2 overflow-hidden">
                 <Header />
