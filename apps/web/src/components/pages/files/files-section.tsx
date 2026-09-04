@@ -12,12 +12,13 @@ import {
   Button,
   CardFile,
   DialogFileInfo,
+  DialogFileNoChange,
   Label,
   Select,
-  Skeleton,
 } from "@repo/ui";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaPlus } from "react-icons/fa";
+import { MdSwapHoriz } from "react-icons/md";
 
 const currentYear = getCurrentYear();
 const getYearsRange = (start = 2021, end = currentYear) =>
@@ -53,7 +54,7 @@ export default function FilesSection() {
           options={getYearsRange()}
           className="max-w-28"
         />
-        <DialogFileInfo year={year}>
+        <DialogFileInfo year={year} files={files}>
           <Button
             label="Add File"
             variant="subtle"
@@ -61,6 +62,14 @@ export default function FilesSection() {
             className="w-fit"
           />
         </DialogFileInfo>
+        <DialogFileNoChange files={files} year={year}>
+          <Button
+            label="Change File No"
+            variant="default"
+            Icon={<MdSwapHoriz size={20} />}
+            className="w-fit"
+          />
+        </DialogFileNoChange>
       </div>
       <div className="flex-1 overflow-y-auto pt-1.5 lg:pt-3 pb-2 lg:pb-4 px-2 lg:px-4">
         <AnimatePresence mode="wait">
@@ -86,11 +95,11 @@ export default function FilesSection() {
             >
               {Object.entries(files)
                 .reverse()
-                .map(([fileNo, data]) => (
+                .map(([fileKey, data]) => (
                   <CardFile
-                    key={fileNo}
+                    key={fileKey}
                     year={year}
-                    fileNo={fileNo}
+                    fileKey={fileKey}
                     data={data}
                   />
                 ))}
