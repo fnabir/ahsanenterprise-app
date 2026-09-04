@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactElement, ReactNode } from "react";
 import {
   Button,
   Dialog,
@@ -24,15 +25,15 @@ export function DialogDelete({
 }: {
   title?: string;
   description?: string;
-  trigger: React.ReactNode;
-  children: React.ReactNode;
+  trigger: ReactElement;
+  children: ReactNode;
   onDelete?: () => void;
   open: boolean;
   setOpen: (open: boolean) => void;
 }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger render={trigger} />
       <DialogContent className="border-danger">
         {title && (
           <DialogHeader>
@@ -43,12 +44,7 @@ export function DialogDelete({
           </DialogHeader>
         )}
         {children}
-        <DialogFooter className="mt-4">
-          <DialogClose>
-            <div className="px-2 py-1 text-sm rounded-lg text-muted hover:text-foreground border bg-muted-subtle hover:border-muted">
-              Cancel
-            </div>
-          </DialogClose>
+        <DialogFooter>
           <Button
             variant="custom"
             label="Delete"
