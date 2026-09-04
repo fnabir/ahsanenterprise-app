@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteFile } from "@repo/firebase";
 import { FileData } from "@repo/types";
 import { Button, Card } from "../../core";
 import { FaCheck, FaRegCopy, FaRegEye } from "react-icons/fa6";
@@ -10,24 +11,25 @@ import { BadgeFileStatus } from "../badge-file-status";
 import Link from "next/link";
 import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
 import { DialogDelete } from "../dialog-delete";
-import { getFullFileNo } from "@repo/core";
+import { fromFileDbKey, getFullFileNo } from "@repo/core";
+import { DialogFileInfo } from "../dialog-file-info";
 
 export function CardFile({
   year,
-  fileNo,
+  fileKey,
   data,
 }: {
   year: number | string;
-  fileNo: string;
+  fileKey: string;
   data: FileData;
 }) {
   const { isAdmin } = useAuth();
   const [open, setOpen] = useState(false);
 
-  const onDeleteFile = () => {
-    if (confirm(`Are you sure you want to delete file #${fileNo}?`)) {
-      console.log(`Deleting file #${fileNo}...`);
-    }
+  const fileNo = fromFileDbKey(fileKey);
+
+  const onDeleteFile = async () => {
+    await deleteFile(fileNo, year);
     setOpen(false);
   };
 
@@ -44,13 +46,14 @@ export function CardFile({
             status={isAdmin && data.status === "Bill" ? "Done" : data.status}
           />
         </div>
-
-        <Button
-          variant="outline"
-          Icon={
-            <MdOutlineEdit className="text-muted group-hover:text-foreground transition-colors" />
-          }
-        />
+        <DialogFileInfo year={Number(year)} fileNo={Number(fileNo)} data={data}>
+          <Button
+            variant="outline"
+            Icon={
+              <MdOutlineEdit className="text-muted group-hover:text-foreground transition-colors" />
+            }
+          />
+        </DialogFileInfo>
       </div>
       <div className="py-1">
         <div className="font-semibold">{data.importer}</div>
@@ -104,7 +107,7 @@ export function CardFile({
   );
 }
 
-function CopyText({ label, text }: { label?: string; text?: string }) {
+function CopyText({ label, text }: { label?: string; text?: string | null }) {
   const [copied, setCopied] = useState(false);
 
   if (!text || text === "0") return null;
