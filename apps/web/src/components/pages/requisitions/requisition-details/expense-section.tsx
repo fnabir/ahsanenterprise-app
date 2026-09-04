@@ -4,7 +4,7 @@ import { Number } from "@repo/ui";
 export interface RequisitionExpense extends RequisitionFile {
   fileNo: string;
   itemName?: string;
-  lc?: string;
+  lc?: string | null;
   duty?: number;
 }
 

@@ -1,8 +1,8 @@
-import { Toast } from './types';
+import { ToastProps } from "./types";
 
-type Listener = (toasts: Toast[]) => void;
+type Listener = (toasts: ToastProps[]) => void;
 
-let toasts: Toast[] = [];
+let toasts: ToastProps[] = [];
 const listeners = new Set<Listener>();
 
 function notify() {
@@ -20,7 +20,7 @@ export const toastStore = {
     };
   },
 
-  show(toast: Toast) {
+  show(toast: ToastProps) {
     toasts = [...toasts, { ...toast, closing: false }];
     notify();
 
@@ -29,9 +29,21 @@ export const toastStore = {
         toastStore.close(toast.id);
       }, toast.duration ?? 4000);
     }
+
+    return toast.id;
   },
 
-  close(id: string) {
+  close(id?: string) {
+    if (!id) {
+      toasts = toasts.map((t) => ({ ...t, closing: true }));
+      notify();
+
+      setTimeout(() => {
+        toastStore.dismiss();
+      }, ANIMATION_MS);
+      return;
+    }
+
     toasts = toasts.map((t) => (t.id === id ? { ...t, closing: true } : t));
     notify();
 
@@ -40,7 +52,13 @@ export const toastStore = {
     }, ANIMATION_MS);
   },
 
-  dismiss(id: string) {
+  dismiss(id?: string) {
+    if (!id) {
+      toasts = [];
+      notify();
+      return;
+    }
+
     toasts = toasts.filter((t) => t.id !== id);
     notify();
   },

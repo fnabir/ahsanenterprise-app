@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { toastStore } from './store';
-import { Toast } from './types';
-import { ToastItem } from './ToastItem.native';
+import { useEffect, useState } from "react";
+import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { toastStore } from "./store";
+import { ToastProps } from "./types";
+import { ToastItem } from "./toast.native";
 
 export function ToastProvider() {
-  const [toasts, setToasts] = useState<Toast[]>([]);
+  const [toasts, setToasts] = useState<ToastProps[]>([]);
   const insets = useSafeAreaInsets();
 
   useEffect(() => toastStore.subscribe(setToasts), []);
