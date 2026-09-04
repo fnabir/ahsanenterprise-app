@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, type ReactElement } from "react";
+import { useState, useEffect, type ReactElement } from "react";
 import {
   Button,
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -75,6 +74,12 @@ export function DialogFileNoChange({
       newFileVal,
     );
   };
+
+  useEffect(() => {
+    if (open) {
+      reset();
+    }
+  }, [open]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
