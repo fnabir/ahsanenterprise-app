@@ -9,29 +9,39 @@ export type FileExpense = {
   value: number;
 };
 
+export type ImporterData = {
+  address1?: string;
+  address2?: string;
+  address3?: string;
+  commission?: number;
+  minCommission?: number;
+  miscExpense?: number;
+};
+export type ImporterRoot = Record<string, ImporterData>;
+
 export type FileData = {
   importer?: string;
-  itemCount?: number;
+  itemCount?: number | null;
   itemName?: string;
   itemPackage?: string;
-  lc?: string;
-  vessel?: string;
-  rotNo?: string;
-  bl?: string;
-  cnfValue?: number;
-  assessableValue?: number;
-  be?: number;
-  beDate?: string;
-  assessmentDate?: string;
-  dutyPaymentDate?: string;
-  deliveryDate?: string;
-  dutyPaid?: string;
-  paid?: number;
-  remarks?: string;
-  note?: string;
+  lc?: string | null;
+  vessel?: string | null;
+  rotNo?: string | null;
+  bl?: string | null;
+  cnfValue?: number | null;
+  assessableValue?: number | null;
+  be?: number | null;
+  beDate?: string | null;
+  assessmentDate?: string | null;
+  dutyPaymentDate?: string | null;
+  deliveryDate?: string | null;
+  dutyPaid?: string | null;
+  paid?: number | null;
+  remarks?: string | null;
+  note?: string | null;
   status?: string;
-  assessmentRef?: number;
-  dutyRef?: number;
+  assessmentRef?: number | null;
+  dutyRef?: number | null;
   duty?: Record<string, { percentage: number; value: number }>;
   port?: Record<string, { details: string; value: number }>;
   custom?: Record<string, { details: string; value: number }>;
@@ -89,15 +99,6 @@ export type GroupedFileItem = {
   year: string;
   fileNo: string;
   data: FileData;
-};
-
-export type ImporterInfo = {
-  address1?: string;
-  address2?: string;
-  address3?: string;
-  commission?: number;
-  minCommission?: number;
-  miscExpense?: number;
 };
 
 export type TransactionData = {
