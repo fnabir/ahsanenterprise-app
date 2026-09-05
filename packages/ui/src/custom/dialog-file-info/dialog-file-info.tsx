@@ -13,6 +13,7 @@ import {
   DialogTrigger,
   FormInput,
   FormSelect,
+  toast,
 } from "../..";
 import { FileData, FileYear } from "@repo/types";
 import { fromFileDbKey, getFullFileNo } from "@repo/core";
@@ -82,7 +83,7 @@ export function DialogFileInfo({
   const handleFileCheck = () => {
     const parsedFileNo = Number(newFileNoText);
     if (!parsedFileNo || Number.isNaN(parsedFileNo)) {
-      alert("Please enter a valid file number.");
+      toast.error("Please enter a valid file number.");
       return;
     }
 
@@ -94,7 +95,7 @@ export function DialogFileInfo({
     const fileExists = existingFileNos.has(parsedFileNo);
 
     if (fileExists) {
-      alert("File number already exists.");
+      toast.error("File number already exists.");
     } else {
       setNewFileNo(parsedFileNo);
     }
@@ -102,7 +103,7 @@ export function DialogFileInfo({
 
   const onSubmit = async (FormData: FileInfoFormValues) => {
     if (!activeFileNo) {
-      alert("Please enter a valid file number.");
+      toast.error("Please enter a valid file number.");
       return;
     }
 
@@ -127,8 +128,8 @@ export function DialogFileInfo({
     if (open) {
       setNewFileNo(undefined);
       setNewFileNoText("");
+      reset();
     }
-    reset();
   }, [open]);
 
   return (
@@ -257,9 +258,7 @@ export function DialogFileInfo({
             <Button
               variant="primary"
               label={data ? "Update" : "Add"}
-              onClick={() => {
-                handleSubmit(onSubmit)();
-              }}
+              onClick={handleSubmit(onSubmit)}
             />
           ) : (
             <Button
