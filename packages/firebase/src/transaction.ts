@@ -1,5 +1,5 @@
 import { update, remove } from "firebase/database";
-import { fromISODate } from "@repo/core";
+import { fromISODate } from "../../core";
 import { toast } from "../../ui";
 import type { FirebaseError } from "firebase/app";
 import { generateDatabaseKey, getDatabaseReference } from "./helpers";

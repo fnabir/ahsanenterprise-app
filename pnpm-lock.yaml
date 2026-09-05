@@ -236,9 +236,6 @@ importers:
 
   packages/firebase:
     dependencies:
-      '@repo/core':
-        specifier: workspace:*
-        version: link:../core
       '@repo/types':
         specifier: workspace:*
         version: link:../types

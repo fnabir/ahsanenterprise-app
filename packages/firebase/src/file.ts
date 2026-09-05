@@ -1,9 +1,12 @@
 import { FileData, RequisitionData } from "@repo/types";
 import { getDatabaseReference } from "./helpers";
 import { remove, set, update, get } from "firebase/database";
-import { REQUISITION_DB_KEY_PREFIX, toFileDbKey } from "@repo/core";
+import {
+  REQUISITION_DB_KEY_PREFIX,
+  getFullFileNo,
+  toFileDbKey,
+} from "../../core";
 import { toast } from "../../ui";
-import { getFullFileNo } from "@repo/core";
 import { FirebaseError } from "firebase/app";
 
 export async function addNewFile(
