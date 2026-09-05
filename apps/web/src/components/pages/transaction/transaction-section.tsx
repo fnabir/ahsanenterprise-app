@@ -1,6 +1,9 @@
 import { TransactionData } from "@repo/types";
-import { Button, DialogTransaction, Number } from "@repo/ui";
+import { Button, DialogDelete, DialogTransaction, Number } from "@repo/ui";
 import { FaPlus } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
+import { deleteTransaction } from "@repo/firebase";
+import { useState } from "react";
 
 export default function TransactionSection({
   type,
@@ -17,6 +20,16 @@ export default function TransactionSection({
   totalBill: number;
   totalPayment: number;
 }) {
+  const [open, setOpen] = useState(false);
+
+  const handleDelete = async (
+    key: string,
+    transactionType: "bill" | "payment",
+  ) => {
+    await deleteTransaction(id, type, transactionType, key);
+    setOpen(false);
+  };
+
   return (
     <div className="flex-1 min-h-0 flex divide-x-2">
       <div className="grow overflow-y-auto px-2 lg:px-4">
@@ -72,6 +85,24 @@ export default function TransactionSection({
                         valueType="currency"
                         className={`font-bold justify-end ${style}`}
                       />
+                    </td>
+                    <td className="px-2 max-w-0 py-1">
+                      <DialogDelete
+                        title="Delete Transaction"
+                        trigger={
+                          <Button
+                            variant="custom"
+                            Icon={<MdClose size={16} />}
+                            className="bg-danger-subtle text-danger hover:bg-danger hover:text-danger-subtle p-1!"
+                          />
+                        }
+                        onDelete={() => handleDelete(key, "bill")}
+                        open={open}
+                        setOpen={setOpen}
+                      >
+                        Are you sure you want to delete this transaction? This
+                        cannot be undone.
+                      </DialogDelete>
                     </td>
                   </tr>
                 );
@@ -131,6 +162,24 @@ export default function TransactionSection({
                         valueType="currency"
                         className={`font-bold justify-end ${style}`}
                       />
+                    </td>
+                    <td className="px-2 max-w-0">
+                      <DialogDelete
+                        title="Delete Transaction"
+                        trigger={
+                          <Button
+                            variant="custom"
+                            Icon={<MdClose size={16} />}
+                            className="bg-danger-subtle text-danger hover:bg-danger hover:text-danger-subtle p-1!"
+                          />
+                        }
+                        onDelete={() => handleDelete(key, "payment")}
+                        open={open}
+                        setOpen={setOpen}
+                      >
+                        Are you sure you want to delete this transaction? This
+                        cannot be undone.
+                      </DialogDelete>
                     </td>
                   </tr>
                 );

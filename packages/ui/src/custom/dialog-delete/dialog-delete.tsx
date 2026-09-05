@@ -4,7 +4,6 @@ import type { ReactElement, ReactNode } from "react";
 import {
   Button,
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
