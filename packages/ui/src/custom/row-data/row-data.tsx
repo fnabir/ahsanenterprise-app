@@ -8,7 +8,7 @@ export function RowData({
   className,
 }: {
   label: string;
-  value: string | number | undefined;
+  value?: string | number | null;
   valueType?: "currency" | "number";
   currency?: string;
   className?: { main?: string; label?: string; value?: string } | string;
