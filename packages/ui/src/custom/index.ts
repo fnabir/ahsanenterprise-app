@@ -11,4 +11,5 @@ export * from "./card-requisition";
 export * from "./dialog-delete";
 export * from "./dialog-file-info";
 export * from "./dialog-file-no-change";
+export * from "./dialog-transaction";
 export * from "./row-data";

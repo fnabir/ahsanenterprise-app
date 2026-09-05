@@ -119,13 +119,7 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   }, [error]);
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit(onSubmit)(e);
-      }}
-      className="h-fit"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="h-fit">
       <FormInput<LoginFormValues>
         name="email"
         control={control}

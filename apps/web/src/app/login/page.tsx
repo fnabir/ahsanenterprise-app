@@ -17,6 +17,7 @@ export default function LoginPage() {
           width={50}
           height={50}
           className="mx-auto mb-4 h-auto"
+          priority
         />
         <h1 className="text-2xl font-bold">AHSAN ENTERPRISE</h1>
         <div className="text-center my-4">

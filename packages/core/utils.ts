@@ -1,4 +1,5 @@
 import { FILE_DB_KEY_PREFIX } from "./constants";
+import { parse, isValid, format } from "date-fns";
 
 type ClassValue = string | number | boolean | undefined | null;
 
@@ -56,4 +57,10 @@ export function getFullRequisitionNo(
   }
   const requisitionNoFormatted = requisitionNo.toString().padStart(2, "0");
   return `AE/POR/${requisitionNoFormatted}/${year}`;
+}
+
+export function fromISODate(dateFormat: string, value?: string) {
+  if (!value) return "";
+  const date = parse(value, "yyyy-MM-dd", new Date());
+  return isValid(date) ? format(date, dateFormat) : "";
 }

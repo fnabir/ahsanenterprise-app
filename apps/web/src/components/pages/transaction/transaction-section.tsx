@@ -1,12 +1,17 @@
 import { TransactionData } from "@repo/types";
-import { Number } from "@repo/ui";
+import { Button, DialogTransaction, Number } from "@repo/ui";
+import { FaPlus } from "react-icons/fa";
 
 export default function TransactionSection({
+  type,
+  id,
   bills,
   payments,
   totalBill,
   totalPayment,
 }: {
+  type: "staff" | "importer";
+  id: string;
   bills: [string, TransactionData][];
   payments: [string, TransactionData][];
   totalBill: number;
@@ -16,7 +21,18 @@ export default function TransactionSection({
     <div className="flex-1 min-h-0 flex divide-x-2">
       <div className="grow overflow-y-auto px-2 lg:px-4">
         <div className="flex items-center justify-between border-b-2">
-          <div className="font-bold py-2">Bills</div>
+          <div className="flex items-center gap-2">
+            <div className="font-bold py-2">Bills</div>
+            {type === "staff" && (
+              <DialogTransaction id={id} type="staff" transactionType="bill">
+                <Button
+                  variant="subtle"
+                  label="Add"
+                  Icon={<FaPlus size={12} />}
+                />
+              </DialogTransaction>
+            )}
+          </div>
           <div className="font-bold py-2">
             <Number
               value={totalBill}
@@ -66,7 +82,16 @@ export default function TransactionSection({
       </div>
       <div className="grow overflow-y-auto px-2 lg:px-4">
         <div className="flex items-center justify-between border-b-2">
-          <div className="font-bold py-2">Payments</div>
+          <div className="flex items-center gap-2">
+            <div className="font-bold py-2">Payments</div>
+            <DialogTransaction id={id} type={type} transactionType="payment">
+              <Button
+                variant="subtle"
+                label="Add"
+                Icon={<FaPlus size={12} />}
+              />
+            </DialogTransaction>
+          </div>
           <div className="font-bold py-2">
             <Number
               value={totalPayment}

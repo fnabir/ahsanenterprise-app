@@ -92,7 +92,7 @@ function DialogFooter({
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close
-          render={<Button variant="muted" label="Close" />}
+          render={<Button variant="muted" label="Close" className="min-w-22" />}
         />
       )}
     </div>

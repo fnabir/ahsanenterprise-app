@@ -88,7 +88,7 @@ export function DialogFileNoChange({
         <DialogHeader>
           <DialogTitle>Change File No</DialogTitle>
           <DialogDescription>
-            This only updates the file information and does not update other
+            This only updates the file information, but does not update other
             related records such as requisitions, importer transactions if
             referenced.
           </DialogDescription>

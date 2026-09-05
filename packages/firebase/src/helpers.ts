@@ -5,8 +5,8 @@ export function getDatabaseReference(path?: string): DatabaseReference {
   return ref(database, path ?? "/");
 }
 
-export function generateDatabaseKey(path: string): string {
-  return push(getDatabaseReference(path)).key;
+export function generateDatabaseKey(): string {
+  return push(ref(database)).key;
 }
 
 export async function getDatabaseReferenceExists(
