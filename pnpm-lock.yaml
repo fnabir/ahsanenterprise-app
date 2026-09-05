@@ -242,9 +242,6 @@ importers:
       '@repo/types':
         specifier: workspace:*
         version: link:../types
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
 
   packages/styles: {}
 
