@@ -27,7 +27,7 @@ export default function InfoImporterSection() {
       </div>
     );
 
-  if (!data || Object.keys(data).length !== 0)
+  if (!data || Object.keys(data).length === 0)
     return (
       <div className="h-full grow flex flex-col items-center justify-center gap-1">
         <FaInfoCircle size={24} className="text-muted mb-1" />
