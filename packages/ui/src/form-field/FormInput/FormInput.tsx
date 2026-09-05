@@ -21,18 +21,31 @@ export function FormInput<T extends FieldValues>({
           value={field.value ?? ""}
           onChangeText={(value: string) => {
             if (props.type === "number") {
-              if (props.allowDecimal) {
-                const normalized = value.replace(",", ".");
-                field.onChange(
-                  isNaN(Number(normalized)) ? null : Number(normalized),
-                );
-              } else
-                field.onChange(isNaN(Number(value)) ? null : Number(value));
+              const trimmed = value.trim();
+              if (trimmed === "") {
+                field.onChange("");
+                return;
+              }
+
+              field.onChange(trimmed);
             } else {
               field.onChange(value);
             }
           }}
-          onBlur={field.onBlur}
+          onBlur={(rawValue) => {
+            if (props.type === "number") {
+              const trimmed = String(rawValue ?? "").trim();
+              if (trimmed === "" || trimmed === "." || trimmed === ",") {
+                field.onChange(undefined);
+              } else {
+                const normalized = trimmed.replace(",", ".");
+                const parsed = Number(normalized);
+                field.onChange(Number.isNaN(parsed) ? undefined : parsed);
+              }
+            }
+
+            field.onBlur();
+          }}
           error={fieldState.error?.message}
         />
       )}

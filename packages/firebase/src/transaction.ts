@@ -18,9 +18,10 @@ export async function updateTransaction(
     `transaction/${type}/${id}/${transactionType}/${key}`,
   );
   try {
+    const { date, ...payload } = data;
     await update(transactionRef, {
-      ...data,
-      date: fromISODate("dd.MM.yy", data.date),
+      ...payload,
+      date: fromISODate("dd.MM.yy", date),
     });
     toast.success(`Transaction ${key ? "updated" : "added"} successfully.`);
   } catch (error) {

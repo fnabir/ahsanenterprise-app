@@ -1,7 +1,7 @@
 export interface InputProps {
   value?: string | number;
   onChangeText?: (text: string) => void;
-  onBlur?: () => void;
+  onBlur?: (value?: string) => void;
 
   label?: string;
   placeholder?: string;
@@ -12,7 +12,7 @@ export interface InputProps {
   disabled?: boolean;
   required?: boolean;
 
-  type?: 'text' | 'email' | 'password' | 'number' | 'date';
+  type?: "text" | "email" | "password" | "number" | "date";
   allowDecimal?: boolean;
 
   startAdornment?: React.ReactNode;

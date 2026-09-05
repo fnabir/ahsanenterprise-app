@@ -44,7 +44,7 @@ export function Input(props: InputProps) {
         <input
           value={value ?? ""}
           onChange={(e) => onChangeText?.(e.target.value)}
-          onBlur={onBlur}
+          onBlur={(e) => onBlur?.(e.target.value)}
           placeholder={placeholder}
           disabled={disabled}
           className={inputStyles.field}
