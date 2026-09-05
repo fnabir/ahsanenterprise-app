@@ -21,3 +21,4 @@ onlyBuiltDependencies:
 
 minimumReleaseAgeExclude:
   - '@types/react-dom@19.2.7'
+  - eslint@10.10.0
