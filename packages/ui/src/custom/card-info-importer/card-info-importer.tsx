@@ -1,5 +1,7 @@
-import { Card, Number } from "../..";
+import { Card, Number, Button } from "../..";
 import type { ImporterData } from "@repo/types";
+import { DialogImporterInfo } from "../dialog-importer-info";
+import { MdOutlineEdit } from "react-icons/md";
 
 export function CardInfoImporter({
   id,
@@ -20,7 +22,17 @@ export function CardInfoImporter({
     isCommissionAvailable || isMinCommissionAvailable || isMiscExpenseAvailable;
   return (
     <Card className="flex flex-col divide-y-2 text-sm gap-1">
-      <div className="font-semibold text-base pb-1">{id}</div>
+      <div className="flex justify-between items-center pb-1">
+        <div className="font-semibold text-base pb-1">{id}</div>
+        <DialogImporterInfo importer={id} data={data}>
+          <Button
+            variant="outline"
+            Icon={
+              <MdOutlineEdit className="text-muted group-hover:text-foreground transition-colors" />
+            }
+          />
+        </DialogImporterInfo>
+      </div>
       <div className="pb-1">
         {isAddressAvailable && (
           <>

@@ -6,3 +6,4 @@ export * from "./user";
 export * from "./hooks";
 export * from "./file";
 export * from "./transaction";
+export * from "./info";

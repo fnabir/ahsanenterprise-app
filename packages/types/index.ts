@@ -13,9 +13,9 @@ export type ImporterData = {
   address1?: string;
   address2?: string;
   address3?: string;
-  commission?: number;
-  minCommission?: number;
-  miscExpense?: number;
+  commission?: number | null;
+  minCommission?: number | null;
+  miscExpense?: number | null;
 };
 export type ImporterRoot = Record<string, ImporterData>;
 

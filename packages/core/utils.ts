@@ -59,6 +59,12 @@ export function getFullRequisitionNo(
   return `AE/POR/${requisitionNoFormatted}/${year}`;
 }
 
+export function toISODate(dateFormat: string, value?: string) {
+  if (!value) return "";
+  const date = parse(value, dateFormat, new Date());
+  return isValid(date) ? format(date, "yyyy-MM-dd") : "";
+}
+
 export function fromISODate(dateFormat: string, value?: string) {
   if (!value) return "";
   const date = parse(value, "yyyy-MM-dd", new Date());
