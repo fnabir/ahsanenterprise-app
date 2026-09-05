@@ -3,7 +3,7 @@ import { Button, DialogDelete, DialogTransaction, Number } from "@repo/ui";
 import { FaPlus } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { deleteTransaction } from "@repo/firebase";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function TransactionSection({
   type,
@@ -20,14 +20,17 @@ export default function TransactionSection({
   totalBill: number;
   totalPayment: number;
 }) {
-  const [open, setOpen] = useState(false);
+  const [openDialogId, setOpenDialogId] = useState<string | null>(null);
+
+  const billRows = useMemo(() => [...bills].reverse(), [bills]);
+  const paymentRows = useMemo(() => [...payments].reverse(), [payments]);
 
   const handleDelete = async (
     key: string,
     transactionType: "bill" | "payment",
   ) => {
     await deleteTransaction(id, type, transactionType, key);
-    setOpen(false);
+    setOpenDialogId(null);
   };
 
   return (
@@ -67,9 +70,10 @@ export default function TransactionSection({
             </thead>
 
             <tbody className="divide-y-2">
-              {bills?.reverse().map(([key, transaction]) => {
+              {billRows.map(([key, transaction]) => {
                 const style =
                   transaction.value > 0 ? "text-danger" : "text-success";
+                const dialogId = `bill:${key}`;
                 return (
                   <tr key={key} className="hover:bg-muted-subtle text-sm">
                     <td>{transaction.date}</td>
@@ -97,8 +101,10 @@ export default function TransactionSection({
                           />
                         }
                         onDelete={() => handleDelete(key, "bill")}
-                        open={open}
-                        setOpen={setOpen}
+                        open={openDialogId === dialogId}
+                        setOpen={(isOpen) =>
+                          setOpenDialogId(isOpen ? dialogId : null)
+                        }
                       >
                         Are you sure you want to delete this transaction? This
                         cannot be undone.
@@ -144,9 +150,10 @@ export default function TransactionSection({
             </thead>
 
             <tbody className="divide-y-2">
-              {payments?.reverse().map(([key, transaction]) => {
+              {paymentRows.map(([key, transaction]) => {
                 const style =
                   transaction.value > 0 ? "text-success" : "text-foreground";
+                const dialogId = `payment:${key}`;
                 return (
                   <tr key={key} className="hover:bg-muted-subtle text-sm">
                     <td>{transaction.date}</td>
@@ -174,8 +181,10 @@ export default function TransactionSection({
                           />
                         }
                         onDelete={() => handleDelete(key, "payment")}
-                        open={open}
-                        setOpen={setOpen}
+                        open={openDialogId === dialogId}
+                        setOpen={(isOpen) =>
+                          setOpenDialogId(isOpen ? dialogId : null)
+                        }
                       >
                         Are you sure you want to delete this transaction? This
                         cannot be undone.
