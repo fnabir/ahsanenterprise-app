@@ -19,33 +19,8 @@ export function FormInput<T extends FieldValues>({
         <Input
           {...props}
           value={field.value ?? ""}
-          onChangeText={(value: string) => {
-            if (props.type === "number") {
-              const trimmed = value.trim();
-              if (trimmed === "") {
-                field.onChange("");
-                return;
-              }
-
-              field.onChange(trimmed);
-            } else {
-              field.onChange(value);
-            }
-          }}
-          onBlur={(rawValue) => {
-            if (props.type === "number") {
-              const trimmed = String(rawValue ?? "").trim();
-              if (trimmed === "" || trimmed === "." || trimmed === ",") {
-                field.onChange(undefined);
-              } else {
-                const normalized = trimmed.replace(",", ".");
-                const parsed = Number(normalized);
-                field.onChange(Number.isNaN(parsed) ? undefined : parsed);
-              }
-            }
-
-            field.onBlur();
-          }}
+          onChangeText={field.onChange}
+          onBlur={field.onBlur}
           error={fieldState.error?.message}
         />
       )}
