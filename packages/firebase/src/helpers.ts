@@ -15,3 +15,33 @@ export async function getDatabaseReferenceExists(
   const snapshot = await get(getDatabaseReference(path));
   return snapshot.exists();
 }
+
+export function sanitizeData(obj: Record<string, any>) {
+  const result: Record<string, any> = {};
+
+  for (const key in obj) {
+    const value = obj[key];
+
+    if (
+      value === undefined ||
+      value === 0 ||
+      (typeof value === "string" && value.trim() === "")
+    ) {
+      continue;
+    }
+
+    if (value && typeof value === "object" && !Array.isArray(value)) {
+      const nested = sanitizeData(value);
+
+      if (Object.keys(nested).length > 0) {
+        result[key] = nested;
+      }
+
+      continue;
+    }
+
+    result[key] = value;
+  }
+
+  return result;
+}
