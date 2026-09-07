@@ -16,7 +16,7 @@ export function Input(props: InputProps) {
     error,
     secureTextEntry,
     type = "text",
-    allowDecimal = true,
+    allowDecimal = false,
     disabled,
     required,
     startAdornment,
@@ -28,13 +28,38 @@ export function Input(props: InputProps) {
 
   const isNumber = type === "number";
 
+  const sanitizeNumeric = (raw: string) => {
+    let val = raw.replace(/,/g, ".");
+
+    if (allowDecimal) {
+      val = val.replace(/[^0-9.]/g, "");
+
+      const firstDotIndex = val.indexOf(".");
+      if (firstDotIndex !== -1) {
+        val =
+          val.slice(0, firstDotIndex + 1) +
+          val.slice(firstDotIndex + 1).replace(/\./g, "");
+      }
+    } else {
+      val = val.replace(/[^0-9]/g, "");
+    }
+
+    return val;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    const next = isNumber ? sanitizeNumeric(raw) : raw;
+    onChangeText?.(next);
+  };
+
   return (
     <div className={`w-full space-y-1 text-start ${className}`}>
       <Label text={label} required={required} />
 
       <div
         className={`${inputStyles.fieldWrapper}
-          ${error ? "border-error" : "border-border"}
+          ${error ? "border-error" : "border-muted/50"}
           focus-within:border-primary
           ${disabled ? "opacity-70 pointer-events-none" : ""}
         `}
@@ -43,7 +68,7 @@ export function Input(props: InputProps) {
 
         <input
           value={value ?? ""}
-          onChange={(e) => onChangeText?.(e.target.value)}
+          onChange={handleChange}
           onBlur={(e) => onBlur?.(e.target.value)}
           placeholder={placeholder}
           disabled={disabled}
