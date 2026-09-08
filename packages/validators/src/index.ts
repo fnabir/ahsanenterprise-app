@@ -5,3 +5,4 @@ export * from "./transaction.schema";
 export * from "./importer-info.schema";
 export * from "./file-details.schema";
 export * from "./file-duty.schema";
+export * from "./file-expense.schema";

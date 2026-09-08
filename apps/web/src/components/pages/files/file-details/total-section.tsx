@@ -1,17 +1,19 @@
+import { useFileDetailsContext } from "@/contexts/FileDetailsContext";
 import { FileTotals } from "@repo/types";
 import { Card, RowData } from "@repo/ui";
 
-export default function TotalSection({ data }: { data: FileTotals }) {
+export default function TotalSection() {
+  const { totals } = useFileDetailsContext();
   const totalInfo = {
-    Duty: data.duty,
-    Port: data.port,
-    Custom: data.custom,
-    Delivery: data.delivery,
-    Other: data.other,
-    Miscellaneous: data.miscellaneous,
-    Commission: data.commission,
-    Total: data.grandTotal,
-    Paid: data.paid,
+    Duty: totals.duty,
+    Port: totals.port,
+    Custom: totals.custom,
+    Delivery: totals.delivery,
+    Other: totals.other,
+    Miscellaneous: totals.miscellaneous,
+    Commission: totals.commission,
+    Total: totals.grandTotal,
+    Paid: totals.paid,
   };
 
   const isAllZero = Object.values(totalInfo).every((value) => value === 0);
@@ -19,7 +21,8 @@ export default function TotalSection({ data }: { data: FileTotals }) {
     return null;
   }
 
-  const balanceTextStyle = data.balance > 0 ? "text-danger!" : "text-success!";
+  const balanceTextStyle =
+    totals.balance > 0 ? "text-danger!" : "text-success!";
 
   return (
     <Card className="flex flex-col divide-y-2 px-2! text-sm">
@@ -29,11 +32,11 @@ export default function TotalSection({ data }: { data: FileTotals }) {
       ))}
       <RowData
         label="Balance"
-        value={data.balance}
+        value={totals.balance}
         valueType="currency"
         className={{
-          main: `font-bold ${balanceTextStyle}`,
-          label: balanceTextStyle,
+          label: "font-bold " + balanceTextStyle,
+          value: "font-bold " + balanceTextStyle,
         }}
       />
     </Card>

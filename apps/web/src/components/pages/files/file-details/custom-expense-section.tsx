@@ -1,39 +1,55 @@
-import { FileData } from "@repo/types";
-import { Card, RowData } from "@repo/ui";
+import { useFileDetailsContext } from "@/contexts/FileDetailsContext";
+import { Card, DialogFileExpense, RowData, Button } from "@repo/ui";
+import { MdOutlineEdit } from "react-icons/md";
 
-export default function CustomExpenseSection({
-  data,
-  total,
-}: {
-  data: FileData;
-  total: number;
-}) {
+export default function CustomExpenseSection() {
+  const { year, fileNo, data, totals } = useFileDetailsContext();
   const expenseData = data.custom;
-
-  if (!expenseData || Object.keys(expenseData).length === 0) {
-    return null;
-  }
+  const total = totals.custom;
 
   return (
     <Card className="flex flex-col divide-y-2 px-2! text-sm">
-      <div className="font-semibold pb-1 text-base">Custom Expense</div>
-      {Object.entries(expenseData).map(([key, value]) => (
-        <RowData
-          key={key}
-          label={value.details}
-          value={value.value}
-          valueType="currency"
-        />
-      ))}
-      <RowData
-        label="Total"
-        value={total}
-        valueType="currency"
-        className={{
-          main: "font-semibold text-[15px]",
-          label: "text-foreground!",
-        }}
-      />
+      <div className="flex items-center justify-between gap-2 pb-1">
+        <div className="font-semibold text-base">Custom Expense</div>
+        <DialogFileExpense
+          fileNo={fileNo}
+          year={year}
+          data={data}
+          expenseType="custom"
+        >
+          <Button
+            variant="outline"
+            Icon={
+              <MdOutlineEdit className="text-muted group-hover:text-foreground transition-colors" />
+            }
+          />
+        </DialogFileExpense>
+      </div>
+      {!expenseData || Object.keys(expenseData).length === 0 ? (
+        <div className="flex justify-center items-center h-full py-2">
+          No data found.
+        </div>
+      ) : (
+        <div className="flex flex-col divide-y-2">
+          {Object.entries(expenseData).map(([key, value]) => (
+            <RowData
+              key={key}
+              label={value.details}
+              value={value.value}
+              valueType="currency"
+            />
+          ))}
+          <RowData
+            label="Total"
+            value={total}
+            valueType="currency"
+            className={{
+              main: "font-semibold text-[15px]",
+              label: "text-foreground!",
+            }}
+          />
+        </div>
+      )}
     </Card>
   );
 }

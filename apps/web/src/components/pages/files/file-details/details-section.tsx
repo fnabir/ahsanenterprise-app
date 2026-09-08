@@ -72,11 +72,11 @@ export default function FileDetailsSection({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <InfoSection />
             <DutySection />
-            <PortExpenseSection data={data} total={totals.port} />
-            <CustomExpenseSection data={data} total={totals.custom} />
-            <DeliveryExpenseSection data={data} total={totals.delivery} />
-            <OtherExpenseSection data={data} total={totals.other} />
-            <TotalSection data={totals} />
+            <PortExpenseSection />
+            <CustomExpenseSection />
+            <DeliveryExpenseSection />
+            <OtherExpenseSection />
+            <TotalSection />
           </div>
         </div>
       </div>

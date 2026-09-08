@@ -36,3 +36,4 @@ export const TRANSACTION_PAYMENT_OPTIONS = [
 
 export const FILE_DB_KEY_PREFIX = "f_";
 export const REQUISITION_DB_KEY_PREFIX = "r_";
+export const EXPENSE_KEY_PREFIX = "e_";

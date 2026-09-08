@@ -469,7 +469,6 @@ export function DialogFileDuty({
             />
           </div>
         </form>
-
         <DialogFooter>
           <Button
             variant="primary"
