@@ -42,11 +42,11 @@ export type FileData = {
   status?: string;
   assessmentRef?: number | null;
   dutyRef?: number | null;
-  duty?: Record<string, { percentage: number; value: number }>;
-  port?: Record<string, { details: string; value: number }>;
-  custom?: Record<string, { details: string; value: number }>;
-  delivery?: Record<string, { details: string; value: number }>;
-  other?: Record<string, { details: string; value: number }>;
+  duty?: Record<string, { percentage?: number; value?: number }>;
+  port?: Record<string, { details?: string; value?: number }>;
+  custom?: Record<string, { details?: string; value?: number }>;
+  delivery?: Record<string, { details?: string; value?: number }>;
+  other?: Record<string, { details?: string; value?: number }>;
   total?: {
     miscellaneous?: number;
     commission?: number;

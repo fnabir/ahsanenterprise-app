@@ -12,4 +12,6 @@ export * from "./dialog-delete";
 export * from "./dialog-file-info";
 export * from "./dialog-file-no-change";
 export * from "./dialog-transaction";
+export * from "./dialog-file-details";
+export * from "./dialog-file-duty";
 export * from "./row-data";
