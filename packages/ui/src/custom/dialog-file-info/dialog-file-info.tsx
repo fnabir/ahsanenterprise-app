@@ -19,7 +19,11 @@ import { FileData, FileYear } from "@repo/types";
 import { fromFileDbKey, getFullFileNo } from "@repo/core";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FileInfoSchema, FileInfoFormValues } from "@repo/validators";
+import {
+  FileInfoFormInput,
+  FileInfoFormOutput,
+  FileInfoSchema,
+} from "@repo/validators";
 import { Input } from "../../core/input";
 import { addNewFile, updateFile } from "@repo/firebase";
 
@@ -52,23 +56,27 @@ export function DialogFileInfo({
     );
   }, [files]);
 
+  const defaultValues = useMemo(() => {
+    return {
+      importer: data?.importer ?? "",
+      itemPackage: data?.itemPackage ?? "",
+      itemName: data?.itemName ?? undefined,
+      lc: data?.lc ? String(data?.lc) : undefined,
+      be: data?.be != null ? String(data.be) : undefined,
+      bl: data?.bl ?? undefined,
+      rotNo: data?.rotNo ?? undefined,
+      status: data?.status ?? "New",
+    };
+  }, [data]);
+
   const {
     control,
     reset,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<FileInfoFormValues>({
+  } = useForm<FileInfoFormInput, any, FileInfoFormOutput>({
     resolver: zodResolver(FileInfoSchema),
-    defaultValues: {
-      importer: data?.importer ?? "",
-      itemPackage: data?.itemPackage ?? "",
-      itemName: data?.itemName ?? "",
-      lc: String(data?.lc ?? ""),
-      be: data?.be ?? 0,
-      bl: data?.bl ?? "",
-      rotNo: data?.rotNo ?? "",
-      status: data?.status ?? "New",
-    },
+    defaultValues,
   });
 
   const availableFileNumber = useMemo(() => {
@@ -101,25 +109,14 @@ export function DialogFileInfo({
     }
   };
 
-  const onSubmit = async (FormData: FileInfoFormValues) => {
+  const onSubmit = async (FormData: FileInfoFormOutput) => {
     if (!activeFileNo) {
       toast.error("Please enter a valid file number.");
       return;
     }
 
-    const fileData: FileData = {
-      importer: FormData.importer,
-      itemPackage: FormData.itemPackage,
-      itemName: FormData.itemName,
-      lc: FormData.lc ?? null,
-      be: FormData.be ?? null,
-      bl: FormData.bl ?? null,
-      rotNo: FormData.rotNo ?? null,
-      status: FormData.status,
-    };
-
-    if (!data) await addNewFile(activeFileNo, year, fileData);
-    else await updateFile(activeFileNo, year, fileData);
+    if (!data) await addNewFile(activeFileNo, year, FormData);
+    else await updateFile(activeFileNo, year, FormData);
 
     setOpen(false);
   };
@@ -128,7 +125,7 @@ export function DialogFileInfo({
     if (open) {
       setNewFileNo(undefined);
       setNewFileNoText("");
-      reset();
+      reset(defaultValues);
     }
   }, [open]);
 
@@ -182,7 +179,7 @@ export function DialogFileInfo({
             </div>
           ) : (
             <div className="flex flex-col gap-2">
-              <FormSelect<FileInfoFormValues>
+              <FormSelect
                 name="importer"
                 control={control}
                 label="Importer"
@@ -191,30 +188,32 @@ export function DialogFileInfo({
                 disabled={isSubmitting}
                 required
               />
-              <FormInput<FileInfoFormValues>
+              <FormInput
                 name="itemPackage"
                 control={control}
                 label="Package Details"
                 placeholder="Package details"
                 disabled={isSubmitting}
+                required
               />
-              <FormInput<FileInfoFormValues>
+              <FormInput
                 name="itemName"
                 control={control}
                 label="Item Name"
                 placeholder="Item name"
                 disabled={isSubmitting}
+                required
               />
 
               <div className="flex gap-2">
-                <FormInput<FileInfoFormValues>
+                <FormInput
                   name="bl"
                   control={control}
                   label="B/L No"
                   placeholder="B/L number"
                   disabled={isSubmitting}
                 />
-                <FormInput<FileInfoFormValues>
+                <FormInput
                   name="lc"
                   control={control}
                   label="LC No"
@@ -224,15 +223,16 @@ export function DialogFileInfo({
                 />
               </div>
               <div className="flex gap-2">
-                <FormInput<FileInfoFormValues>
+                <FormInput
                   name="be"
                   control={control}
+                  type="number"
                   label="B/E No"
                   startAdornment={<span className="text-sm">C-</span>}
                   placeholder="B/E number"
                   disabled={isSubmitting}
                 />
-                <FormInput<FileInfoFormValues>
+                <FormInput
                   name="rotNo"
                   control={control}
                   label="ROT No"
@@ -240,7 +240,7 @@ export function DialogFileInfo({
                   disabled={isSubmitting}
                 />
               </div>
-              <FormSelect<FileInfoFormValues>
+              <FormSelect
                 name="status"
                 control={control}
                 label="Status"

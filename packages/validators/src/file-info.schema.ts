@@ -1,23 +1,19 @@
 import { z } from "zod";
-
-const optionalDigitsOnly = z
-  .string()
-  .trim()
-  .refine((val) => val === "" || /^\d+$/.test(val), {
-    error: "Only numeric characters are allowed",
-  })
-  .transform((val) => (val === "" ? undefined : val))
-  .optional();
+import {
+  optionalDigitsOnlyString,
+  optionalNonNegativeNumberField,
+} from "./helpers";
 
 export const FileInfoSchema = z.object({
-  importer: z.string("Importer name is required"),
-  itemPackage: z.string("Package details is required"),
-  itemName: z.string("Item name is required"),
-  lc: optionalDigitsOnly,
-  be: z.number().optional(),
-  bl: z.string().optional(),
-  rotNo: z.string().optional(),
-  status: z.string().optional(),
+  importer: z.string().trim().nonempty("Importer name is required"),
+  itemPackage: z.string().trim().nonempty("Package details is required"),
+  itemName: z.string().trim().nonempty("Item name is required"),
+  lc: optionalDigitsOnlyString("LC"),
+  be: optionalNonNegativeNumberField("BE"),
+  bl: z.string().nullable().optional(),
+  rotNo: z.string().nullable().optional(),
+  status: z.string().trim().nonempty("Status is required"),
 });
 
-export type FileInfoFormValues = z.infer<typeof FileInfoSchema>;
+export type FileInfoFormInput = z.input<typeof FileInfoSchema>;
+export type FileInfoFormOutput = z.output<typeof FileInfoSchema>;
