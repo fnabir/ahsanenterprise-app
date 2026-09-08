@@ -1,7 +1,6 @@
 "use client";
 
-import { BadgeFileStatus, CardInfo, Skeleton } from "@repo/ui";
-import { MdErrorOutline } from "react-icons/md";
+import { BadgeFileStatus } from "@repo/ui";
 import { FaInfoCircle } from "react-icons/fa";
 import {
   getFullFileNo,
@@ -18,6 +17,8 @@ import OtherExpenseSection from "./other-expense-section";
 import PortExpenseSection from "./port-expense-section";
 import TotalSection from "./total-section";
 import OverviewSection from "./overview-section";
+import Loading from "@/components/loading";
+import { FileDetailsProvider } from "@/contexts/FileDetailsContext";
 
 export default function FileDetailsSection({
   year,
@@ -31,61 +32,54 @@ export default function FileDetailsSection({
   const data = useFileDetails(year, fileNo);
   const totals = useFileTotals(year, fileNo);
 
-  if (loading) {
+  if (loading) return <Loading />;
+
+  if (error)
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-4 px-2 lg:px-4 py-2">
-        {[...Array(7)].map((_, index) => (
-          <Skeleton key={index} className="h-32" />
-        ))}
+      <div className="h-full grow flex flex-col items-center justify-center gap-1">
+        <FaInfoCircle size={24} className="text-danger mb-1" />
+        <div className="font-semibold">Error occured loading the file.</div>
+        <div className="text-muted">{error}</div>
       </div>
     );
-  }
 
-  if (error) {
+  if (!data || Object.keys(data).length === 0)
     return (
-      <CardInfo
-        title="Error"
-        details="An error occurred while loading the file. Please try again later."
-        Icon={<MdErrorOutline size={24} className="text-danger" />}
-        className="mx-2 lg:mx-4 my-2"
-      />
+      <div className="h-full grow flex flex-col items-center justify-center gap-1">
+        <FaInfoCircle size={24} className="text-muted mb-1" />
+        <div className="font-semibold">File not found</div>
+        <div className="text-muted">
+          No data available for this file. Please check the year and file
+          number.
+        </div>
+      </div>
     );
-  }
-
-  if (!data) {
-    return (
-      <CardInfo
-        title="File not found"
-        details="No data available for this file. Please check the year and file number."
-        Icon={<FaInfoCircle size={24} className="text-danger" />}
-        className="mx-2 lg:mx-4 my-2"
-      />
-    );
-  }
 
   return (
-    <div className="flex-1 h-full flex flex-col divide-y-2">
-      <div className="flex items-center gap-2 px-2 lg:px-4 pb-2">
-        <div className="font-bold font-mono text-xl">
-          {getFullFileNo(fileNo, year)}
+    <FileDetailsProvider value={{ year, fileNo, data, totals }}>
+      <div className="flex-1 h-full flex flex-col divide-y-2">
+        <div className="flex items-center gap-2 px-2 lg:px-4 pb-2">
+          <div className="font-bold font-mono text-xl">
+            {getFullFileNo(fileNo, year)}
+          </div>
+          <BadgeFileStatus status={data.status ?? "unknown"} />
         </div>
-        <BadgeFileStatus status={data.status ?? "unknown"} />
-      </div>
 
-      <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4">
-        <div>
-          <OverviewSection data={data} totals={totals} />
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          <InfoSection data={data} />
-          <DutySection data={data} total={totals.duty} />
-          <PortExpenseSection data={data} total={totals.port} />
-          <CustomExpenseSection data={data} total={totals.custom} />
-          <DeliveryExpenseSection data={data} total={totals.delivery} />
-          <OtherExpenseSection data={data} total={totals.other} />
-          <TotalSection data={totals} />
+        <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4">
+          <div>
+            <OverviewSection data={data} totals={totals} />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <InfoSection />
+            <DutySection />
+            <PortExpenseSection data={data} total={totals.port} />
+            <CustomExpenseSection data={data} total={totals.custom} />
+            <DeliveryExpenseSection data={data} total={totals.delivery} />
+            <OtherExpenseSection data={data} total={totals.other} />
+            <TotalSection data={totals} />
+          </div>
         </div>
       </div>
-    </div>
+    </FileDetailsProvider>
   );
 }
