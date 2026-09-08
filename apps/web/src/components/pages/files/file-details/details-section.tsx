@@ -11,10 +11,7 @@ import {
 } from "@repo/core";
 import InfoSection from "./info-section";
 import DutySection from "./duty-section";
-import DeliveryExpenseSection from "./delivery-expense-section";
-import CustomExpenseSection from "./custom-expense-section";
-import OtherExpenseSection from "./other-expense-section";
-import PortExpenseSection from "./port-expense-section";
+import ExpenseSection from "./expense-section";
 import TotalSection from "./total-section";
 import OverviewSection from "./overview-section";
 import Loading from "@/components/loading";
@@ -72,10 +69,10 @@ export default function FileDetailsSection({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <InfoSection />
             <DutySection />
-            <PortExpenseSection />
-            <CustomExpenseSection />
-            <DeliveryExpenseSection />
-            <OtherExpenseSection />
+            <ExpenseSection type="port" />
+            <ExpenseSection type="custom" />
+            <ExpenseSection type="delivery" />
+            <ExpenseSection type="other" />
             <TotalSection />
           </div>
         </div>

@@ -1,21 +1,26 @@
 import { useFileDetailsContext } from "@/contexts/FileDetailsContext";
+import { Card, RowData, Button } from "@repo/ui";
+import { DialogFileExpense } from "@repo/ui";
 import { MdOutlineEdit } from "react-icons/md";
-import { Button, Card, DialogFileExpense, RowData } from "@repo/ui";
 
-export default function DeliveryExpenseSection() {
+export default function ExpenseSection({
+  type,
+}: {
+  type: "port" | "custom" | "delivery" | "other";
+}) {
   const { year, fileNo, data, totals } = useFileDetailsContext();
-  const expenseData = data.delivery;
-  const total = totals.delivery;
+  const expenseData = data[type];
+  const total = totals[type];
 
   return (
     <Card className="flex flex-col divide-y-2 px-2! text-sm">
       <div className="flex items-center justify-between gap-2 pb-1">
-        <div className="font-semibold text-base">Delivery Expense</div>
+        <div className="font-semibold text-base capitalize">{type} Expense</div>
         <DialogFileExpense
           fileNo={fileNo}
           year={year}
           data={data}
-          expenseType="delivery"
+          expenseType={type}
         >
           <Button
             variant="outline"
@@ -44,8 +49,8 @@ export default function DeliveryExpenseSection() {
             value={total}
             valueType="currency"
             className={{
-              main: "font-semibold text-[15px]",
-              label: "text-foreground!",
+              label: "text-foreground! font-semibold text-[15px]",
+              value: "font-semibold text-[15px]",
             }}
           />
         </div>
