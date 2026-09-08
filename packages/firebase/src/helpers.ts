@@ -27,16 +27,13 @@ export function sanitizeData(obj: Record<string, any>) {
       value === 0 ||
       (typeof value === "string" && value.trim() === "")
     ) {
+      result[key] = null;
       continue;
     }
 
     if (value && typeof value === "object" && !Array.isArray(value)) {
       const nested = sanitizeData(value);
-
-      if (Object.keys(nested).length > 0) {
-        result[key] = nested;
-      }
-
+      result[key] = nested;
       continue;
     }
 

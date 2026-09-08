@@ -1,5 +1,5 @@
 import { FileData, RequisitionData } from "@repo/types";
-import { getDatabaseReference } from "./helpers";
+import { getDatabaseReference, sanitizeData } from "./helpers";
 import { remove, set, update, get } from "firebase/database";
 import {
   REQUISITION_DB_KEY_PREFIX,
@@ -17,7 +17,7 @@ export async function addNewFile(
   const fileKey = toFileDbKey(fileNo);
   const fileRef = getDatabaseReference(`file/${fileYear}/${fileKey}`);
   try {
-    await set(fileRef, data);
+    await set(fileRef, sanitizeData(data));
     toast.success("New file added successfully.");
   } catch (error) {
     toast.error("Failed to add the new file", (error as FirebaseError).message);
@@ -26,7 +26,7 @@ export async function addNewFile(
 
 export async function updateFile(
   fileNo: number | string,
-  fileYear: number,
+  fileYear: number | string,
   data: FileData,
 ) {
   const prefixedRef = getDatabaseReference(
@@ -38,7 +38,7 @@ export async function updateFile(
     const prefixedSnapshot = await get(prefixedRef);
     const fileRef = prefixedSnapshot.exists() ? prefixedRef : legacyRef;
 
-    await update(fileRef, data);
+    await update(fileRef, sanitizeData(data));
     toast.success("File updated successfully.");
   } catch (error) {
     toast.error("Failed to update the file", (error as FirebaseError).message);
