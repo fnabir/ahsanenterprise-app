@@ -58,8 +58,8 @@ const getFileByAnyKey = (
 
 const sumExpenseValues = (
   data?:
-    | Record<string, { value: number }>
-    | Record<string, { percentage: number; value: number }>,
+    | Record<string, { value?: number }>
+    | Record<string, { percentage?: number; value?: number }>,
 ) => {
   if (!data) return 0;
   return Object.values(data).reduce((sum, item) => sum + (item.value ?? 0), 0);

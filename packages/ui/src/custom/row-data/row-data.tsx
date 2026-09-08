@@ -7,13 +7,13 @@ export function RowData({
   currency,
   className,
 }: {
-  label: string;
+  label?: string;
   value?: string | number | null;
   valueType?: "currency" | "number";
   currency?: string;
   className?: { main?: string; label?: string; value?: string } | string;
 }) {
-  if (value === undefined) return null;
+  if (!label || !value) return null;
 
   const isStringClassName = typeof className === "string";
   const mainClassName = isStringClassName ? className : { main: className };
