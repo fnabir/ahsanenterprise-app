@@ -45,6 +45,36 @@ export async function updateFile(
   }
 }
 
+export async function updateFileExpense(
+  fileNo: number | string,
+  fileYear: number | string,
+  expenseType: "port" | "custom" | "delivery" | "other",
+  data: FileData,
+) {
+  const prefixedRef = getDatabaseReference(
+    `file/${fileYear}/${toFileDbKey(fileNo)}/${expenseType}`,
+  );
+  const legacyRef = getDatabaseReference(
+    `file/${fileYear}/${fileNo}/${expenseType}`,
+  );
+
+  try {
+    const prefixedSnapshot = await get(prefixedRef);
+    const fileRef = prefixedSnapshot.exists() ? prefixedRef : legacyRef;
+
+    await set(fileRef, sanitizeData(data));
+    toast.success(
+      getFullFileNo(fileNo, fileYear),
+      `${expenseType.charAt(0).toUpperCase() + expenseType.slice(1)} expense updated successfully.`,
+    );
+  } catch (error) {
+    toast.error(
+      `Failed to update the ${expenseType.charAt(0).toUpperCase() + expenseType.slice(1)} expense`,
+      (error as FirebaseError).message,
+    );
+  }
+}
+
 export async function updateFileStatus(
   fileNo: number | string,
   fileYear: number | string,

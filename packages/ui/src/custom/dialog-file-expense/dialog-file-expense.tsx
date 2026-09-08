@@ -24,7 +24,7 @@ import { FileData } from "@repo/types";
 import { getFullFileNo } from "@repo/core";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateFile } from "@repo/firebase";
+import { updateFileExpense } from "@repo/firebase";
 import { FaPlus, FaTimes } from "react-icons/fa";
 
 export function DialogFileExpense({
@@ -67,12 +67,13 @@ export function DialogFileExpense({
   }, [open]);
 
   const onSubmit = async (formData: FileExpenseFormOutput) => {
-    // NOTE: assuming updateFile(fileNo, year, partialData) — adjust if your
-    // actual signature differs.
-    //await updateFile(fileNo, year, {
-    // [expenseType]: expensesArrayToRecord(formData.expenses),
-    //});
-    //setOpen(false);
+    await updateFileExpense(
+      fileNo,
+      year,
+      expenseType,
+      expensesArrayToRecord(formData.expenses),
+    );
+    setOpen(false);
   };
 
   return (
