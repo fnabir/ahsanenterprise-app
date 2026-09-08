@@ -3,13 +3,17 @@
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import { Select } from "../core/select";
 
-export function FormSelect<T extends FieldValues>({
+export function FormSelect<
+  T extends FieldValues,
+  TContext = any,
+  TTransformedValues extends FieldValues | undefined = T,
+>({
   name,
   control,
   ...props
 }: {
   name: Path<T>;
-  control: Control<T>;
+  control: Control<T, TContext, TTransformedValues>;
 } & Omit<React.ComponentProps<typeof Select>, "value" | "onChange">) {
   return (
     <Controller

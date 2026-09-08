@@ -3,13 +3,17 @@
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import { Input } from "../../core/input";
 
-export function FormInput<T extends FieldValues>({
+export function FormInput<
+  T extends FieldValues,
+  TContext = any,
+  TTransformedValues extends FieldValues | undefined = T,
+>({
   name,
   control,
   ...props
 }: {
   name: Path<T>;
-  control: Control<T>;
+  control: Control<T, TContext, TTransformedValues>;
 } & Omit<React.ComponentProps<typeof Input>, "value" | "onChangeText">) {
   return (
     <Controller
