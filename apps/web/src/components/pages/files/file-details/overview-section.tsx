@@ -29,9 +29,10 @@ export default function OverviewSection() {
     data.assessmentDate || data.dutyPaymentDate || data.deliveryDate;
 
   const values = {
-    "C&F": { value: data.cnfValue, currency: "$" },
-    Assessable: { value: data.assessableValue, currency: "৳" },
-    Duty: { value: totals.duty, currency: "৳" },
+    "C&F Value": { value: data.cnfValue, currency: "$" },
+    "Assessable Value": { value: data.assessableValue, currency: "৳" },
+    Miscellaneous: { value: totals.miscellaneous, currency: "৳" },
+    Commission: { value: totals.commission, currency: "৳" },
   };
 
   const dates = {
@@ -83,11 +84,11 @@ export default function OverviewSection() {
       </Card>
 
       {isValuesAvailable ? (
-        <Card className="flex flex-col gap-2 justify-center text-center px-2! text-sm divide-y-2">
+        <Card className="flex flex-col justify-center text-center px-2! text-sm divide-y-2">
           {Object.entries(values).map(([key, data]) => (
             <RowData
               key={key}
-              label={`${key} Value`}
+              label={key}
               value={data.value}
               valueType="currency"
               currency={data.currency}
