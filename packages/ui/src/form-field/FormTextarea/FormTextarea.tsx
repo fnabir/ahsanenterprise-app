@@ -3,16 +3,24 @@
 import { Control, FieldValues, Path, useController } from "react-hook-form";
 import { Textarea } from "../../core/textarea";
 
-type FormTextareaProps<T extends FieldValues> = {
+type FormTextareaProps<
+  T extends FieldValues,
+  TContext = any,
+  TTransformedValues extends FieldValues | undefined = T,
+> = {
   name: Path<T>;
-  control: Control<T>;
+  control: Control<T, TContext, TTransformedValues>;
   label?: string;
   helperText?: string;
   required?: boolean;
   className?: string;
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export function FormTextarea<T extends FieldValues>({
+export function FormTextarea<
+  T extends FieldValues,
+  TContext = any,
+  TTransformedValues extends FieldValues | undefined = T,
+>({
   name,
   control,
   label,
@@ -20,7 +28,7 @@ export function FormTextarea<T extends FieldValues>({
   required,
   className,
   ...props
-}: FormTextareaProps<T>) {
+}: FormTextareaProps<T, TContext, TTransformedValues>) {
   const {
     field,
     fieldState: { error },

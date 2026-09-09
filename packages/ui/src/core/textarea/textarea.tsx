@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   error?: boolean;
@@ -9,12 +9,13 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <textarea
         ref={ref}
-        className={`w-full min-h-[75px] rounded-md border border-border bg-card px-3 py-1.5 text-sm
+        className={`w-full min-h-18 rounded-md border bg-card px-3 py-1.5 text-sm
           placeholder:text-muted
           focus:outline-none focus:border-accent focus:border-ring
           disabled:cursor-not-allowed disabled:opacity-50
           transition-colors duration-150
-          ${error && 'border-error focus:ring-error'}
+          ${error ? "border-error" : "border-muted/50"}
+          focus-within:border-primary
           ${className}`}
         {...props}
       />
@@ -22,4 +23,4 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   },
 );
 
-Textarea.displayName = 'Textarea';
+Textarea.displayName = "Textarea";
