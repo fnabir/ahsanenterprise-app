@@ -1,4 +1,5 @@
 "use client";
+
 import { MdLogout } from "react-icons/md";
 import { signOut } from "@repo/firebase";
 import { Button } from "@repo/ui";
@@ -6,10 +7,12 @@ import Breadcrumb from "./breadcrumb";
 import ThemeToggle from "./theme-toggle";
 import { useBreadcrumb } from "@/contexts/BreadcrumbContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useIsMobile } from "@repo/core";
 
 export default function Header() {
   const { items } = useBreadcrumb();
   const { user } = useAuth();
+  const isMobile = useIsMobile();
 
   const handleSignOut = async () => {
     await signOut();
@@ -23,9 +26,10 @@ export default function Header() {
           <Button
             onClick={handleSignOut}
             ariaLabel="Logout Button"
-            label="Logout"
+            label={isMobile ? undefined : "Logout"}
             variant="danger"
             Icon={<MdLogout />}
+            className={isMobile ? "p-1!" : ""}
           />
         )}
         <ThemeToggle />
