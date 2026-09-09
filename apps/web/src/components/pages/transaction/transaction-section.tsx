@@ -65,7 +65,8 @@ export default function TransactionSection({
               <tr className="text-muted text-sm border-b-2">
                 <th className="text-left font-medium py-2">Date</th>
                 <th className="text-left font-medium py-2">Transaction</th>
-                <th className="text-right font-medium py-2">Amount</th>
+                <th className="text-right font-medium py-2 pr-2">Amount</th>
+                <th className="w-10" />
               </tr>
             </thead>
 

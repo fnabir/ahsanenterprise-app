@@ -83,7 +83,7 @@ export function DialogFileExpense({
         <DialogHeader>
           <DialogTitle>{getFullFileNo(fileNo, year)}</DialogTitle>
           <DialogDescription>
-            Update the expenses for this file.
+            Update the {expenseType} expenses for this file.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">

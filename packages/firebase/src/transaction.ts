@@ -1,5 +1,5 @@
 import { update, remove } from "firebase/database";
-import { fromISODate } from "../../core";
+import { fromISODate, isISODate } from "../../core";
 import { toast } from "../../ui";
 import type { FirebaseError } from "firebase/app";
 import { generateDatabaseKey, getDatabaseReference } from "./helpers";
@@ -21,7 +21,7 @@ export async function updateTransaction(
     const { date, ...payload } = data;
     await update(transactionRef, {
       ...payload,
-      date: fromISODate("dd.MM.yy", date),
+      date: isISODate(date) ? fromISODate("dd/MM/yy", date) : date,
     });
     toast.success(`Transaction ${key ? "updated" : "added"} successfully.`);
   } catch (error) {
