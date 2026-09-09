@@ -73,7 +73,6 @@ export default function FileDetailsSection({
             <ExpenseSection type="custom" />
             <ExpenseSection type="delivery" />
             <ExpenseSection type="other" />
-            <TotalSection />
           </div>
         </div>
       </div>
