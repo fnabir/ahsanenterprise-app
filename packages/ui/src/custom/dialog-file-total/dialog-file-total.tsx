@@ -19,7 +19,7 @@ import {
   FormTextarea,
 } from "../..";
 import { FileData } from "@repo/types";
-import { getFullFileNo } from "@repo/core";
+import { getFullFileNo, useImporterInfo } from "@repo/core";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateFile } from "@repo/firebase";
@@ -36,9 +36,24 @@ export function DialogFileTotal({
   data?: FileData;
 }) {
   const [open, setOpen] = useState(false);
+  const importerInfo = useImporterInfo(data?.importer);
 
   const defaultValues = useMemo(() => {
     return {
+      commission:
+        data?.commission != null
+          ? String(data.commission)
+          : String(
+              importerInfo?.commission && data?.assessableValue
+                ? Number(
+                    (importerInfo.commission * data.assessableValue) / 100,
+                  ).toFixed(2)
+                : "",
+            ),
+      miscellaneous:
+        data?.miscellaneous != null
+          ? String(data.miscellaneous)
+          : String(importerInfo?.miscExpense ?? ""),
       paid: data?.paid != null ? String(data.paid) : "",
       remarks: data?.remarks ?? "",
     };
@@ -55,6 +70,9 @@ export function DialogFileTotal({
   });
 
   const onSubmit = async (FormData: FileTotalOutput) => {
+    FormData.commission = FormData.commission
+      ? Math.ceil(Number(FormData.commission))
+      : 0;
     await updateFile(fileNo, year, FormData);
     setOpen(false);
   };
@@ -80,6 +98,26 @@ export function DialogFileTotal({
           className="h-fit flex flex-col gap-2"
         >
           <div className="flex flex-col gap-2">
+            <FormInput
+              name="commission"
+              control={control}
+              label="Commission"
+              placeholder="Commission"
+              startAdornment="৳"
+              disabled={isSubmitting}
+              type="number"
+              allowDecimal
+            />
+            <FormInput
+              name="miscellaneous"
+              control={control}
+              label="Miscellaneous Expense"
+              placeholder="Miscellaneous Expense Amount"
+              startAdornment="৳"
+              disabled={isSubmitting}
+              type="number"
+              allowDecimal
+            />
             <FormInput
               name="paid"
               control={control}
