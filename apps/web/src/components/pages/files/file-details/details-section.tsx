@@ -133,7 +133,7 @@ export default function FileDetailsSection({
 
         <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4">
           <div>
-            <OverviewSection data={data} totals={totals} />
+            <OverviewSection />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <InfoSection />
