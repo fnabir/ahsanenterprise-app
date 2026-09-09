@@ -1,13 +1,10 @@
-import { FileData, FileTotals } from "@repo/types";
-import { Card, Number, RowData } from "@repo/ui";
+import { useFileDetailsContext } from "@/contexts/FileDetailsContext";
+import { Button, Card, DialogFileTotal, Number, RowData } from "@repo/ui";
+import { MdOutlineEdit } from "react-icons/md";
 
-export default function OverviewSection({
-  data,
-  totals,
-}: {
-  data: FileData;
-  totals: FileTotals;
-}) {
+export default function OverviewSection() {
+  const { year, fileNo, data, totals } = useFileDetailsContext();
+
   const balance =
     totals.balance > 0
       ? {
@@ -44,12 +41,22 @@ export default function OverviewSection({
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4 mb-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
       <Card
         className={`px-2! flex flex-col gap-2 items-start justify-center ${balance.cardClassName}`}
       >
-        <div className={`font-bold ${balance.textClassName}`}>
-          {balance.title}
+        <div className="w-full flex justify-between items-center gap-2">
+          <div className={`font-bold ${balance.textClassName}`}>
+            {balance.title}
+          </div>
+          <DialogFileTotal fileNo={fileNo} year={year} data={data}>
+            <Button
+              variant="outline"
+              Icon={
+                <MdOutlineEdit className="text-muted group-hover:text-foreground transition-colors" />
+              }
+            />
+          </DialogFileTotal>
         </div>
         <Number
           value={totals.balance}
@@ -96,9 +103,13 @@ export default function OverviewSection({
         </Card>
       ) : null}
       {data.remarks && (
-        <div className="col-span-3 flex gap-2 text-sm">
-          <div className="font-semibold text-muted">Remarks:</div>
-          <pre>{data.remarks}</pre>
+        <div className="lg:col-span-3 flex gap-2 text-sm">
+          <div className="hidden md:block font-semibold text-muted">
+            Remarks:
+          </div>
+          <pre className="whitespace-pre-wrap wrap-break-word">
+            {data.remarks}
+          </pre>
         </div>
       )}
     </div>
