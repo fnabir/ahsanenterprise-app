@@ -76,3 +76,13 @@ export function isISODate(value?: string): boolean {
   const date = parse(value, "yyyy-MM-dd", new Date());
   return isValid(date);
 }
+
+export function formatCurrency(
+  value?: number | string,
+  fractionDigits: number = 2,
+): string {
+  return Number(value ?? 0).toLocaleString("en-IN", {
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  });
+}
