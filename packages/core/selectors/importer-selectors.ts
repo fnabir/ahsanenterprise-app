@@ -12,6 +12,11 @@ export const useImporterError = () => useImporterStore((s) => s.error);
 export const useImporterData = () =>
   useImporterStore((s) => s.importer ?? EMPTY_IMPORTER);
 
+export const useImporterInfo = (importerId?: string) => {
+  const importer = useImporterStore((s) => s.importer);
+  return importerId ? (importer?.[importerId] ?? null) : null;
+};
+
 export const useImporterList = () => {
   const importer = useImporterStore((s) => s.importer);
 
