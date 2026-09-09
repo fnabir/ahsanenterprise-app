@@ -4,7 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "ChandrabatiMJ";
+  src: url("ChandrabatiMJ.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme inline {
+  --font-chandrabati: "ChandrabatiMJ";
   --font-sans: "Public Sans", -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
