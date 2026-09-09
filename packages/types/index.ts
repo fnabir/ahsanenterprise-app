@@ -47,9 +47,9 @@ export type FileData = {
   custom?: Record<string, { details: string; value: number }>;
   delivery?: Record<string, { details: string; value: number }>;
   other?: Record<string, { details: string; value: number }>;
+  miscellaneous?: number;
+  commission?: number;
   total?: {
-    miscellaneous?: number;
-    commission?: number;
     duty?: number;
     port?: number;
     custom?: number;

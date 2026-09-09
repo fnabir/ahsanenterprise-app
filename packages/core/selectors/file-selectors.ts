@@ -164,8 +164,8 @@ export const useFileTotals = (year: string, fileNo: string) => {
     const custom = totalData?.custom ?? sumExpenseValues(data.custom);
     const delivery = totalData?.delivery ?? sumExpenseValues(data.delivery);
     const other = totalData?.other ?? sumExpenseValues(data.other);
-    const miscellaneous = totalData?.miscellaneous ?? 0;
-    const commission = totalData?.commission ?? 0;
+    const miscellaneous = data?.miscellaneous ?? 0;
+    const commission = data?.commission ?? 0;
     const grandTotal =
       (data.dutyPaid ? 0 : duty) +
       port +
