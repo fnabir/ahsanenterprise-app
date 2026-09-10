@@ -1,7 +1,9 @@
 "use client";
 
+import { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import { BadgeFileStatus, Button } from "@repo/ui";
-import { FaInfoCircle, FaPlus } from "react-icons/fa";
+import { FaInfoCircle, FaPlus, FaPrint } from "react-icons/fa";
 import { useEffect, useMemo, useState } from "react";
 import {
   getFullFileNo,
@@ -20,6 +22,7 @@ import { getDatabaseReference, updateTransaction } from "@repo/firebase";
 import { useObject } from "react-firebase-hooks/database";
 import { TransactionData } from "@repo/types";
 import { AnimatePresence, motion } from "framer-motion";
+import PrintLayout from "./print-layout";
 
 export default function FileDetailsSection({
   year,
@@ -28,6 +31,7 @@ export default function FileDetailsSection({
   year: string;
   fileNo: string;
 }) {
+  const [printLayout, setPrintLayout] = useState(false);
   const [buttonLabel, setButtonLabel] = useState<"Add" | "Update" | null>(null);
 
   const loading = useFileLoading();
@@ -41,9 +45,18 @@ export default function FileDetailsSection({
     ),
   );
   const transactionVal = transactionData?.val();
-  console.log(transactionVal);
 
   const fullFileNo = getFullFileNo(fileNo, year);
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({
+    contentRef,
+    documentTitle: `${data?.importer}-${fileNo}`,
+  });
+
+  const handlePrint = () => {
+    if (contentRef.current) reactToPrintFn();
+  };
 
   const transactionPayload: TransactionData = useMemo(() => {
     return {
@@ -56,7 +69,6 @@ export default function FileDetailsSection({
 
   useEffect(() => {
     if (!transactionVal) {
-      console.log(transactionVal);
       setButtonLabel("Add");
     } else if (
       JSON.stringify(transactionVal) === JSON.stringify(transactionPayload)
@@ -129,21 +141,36 @@ export default function FileDetailsSection({
               </motion.div>
             )}
           </AnimatePresence>
+          <Button
+            label={`${printLayout ? "Normal" : "Print"} Layout`}
+            onClick={() => setPrintLayout((prev) => !prev)}
+            className="min-w-30"
+          />
+          <Button
+            variant="default"
+            label="Print"
+            Icon={<FaPrint />}
+            onClick={handlePrint}
+          />
         </div>
 
-        <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4">
-          <div>
-            <OverviewSection />
+        {printLayout ? (
+          <PrintLayout ref={contentRef} />
+        ) : (
+          <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4">
+            <div>
+              <OverviewSection />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <InfoSection />
+              <DutySection />
+              <ExpenseSection type="port" />
+              <ExpenseSection type="custom" />
+              <ExpenseSection type="delivery" />
+              <ExpenseSection type="other" />
+            </div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <InfoSection />
-            <DutySection />
-            <ExpenseSection type="port" />
-            <ExpenseSection type="custom" />
-            <ExpenseSection type="delivery" />
-            <ExpenseSection type="other" />
-          </div>
-        </div>
+        )}
       </div>
     </FileDetailsProvider>
   );
