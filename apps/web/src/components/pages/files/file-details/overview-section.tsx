@@ -24,7 +24,11 @@ export default function OverviewSection() {
             textClassName: `text-success`,
           };
 
-  const isValuesAvailable = data.cnfValue || data.assessableValue;
+  const isValuesAvailable =
+    data.cnfValue ||
+    data.assessableValue ||
+    data.miscellaneous ||
+    data.commission;
   const isDatesAvailable =
     data.assessmentDate || data.dutyPaymentDate || data.deliveryDate;
 
