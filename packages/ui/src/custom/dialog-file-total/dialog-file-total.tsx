@@ -57,7 +57,7 @@ export function DialogFileTotal({
       paid: data?.paid != null ? String(data.paid) : "",
       remarks: data?.remarks ?? "",
     };
-  }, [data]);
+  }, [data, importerInfo]);
 
   const {
     control,
