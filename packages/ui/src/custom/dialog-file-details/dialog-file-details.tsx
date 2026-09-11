@@ -178,6 +178,7 @@ export function DialogFileDetails({
                 label="C&F Value"
                 startAdornment="$"
                 placeholder="C&F value"
+                type="number"
                 allowDecimal
                 disabled={isSubmitting}
               />
@@ -188,6 +189,7 @@ export function DialogFileDetails({
                 startAdornment="৳"
                 placeholder="Assessable value"
                 type="number"
+                allowDecimal
                 disabled={isSubmitting}
               />
             </div>

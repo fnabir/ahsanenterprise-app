@@ -37,9 +37,7 @@ export function CardFile({
     <Card className="p-2! text-sm divide-y-2">
       <div className="flex items-center justify-between pb-1">
         <div className="flex gap-2">
-          <div
-            className={`text-primary bg-primary-subtle py-px px-1.25 w-fit rounded-lg`}
-          >
+          <div className="text-primary bg-primary-subtle py-px px-1.25 w-fit rounded-lg border border-primary">
             #{fileNo}
           </div>
           <BadgeFileStatus
