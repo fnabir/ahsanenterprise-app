@@ -36,7 +36,9 @@ const normalizeYearFiles = (yearFiles?: Record<string, FileData> | null) => {
   const normalized: Record<string, FileData> = {};
 
   for (const [dbKey, data] of Object.entries(yearFiles)) {
-    normalized[fromFileDbKey(dbKey)] = data;
+    const raw = fromFileDbKey(dbKey);
+    const num = String(parseInt(raw, 10));
+    normalized[num] = data;
   }
 
   return normalized;

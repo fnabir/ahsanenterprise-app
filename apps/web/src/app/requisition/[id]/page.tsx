@@ -1,7 +1,7 @@
 import { getFullRequisitionNo } from "@repo/core";
 import BreadcrumbSetter from "@/components/breadcrumb-setter";
 import { notFound } from "next/navigation";
-import RequisitionDetailsSection from "@/components/pages/requisitions/requisition-details/details-section";
+import RequisitionBodySection from "@/components/pages/requisitions/requisition-details/body-section";
 
 export default async function RequisitionDetailsPage({
   params,
@@ -36,7 +36,7 @@ export default async function RequisitionDetailsPage({
   return (
     <>
       <BreadcrumbSetter items={BREADCRUMB_ITEMS} />
-      <RequisitionDetailsSection year={year} requisitionNo={requisitionNo} />
+      <RequisitionBodySection year={year} requisitionNo={requisitionNo} />
     </>
   );
 }

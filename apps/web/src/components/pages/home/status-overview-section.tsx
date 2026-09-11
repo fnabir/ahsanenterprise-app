@@ -19,11 +19,11 @@ export default function StatusOverviewSection() {
   );
 
   const statusStyle: Record<string, string> = {
-    New: "muted",
-    Assessment: "primary",
-    "Duty Payment": "warning",
-    Delivery: "accent",
-    Bill: "secondary",
+    New: "bg-muted-subtle text-muted",
+    Assessment: "bg-primary-subtle text-primary",
+    "Duty Payment": "bg-warning-subtle text-warning",
+    Delivery: "bg-accent-subtle text-accent",
+    Bill: "bg-secondary-subtle text-secondary",
   };
 
   const pieData = useMemo(() => {
@@ -74,7 +74,7 @@ export default function StatusOverviewSection() {
             return (
               <div
                 key={status}
-                className={`w-full flex justify-between bg-${statusStyle[status]}-subtle text-${statusStyle[status]} rounded-lg px-2`}
+                className={`w-full flex justify-between ${statusStyle[status]} rounded-lg px-2`}
               >
                 <span className="font-semibold">{item.name}</span>
                 <span className="text-end">{item.value}</span>

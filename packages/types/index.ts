@@ -75,6 +75,12 @@ export type Files = Record<string, FileData>;
 export type FileYear = Record<string, Files>;
 export type FileRoot = Record<string, FileYear>;
 
+export type GroupedFileItem = {
+  year: string;
+  fileNo: string;
+  data: FileData;
+};
+
 export type RequisitionFile = {
   assessment?: number;
   examine?: number;
@@ -84,6 +90,12 @@ export type RequisitionFile = {
   section?: number;
   truck?: number;
 };
+export interface RequisitionExpense extends RequisitionFile {
+  fileNo: string;
+  itemName?: string;
+  lc?: string | null;
+  duty?: number;
+}
 
 export type RequisitionData = {
   arrival: string;
@@ -94,12 +106,6 @@ export type RequisitionData = {
 
 export type RequisitionYear = Record<string, RequisitionData>;
 export type RequisitionRoot = Record<string, RequisitionYear>;
-
-export type GroupedFileItem = {
-  year: string;
-  fileNo: string;
-  data: FileData;
-};
 
 export type TransactionData = {
   date: string;

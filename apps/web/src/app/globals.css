@@ -105,12 +105,20 @@
 }
 
 @media print {
-  @page {
+  @page printLetterPad {
     size: 210mm 288mm portrait;
   }
 
+  @page {
+    size: A4 portrait;
+  }
+
   .print-requisition {
-    margin: 2in 0.4in 0.5in;
+    page: printLetterPad;
+    margin-top: 2.1in;
+    margin-right: 0.5in;
+    margin-bottom: 0.5in;
+    margin-left: 0.5in;
   }
 
   body {
