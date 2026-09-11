@@ -27,12 +27,12 @@ export function BadgeFileStatus({
   })();
 
   const badgeClassByStyle = {
-    info: "text-info bg-info-subtle",
-    warning: "text-warning bg-warning-subtle",
-    accent: "text-accent bg-accent-subtle",
-    secondary: "text-secondary bg-secondary-subtle",
-    success: "text-success bg-success-subtle",
-    muted: "text-muted bg-muted-subtle",
+    info: "text-info! bg-info-subtle! border-info!",
+    warning: "text-warning! bg-warning-subtle! border-warning!",
+    accent: "text-accent! bg-accent-subtle! border-accent!",
+    secondary: "text-secondary! bg-secondary-subtle! border-secondary!",
+    success: "text-success! bg-success-subtle! border-success!",
+    muted: "text-muted! bg-muted-subtle! border-muted!",
   } as const;
 
   const dotClassByStyle = {
@@ -45,7 +45,7 @@ export function BadgeFileStatus({
   } as const;
 
   return (
-    <Badge className={badgeClassByStyle[style]}>
+    <Badge className={`border py-0! ${badgeClassByStyle[style]}`}>
       <div className={`size-1.5 rounded-full ${dotClassByStyle[style]}`} />
       {!isAdmin && status === "Bill" ? "Done" : status}
     </Badge>
