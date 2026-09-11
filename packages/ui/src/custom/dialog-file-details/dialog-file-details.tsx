@@ -42,7 +42,7 @@ export function DialogFileDetails({
   const defaultValues = useMemo(() => {
     return {
       importer: data?.importer,
-      itemCount: data?.itemCount != null ? String(data?.itemCount) : "",
+      itemCount: data?.itemCount != null ? String(data?.itemCount) : "1",
       itemPackage: data?.itemPackage ?? "",
       itemName: data?.itemName ?? "",
       lc: data?.lc ? String(data?.lc) : "",
@@ -78,7 +78,14 @@ export function DialogFileDetails({
   });
 
   const onSubmit = async (FormData: FileDetailsFormOutput) => {
-    await updateFile(fileNo, year, FormData);
+    const formattedData = {
+      ...FormData,
+      itemCount:
+        FormData.itemCount && FormData.itemCount < 1
+          ? FormData.itemCount
+          : undefined,
+    };
+    await updateFile(fileNo, year, formattedData);
     setOpen(false);
   };
 

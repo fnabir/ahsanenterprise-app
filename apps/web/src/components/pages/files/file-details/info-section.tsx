@@ -9,6 +9,7 @@ export default function InfoSection() {
     Importer: data.importer,
     Item: data.itemName,
     Package: data.itemPackage,
+    "Item Count": `${data.itemCount && data.itemCount > 1 ? data.itemCount : 1} item${data.itemCount && data.itemCount > 1 ? "s" : ""}`,
     "B/L No.": data.bl,
     "L/C No.": data.lc && data.lc !== "0" ? data.lc : undefined,
     Vessel: data.vessel,
