@@ -6,8 +6,14 @@ type ChangelogItem = {
 export const changelog: Record<string, ChangelogItem> = {
   "1.5.0": {
     details: [
+      "[FEATURE] Added option to see and edit importer information.",
+      "[FEATURE] Added option for requisition details to save the pdf with letterhead or blank background to allow printing on letterpad.",
       "[UPDATE] Show all the years of Files available.",
       "[UPDATE] Improved performance of the dashboard.",
+      "[UPDATE] Improved the user interface for better usability.",
+      "[UPDATE] Enhanced the print layout for better readability.",
+      "[UPDATE] Major performance improvements.",
+      "[FIX] Preserve the order of expenses added.",
     ],
   },
   "1.4.1": {
