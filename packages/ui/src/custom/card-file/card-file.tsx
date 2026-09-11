@@ -26,7 +26,7 @@ export function CardFile({
   const { isAdmin } = useAuth();
   const [open, setOpen] = useState(false);
 
-  const fileNo = fromFileDbKey(fileKey);
+  const fileNo = Number(fromFileDbKey(fileKey));
 
   const onDeleteFile = async () => {
     await deleteFile(fileNo, year);

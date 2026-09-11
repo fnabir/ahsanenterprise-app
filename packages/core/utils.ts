@@ -16,9 +16,14 @@ export function getCurrentYear(): number {
 
 export function toFileDbKey(fileNo: number | string): string {
   const normalized = String(fileNo).trim();
-  return normalized.startsWith(FILE_DB_KEY_PREFIX)
-    ? normalized
-    : `${FILE_DB_KEY_PREFIX}${normalized}`;
+
+  const raw = normalized.startsWith(FILE_DB_KEY_PREFIX)
+    ? normalized.slice(FILE_DB_KEY_PREFIX.length)
+    : normalized;
+
+  const padded = raw.padStart(3, "0");
+
+  return `${FILE_DB_KEY_PREFIX}${padded}`;
 }
 
 export function fromFileDbKey(fileKey: string): string {
