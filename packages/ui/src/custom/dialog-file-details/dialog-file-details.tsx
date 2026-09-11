@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, type ReactElement } from "react";
-import { FILE_STATUS_OPTIONS, toISODate } from "@repo/core";
+import { FILE_STATUS_OPTIONS, fromISODate, toISODate } from "@repo/core";
 import {
   Button,
   Dialog,
@@ -84,6 +84,18 @@ export function DialogFileDetails({
         FormData.itemCount && FormData.itemCount < 1
           ? FormData.itemCount
           : undefined,
+      beDate: FormData?.beDate
+        ? fromISODate("dd/MM/yyyy", FormData.beDate)
+        : "",
+      assessmentDate: FormData?.assessmentDate
+        ? fromISODate("dd/MM/yy", FormData.assessmentDate)
+        : "",
+      dutyPaymentDate: FormData?.dutyPaymentDate
+        ? fromISODate("dd/MM/yy", FormData.dutyPaymentDate)
+        : "",
+      deliveryDate: FormData?.deliveryDate
+        ? fromISODate("dd/MM/yy", FormData.deliveryDate)
+        : "",
     };
     await updateFile(fileNo, year, formattedData);
     setOpen(false);
