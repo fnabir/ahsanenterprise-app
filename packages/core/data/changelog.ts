@@ -7,7 +7,8 @@ export const changelog: Record<string, ChangelogItem> = {
   "1.5.0": {
     details: [
       "[FEATURE] Added option to see and edit importer information.",
-      "[FEATURE] Added option for requisition details to save the pdf with letterhead or blank background to allow printing on letterpad.",
+      "[FEATURE] Added option to save as pdf or print requisition details with or without letterhead.",
+      "[FEATURE] Allow creating new files with data from previous file.",
       "[UPDATE] Show all the years of Files available.",
       "[UPDATE] Improved performance of the dashboard.",
       "[UPDATE] Improved the user interface for better usability.",

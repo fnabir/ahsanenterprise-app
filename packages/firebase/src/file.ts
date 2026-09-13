@@ -138,6 +138,7 @@ export async function changeFileNo(
   fileYear: number | string,
   currentFileVal: FileData,
   newFileVal?: FileData,
+  copy = false,
 ) {
   const currentFileNoStr = String(currentFileNo);
   const newFileNoStr = String(newFileNo);
@@ -154,19 +155,24 @@ export async function changeFileNo(
   const newLegacyRef = getDatabaseReference(`file/${fileYear}/${newFileNoStr}`);
 
   try {
-    await Promise.all([remove(currentFileRef), remove(currentLegacyRef)]);
-    if (!newFileVal) {
-      await set(newFileRef, currentFileVal);
-    } else {
-      await Promise.all([remove(newFileRef), remove(newLegacyRef)]);
-      await set(newFileRef, currentFileVal);
+    if (copy) {
       await set(currentFileRef, newFileVal);
+    } else {
+      await Promise.all([remove(currentFileRef), remove(currentLegacyRef)]);
+      if (!newFileVal) {
+        await set(newFileRef, currentFileVal);
+      } else {
+        await Promise.all([remove(newFileRef), remove(newLegacyRef)]);
+        await set(newFileRef, currentFileVal);
+        await set(currentFileRef, newFileVal);
+      }
     }
-    toast.success("File number changed successfully.");
+    toast.success(
+      `${copy ? "Copied the file details" : "Changed the file number"} successfully.`,
+    );
   } catch (error) {
-    console.error("Failed to change the file number:", error);
     toast.error(
-      "Failed to change the file number",
+      `Failed to ${copy ? "copy" : "change"} the file number`,
       (error as FirebaseError).message,
     );
   }

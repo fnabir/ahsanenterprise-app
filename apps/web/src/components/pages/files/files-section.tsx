@@ -64,7 +64,7 @@ export default function FilesSection() {
         </DialogFileInfo>
         <DialogFileNoChange files={files} year={year}>
           <Button
-            label="Change File No"
+            label="Change/Copy File No"
             variant="default"
             Icon={<MdSwapHoriz size={20} />}
             className="w-fit"

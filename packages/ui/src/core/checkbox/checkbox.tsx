@@ -19,16 +19,14 @@ export function Checkbox({
           checked={value}
           onChange={(e) => onChange?.(e.target.checked)}
           disabled={disabled}
-          className={`size-5 rounded accent-accent cursor-pointer ${error ? "outline outline-error" : ""}`}
+          className={`size-4 rounded accent-primary cursor-pointer ${error ? "outline outline-error" : ""}`}
         />
         {label && <span className="text-primary">{label}</span>}
       </label>
       {error ? (
-        <p className="text-xs text-error">{error}</p>
+        <p className="text-xs text-danger">{error}</p>
       ) : (
-        helperText && (
-          <p className="text-xs text-muted-foreground">{helperText}</p>
-        )
+        helperText && <p className="text-xs text-muted">{helperText}</p>
       )}
     </div>
   );
