@@ -9,15 +9,16 @@ import {
   useRequisitionDetails,
   useRequisitionLoading,
 } from "@repo/core";
-import { Files, RequisitionExpense } from "@repo/types";
+import { Files, RequisitionDetails } from "@repo/types";
 
 export interface RequisitionDetailsProviderType {
   loading: boolean;
   year: string;
   requisitionNo: string;
   requisitionRef: string;
-  expenses: RequisitionExpense[];
-  lcs: (string | undefined | null)[];
+  fileCount: number;
+  expenses: RequisitionDetails[];
+  lcsString?: string;
   date: {
     letter: string | null;
     arrival: string | null;
@@ -40,17 +41,21 @@ export const RequisitionDetailsProvider = ({
   const data = useRequisitionDetails(year, requisitionNo);
   const files: Files = useFilesByYear(year);
 
-  const expenses: RequisitionExpense[] = Object.entries(data?.files ?? {}).map(
-    ([fileNo, fileExpense]) => ({
-      fileNo,
-      itemName: files[fileNo] ? files[fileNo]?.itemName : "N/A",
-      lc: files[fileNo]?.lc,
-      duty: files[fileNo]?.total?.duty ?? 0,
-      ...fileExpense,
-    }),
-  );
+  const fileCount = Object.keys(data?.files ?? {}).length;
+
+  const expenses: RequisitionDetails[] =
+    fileCount > 0
+      ? Object.entries(data?.files ?? {}).map(([fileNo, fileExpense]) => ({
+          fileNo,
+          itemName: files[fileNo] ? files[fileNo]?.itemName : "N/A",
+          lc: files[fileNo]?.lc,
+          duty: files[fileNo]?.total?.duty ?? 0,
+          ...fileExpense,
+        }))
+      : [];
 
   const lcs = Object.values(expenses).map((file) => file.lc);
+  const lcsString = lcs && lcs.length > 0 ? lcs.join(", ") : "-";
 
   const letter = data?.letterDate
     ? new Date(data.letterDate).toLocaleDateString("en-GB")
@@ -69,7 +74,7 @@ export const RequisitionDetailsProvider = ({
   };
 
   const subtotalPerFile = expenses.map((expense) => {
-    const keys: (keyof RequisitionExpense)[] = [
+    const keys: (keyof RequisitionDetails)[] = [
       "duty",
       "port",
       "noc",
@@ -93,8 +98,9 @@ export const RequisitionDetailsProvider = ({
     year,
     requisitionNo,
     requisitionRef,
+    fileCount,
     expenses,
-    lcs,
+    lcsString,
     date,
     subtotalPerFile,
     total,

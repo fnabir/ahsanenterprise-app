@@ -81,7 +81,7 @@ export type GroupedFileItem = {
   data: FileData;
 };
 
-export type RequisitionFile = {
+export type RequisitionExpense = {
   assessment?: number;
   examine?: number;
   labour?: number;
@@ -90,7 +90,7 @@ export type RequisitionFile = {
   section?: number;
   truck?: number;
 };
-export interface RequisitionExpense extends RequisitionFile {
+export interface RequisitionDetails extends RequisitionExpense {
   fileNo: string;
   itemName?: string;
   lc?: string | null;
@@ -101,7 +101,7 @@ export type RequisitionData = {
   arrival: string;
   delivery: string;
   letterDate: number;
-  files: Record<string, RequisitionFile>;
+  files: Record<string, RequisitionExpense>;
 };
 
 export type RequisitionYear = Record<string, RequisitionData>;

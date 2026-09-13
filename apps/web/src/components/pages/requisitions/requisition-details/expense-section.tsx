@@ -1,18 +1,11 @@
 import { useRequisitionDetailsContext } from "@/contexts/RequisitionDetailsContext";
-import { RequisitionFile } from "@repo/types";
+import { RequisitionDetails } from "@repo/types";
 import { Number } from "@repo/ui";
 import { REQUISITION_EXPENSE_FIELDS } from "@repo/core";
 
-export interface RequisitionExpense extends RequisitionFile {
-  fileNo: string;
-  itemName?: string;
-  lc?: string | null;
-  duty?: number;
-}
-
 export const shouldShowRow = (
-  key: keyof RequisitionExpense,
-  data: RequisitionExpense[],
+  key: keyof RequisitionDetails,
+  data: RequisitionDetails[],
 ) => {
   return data.some((expense) => {
     const value = expense[key];
@@ -21,14 +14,15 @@ export const shouldShowRow = (
 };
 
 export default function ExpenseSection() {
-  const { expenses, subtotalPerFile, total } = useRequisitionDetailsContext();
+  const { expenses, subtotalPerFile, total, fileCount } =
+    useRequisitionDetailsContext();
   if (!expenses?.length) return null;
 
   return (
     <table className="w-full border-collapse text-xs my-4">
       <tbody>
         {REQUISITION_EXPENSE_FIELDS.map(({ label, key }) => {
-          if (!shouldShowRow(key as keyof RequisitionExpense, expenses)) {
+          if (!shouldShowRow(key as keyof RequisitionDetails, expenses)) {
             return null;
           }
           return (
@@ -38,7 +32,7 @@ export default function ExpenseSection() {
               </th>
 
               {expenses.map((expense) => {
-                const value = expense[key as keyof RequisitionExpense];
+                const value = expense[key as keyof RequisitionDetails];
                 const isCurrency =
                   REQUISITION_EXPENSE_FIELDS.find((field) => field.key === key)
                     ?.isCurrency && typeof value === "number";
@@ -57,7 +51,7 @@ export default function ExpenseSection() {
                         valueClassName="font-sans"
                       />
                     ) : (
-                      (expense[key as keyof RequisitionExpense] ?? "—")
+                      (expense[key as keyof RequisitionDetails] ?? "—")
                     )}
                   </td>
                 );
@@ -92,10 +86,7 @@ export default function ExpenseSection() {
             Total
           </th>
 
-          <td
-            colSpan={expenses.length - 1}
-            className="border-b border-foreground"
-          />
+          <td colSpan={fileCount - 1} className="border-b border-foreground" />
           <td className="border-b border-r border-foreground px-2 py-1 text-end font-bold">
             <Number
               value={total}
