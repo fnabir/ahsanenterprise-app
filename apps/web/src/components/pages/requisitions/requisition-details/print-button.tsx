@@ -65,8 +65,8 @@ export default function PrintButton({ letterpad }: { letterpad: boolean }) {
         .join("");
 
       const subtotalRows = `
-      <tr>
-        <th style="font-weight:bold;">Subtotal</th>
+      <tr style="font-weight:bold;">
+        <th>Subtotal</th>
         ${subtotalPerFile
           .map(
             (subtotal) => `
