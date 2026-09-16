@@ -3,12 +3,22 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { signOut } from "@repo/firebase";
-import { Button } from "@repo/ui";
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@repo/ui";
 import Breadcrumb from "./breadcrumb";
 import ThemeToggle from "./theme-toggle";
 import { useBreadcrumb } from "@/contexts/BreadcrumbContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useIsMobile } from "@repo/core";
+import { MdAccountCircle, MdLogout } from "react-icons/md";
+
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/files", label: "Files" },
@@ -51,14 +61,49 @@ export default function Header() {
       )}
       <div className="flex flex-row items-center gap-2">
         {user && (
-          <Button
-            onClick={handleSignOut}
-            ariaLabel="Logout Button"
-            label={isMobile ? undefined : "Logout"}
-            variant="danger"
-            Icon={<MdLogout />}
-            className={isMobile ? "p-1!" : ""}
-          />
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                isMobile ? (
+                  <Button
+                    className="p-1!"
+                    variant="subtle"
+                    Icon={<MdAccountCircle />}
+                  />
+                ) : (
+                  <Button
+                    className="py-1! px-2!"
+                    variant="subtle"
+                    label={user.displayName ?? "User"}
+                  />
+                )
+              }
+            />
+            <DropdownMenuContent className="w-38">
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link
+                    className={"flex space-x-2 items-center"}
+                    href={"/account-details"}
+                  >
+                    <MdAccountCircle />
+                    <span>Account Details</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  variant="destructive"
+                  className="cursor-pointer"
+                  onClick={handleSignOut}
+                >
+                  <MdLogout />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         )}
         <ThemeToggle />
       </div>
