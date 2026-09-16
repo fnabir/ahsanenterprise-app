@@ -44,7 +44,7 @@ export default function Header() {
           {LINKS.map((link) => (
             <li key={link.href}>
               {pathname === link.href ? (
-                <span className="text-primary bg-primary-subtle px-4 py-1 rounded-full">
+                <span className="text-primary bg-primary-subtle px-4 py-1 rounded-full cursor-default">
                   {link.label}
                 </span>
               ) : (
