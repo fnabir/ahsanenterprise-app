@@ -7,3 +7,6 @@ export * from "./file-details.schema";
 export * from "./file-duty.schema";
 export * from "./file-expense.schema";
 export * from "./file-total.schema";
+export * from "./user.schema";
+export * from "./password-change.schema";
+export * from "./password-forget.schema";
