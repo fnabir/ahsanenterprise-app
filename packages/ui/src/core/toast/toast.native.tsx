@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
-import { toastStore } from './store';
-import { Toast } from './types';
+import { useEffect, useRef } from "react";
+import { Animated, Pressable, Text, View } from "react-native";
+import { toastStore } from "./store";
+import { ToastProps } from "./types";
 
 const variantStyles = {
-  success: 'border-green-700 bg-green-700',
-  error: 'border-red-700 bg-red-700',
-  info: 'border-sky-700 bg-sky-700',
-  warning: 'border-yellow-700 bg-yellow-700',
+  success: "border-green-700 bg-green-700",
+  error: "border-red-700 bg-red-700",
+  info: "border-sky-700 bg-sky-700",
+  warning: "border-yellow-700 bg-yellow-700",
 };
 
-export function ToastItem({ toast }: { toast: Toast }) {
+export function Toast({ toast }: { toast: ToastProps }) {
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
 
@@ -58,7 +58,7 @@ export function ToastItem({ toast }: { toast: Toast }) {
         >
           {toast.title && (
             <Text
-              className={`text-lg font-semibold text-white ${toast.description ? 'mb-1' : ''}`}
+              className={`text-lg font-semibold text-white ${toast.description ? "mb-1" : ""}`}
             >
               {toast.title}
             </Text>

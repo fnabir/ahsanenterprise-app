@@ -6,6 +6,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "devDependencies": {
+    "nativewind": "5.0.0-rc.0"
+  },
   "dependencies": {
     "@repo/core": "workspace:*",
     "@repo/firebase": "workspace:*",
