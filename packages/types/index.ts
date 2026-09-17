@@ -19,6 +19,13 @@ export type ImporterData = {
 };
 export type ImporterRoot = Record<string, ImporterData>;
 
+export type UserData = {
+  name?: string;
+  phone?: string;
+  role?: string;
+  title?: string;
+};
+
 export type FileData = {
   importer?: string;
   itemCount?: number | null;

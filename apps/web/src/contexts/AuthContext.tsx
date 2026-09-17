@@ -7,15 +7,7 @@ import { User } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import { useObjectVal } from "react-firebase-hooks/database";
-
-interface UserData {
-  name?: string;
-  role?: string;
-  roll?: number;
-  salary?: number;
-  title?: string;
-}
-
+import type { UserData } from "@repo/types";
 interface AuthContextType {
   user?: User | null;
   userData?: UserData | null;
