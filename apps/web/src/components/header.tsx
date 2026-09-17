@@ -27,7 +27,7 @@ const LINKS = [
 
 export default function Header() {
   const { items } = useBreadcrumb();
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
   const isMobile = useIsMobile();
   const pathname = usePathname();
 
@@ -74,7 +74,7 @@ export default function Header() {
                   <Button
                     className="py-1! px-2!"
                     variant="subtle"
-                    label={user.displayName ?? "User"}
+                    label={userData?.name ?? user.displayName ?? "User"}
                   />
                 )
               }

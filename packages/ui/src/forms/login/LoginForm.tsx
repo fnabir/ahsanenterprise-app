@@ -154,7 +154,7 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
         }
       />
 
-      <Link href="/forgot-password" className="text-sm text-primary">
+      <Link href="/forget-password" className="text-sm text-primary">
         Forgot Password?
       </Link>
 

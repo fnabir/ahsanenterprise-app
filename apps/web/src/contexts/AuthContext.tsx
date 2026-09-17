@@ -8,6 +8,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import { useObjectVal } from "react-firebase-hooks/database";
 import type { UserData } from "@repo/types";
+
 interface AuthContextType {
   user?: User | null;
   userData?: UserData | null;
@@ -19,7 +20,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const PUBLIC_ROUTES = ["/login", "/forgot-password"];
+const PUBLIC_ROUTES = ["/login", "/forget-password"];
 const ADMIN_ROUTES = [
   "/importer-balance",
   "/staff-balance",
