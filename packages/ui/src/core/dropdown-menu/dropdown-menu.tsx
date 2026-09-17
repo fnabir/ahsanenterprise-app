@@ -82,7 +82,7 @@ function DropdownMenuItem({
       data-slot="dropdown-menu-item"
       data-inset={inset}
       data-variant={variant}
-      className={`group/dropdown-menu-item relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-[13px] outline-hidden select-none focus:bg-primary focus:text-primary-subtle not-data-[variant=destructive]:focus:**:text-primary-subtle data-inset:pl-7 data-[variant=destructive]:text-danger data-[variant=destructive]:focus:bg-danger/10 data-[variant=destructive]:focus:text-danger dark:data-[variant=destructive]:focus:bg-danger/20 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[variant=destructive]:*:[svg]:text-danger ${className}`}
+      className={`group/dropdown-menu-item relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-[13px] outline-hidden select-none focus:bg-primary-subtle data-inset:pl-7 data-[variant=destructive]:text-danger data-[variant=destructive]:focus:bg-danger/10 dark:data-[variant=destructive]:focus:bg-danger/20 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-[variant=destructive]:*:[svg]:text-danger ${className}`}
       {...props}
     />
   );
