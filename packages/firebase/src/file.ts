@@ -27,15 +27,11 @@ export async function updateFile(
   fileYear: number | string,
   data: FileData,
 ) {
-  const prefixedRef = getDatabaseReference(
+  const fileRef = getDatabaseReference(
     `file/${fileYear}/${toFileDbKey(fileNo)}`,
   );
-  const legacyRef = getDatabaseReference(`file/${fileYear}/${fileNo}`);
 
   try {
-    const prefixedSnapshot = await get(prefixedRef);
-    const fileRef = prefixedSnapshot.exists() ? prefixedRef : legacyRef;
-
     await update(fileRef, sanitizeData(data));
     toast.success("File updated successfully.");
   } catch (error) {
@@ -49,17 +45,11 @@ export async function updateFileExpense(
   expenseType: "port" | "custom" | "delivery" | "other",
   data: FileData,
 ) {
-  const prefixedRef = getDatabaseReference(
+  const fileRef = getDatabaseReference(
     `file/${fileYear}/${toFileDbKey(fileNo)}/${expenseType}`,
-  );
-  const legacyRef = getDatabaseReference(
-    `file/${fileYear}/${fileNo}/${expenseType}`,
   );
 
   try {
-    const legacySnapshot = await get(legacyRef);
-    const fileRef = legacySnapshot.exists() ? legacyRef : prefixedRef;
-
     await set(fileRef, sanitizeData(data));
     toast.success(
       getFullFileNo(fileNo, fileYear),
@@ -80,15 +70,11 @@ export async function updateFileStatus(
   status: string,
 ) {
   const fileCode = getFullFileNo(fileNo, fileYear);
-  const prefixedRef = getDatabaseReference(
+  const fileRef = getDatabaseReference(
     `file/${fileYear}/${toFileDbKey(fileNo)}`,
   );
-  const legacyRef = getDatabaseReference(`file/${fileYear}/${fileNo}`);
 
   try {
-    const prefixedSnapshot = await get(prefixedRef);
-    const fileRef = prefixedSnapshot.exists() ? prefixedRef : legacyRef;
-
     await update(fileRef, { status });
     const toastId = toast.add({
       title: fileCode,
@@ -116,13 +102,12 @@ export async function deleteFile(
 ) {
   const fileNoStr = String(fileNo);
   const fileCode = getFullFileNo(fileNo, fileYear);
-  const prefixedRef = getDatabaseReference(
+  const fileRef = getDatabaseReference(
     `file/${fileYear}/${toFileDbKey(fileNoStr)}`,
   );
-  const legacyRef = getDatabaseReference(`file/${fileYear}/${fileNoStr}`);
 
   try {
-    await Promise.all([remove(prefixedRef), remove(legacyRef)]);
+    await remove(fileRef);
     toast.success(fileCode, "File deleted successfully.");
   } catch (error) {
     console.error("Failed to delete the file:", error);
@@ -147,20 +132,16 @@ export async function changeFileNo(
     `file/${fileYear}/${currentFileKey}`,
   );
   const newFileRef = getDatabaseReference(`file/${fileYear}/${newFileKey}`);
-  const currentLegacyRef = getDatabaseReference(
-    `file/${fileYear}/${currentFileNoStr}`,
-  );
-  const newLegacyRef = getDatabaseReference(`file/${fileYear}/${newFileNoStr}`);
 
   try {
     if (copy) {
       await set(currentFileRef, newFileVal);
     } else {
-      await Promise.all([remove(currentFileRef), remove(currentLegacyRef)]);
+      await remove(currentFileRef);
       if (!newFileVal) {
         await set(newFileRef, currentFileVal);
       } else {
-        await Promise.all([remove(newFileRef), remove(newLegacyRef)]);
+        await remove(newFileRef);
         await set(newFileRef, currentFileVal);
         await set(currentFileRef, newFileVal);
       }
