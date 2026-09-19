@@ -1,12 +1,10 @@
 import { FileData, RequisitionData } from "@repo/types";
 import { getDatabaseReference, sanitizeData } from "./helpers";
 import { remove, set, update, get } from "firebase/database";
-import {
-  REQUISITION_DB_KEY_PREFIX,
-  getFullFileNo,
-  toFileDbKey,
-} from "../../core";
-import { toast } from "../../ui";
+import { REQUISITION_DB_KEY_PREFIX } from "../../core/constants";
+import { toFileDbKey } from "../../core/utils";
+import { getFullFileNo } from "../../core/utils";
+import { toast } from "../../ui/src/core/toast";
 import { FirebaseError } from "firebase/app";
 
 export async function addNewFile(
@@ -59,8 +57,8 @@ export async function updateFileExpense(
   );
 
   try {
-    const prefixedSnapshot = await get(prefixedRef);
-    const fileRef = prefixedSnapshot.exists() ? prefixedRef : legacyRef;
+    const legacySnapshot = await get(legacyRef);
+    const fileRef = legacySnapshot.exists() ? legacyRef : prefixedRef;
 
     await set(fileRef, sanitizeData(data));
     toast.success(
