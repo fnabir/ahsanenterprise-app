@@ -3,7 +3,8 @@
 import { create } from "zustand";
 import { onValue, off } from "firebase/database";
 import { onIdTokenChanged } from "firebase/auth";
-import { getDatabaseReference, auth } from "@repo/firebase";
+import { auth } from "../../firebase/src/client";
+import { getDatabaseReference } from "../../firebase/src/helpers";
 import type { FileRoot } from "@repo/types";
 import type { FirebaseError } from "firebase/app";
 

@@ -1,7 +1,7 @@
 import { initializeApp, getApps, type FirebaseApp } from "firebase/app";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getDatabase, Database } from "firebase/database";
-import { getFirebaseConfig } from "./config";
+import { getFirebaseConfig } from "../config";
 
 // Initialize Firebase
 const config = getFirebaseConfig();

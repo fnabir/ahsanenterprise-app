@@ -1,7 +1,7 @@
 import type { ImporterData, UserData } from "@repo/types";
 import { update, remove } from "firebase/database";
 import { getDatabaseReference } from "./helpers";
-import { toast } from "../../ui";
+import { toast } from "../../ui/src/core/toast";
 import { FirebaseError } from "firebase/app";
 
 export async function updateImporterInfo(importer: string, data: ImporterData) {

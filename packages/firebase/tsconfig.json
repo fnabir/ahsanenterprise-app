@@ -8,7 +8,7 @@
     "strict": true,
     "types": ["node"],
     "paths": {
-      "@repo/database": ["./src"]
+      "@repo/firebase": ["./src"]
     }
   },
   "include": ["src"],

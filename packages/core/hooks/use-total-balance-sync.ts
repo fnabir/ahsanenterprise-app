@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useObjectVal } from "react-firebase-hooks/database";
-import { getDatabaseReference } from "@repo/firebase";
+import { getDatabaseReference } from "../../firebase/src/helpers";
 import { set } from "firebase/database";
 
 export function TotalBalanceSync({
