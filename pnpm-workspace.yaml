@@ -13,11 +13,19 @@ allowBuilds:
   unrs-resolver: true
 
 minimumReleaseAgeExclude:
-  - "@expo/cli@57.0.25"
+  - '@expo/cli@57.0.25 || 57.0.26'
   - "@expo/router-server@57.0.10"
   - babel-preset-expo@57.0.12
-  - expo@57.0.23
-  - prettier@3.9.7
+  - expo@57.0.23 || 57.0.24
+  - prettier@3.9.7 || 3.9.8
+  - '@react-navigation/bottom-tabs@7.19.2'
+  - '@react-navigation/elements@2.9.43'
+  - expo-asset@57.0.18
+  - expo-constants@57.0.19
+  - '@expo/metro-runtime@57.0.16'
+  - '@expo/ui@57.0.19'
+  - expo-router@57.0.22
+  - '@types/node@24.13.6'
 
 nodeLinker: hoisted
 
