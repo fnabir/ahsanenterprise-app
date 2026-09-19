@@ -5,25 +5,25 @@ import { inputStyles } from "./styles";
 import { useState } from "react";
 import { Label } from "../label";
 
-export function Input(props: InputProps) {
-  const {
-    value,
-    onChangeText,
-    onBlur,
-    label,
-    placeholder,
-    helperText,
-    error,
-    secureTextEntry,
-    type = "text",
-    allowDecimal = false,
-    disabled,
-    required,
-    startAdornment,
-    endAdornment,
-    className = "",
-  } = props;
+type InputType = "text" | "email" | "password" | "number" | "date";
 
+export function Input({
+  value,
+  onChangeText,
+  onBlur,
+  label,
+  placeholder,
+  helperText,
+  error,
+  type = "text",
+  allowDecimal = false,
+  disabled,
+  required,
+  startAdornment,
+  endAdornment,
+  className = "",
+}: InputProps & { type?: InputType }) {
+  const secureTextEntry = type === "password";
   const [showPassword, setShowPassword] = useState(false);
 
   const isNumber = type === "number";

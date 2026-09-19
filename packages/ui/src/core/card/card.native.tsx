@@ -6,10 +6,7 @@ const Card = ({
   ...props
 }: React.ComponentProps<typeof View>) => {
   return (
-    <View
-      className={`bg-card text-card-foreground px-4 py-2 shadow hover:shadow-lg ${className ?? ""}`}
-      {...props}
-    >
+    <View className={`bg-surface p-4 shadow ${className ?? ""}`} {...props}>
       {children}
     </View>
   );

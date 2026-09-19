@@ -1,20 +1,8 @@
 "use client";
 
-import { Control, FieldValues, Path, useController } from "react-hook-form";
+import { FieldValues, useController } from "react-hook-form";
 import { Textarea } from "../../core/textarea";
-
-type FormTextareaProps<
-  T extends FieldValues,
-  TContext = any,
-  TTransformedValues extends FieldValues | undefined = T,
-> = {
-  name: Path<T>;
-  control: Control<T, TContext, TTransformedValues>;
-  label?: string;
-  helperText?: string;
-  required?: boolean;
-  className?: string;
-} & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+import type { FormTextareaProps } from "./types";
 
 export function FormTextarea<
   T extends FieldValues,
@@ -28,7 +16,8 @@ export function FormTextarea<
   required,
   className,
   ...props
-}: FormTextareaProps<T, TContext, TTransformedValues>) {
+}: FormTextareaProps<T, TContext, TTransformedValues> &
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   const {
     field,
     fieldState: { error },

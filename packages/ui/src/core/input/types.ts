@@ -1,3 +1,5 @@
+export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
+
 export interface InputProps {
   value?: string | number;
   onChangeText?: (text: string) => void;
@@ -12,11 +14,10 @@ export interface InputProps {
   disabled?: boolean;
   required?: boolean;
 
-  type?: "text" | "email" | "password" | "number" | "date";
   allowDecimal?: boolean;
 
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
-
+  returnKeyType?: ReturnKeyType;
   className?: string;
 }

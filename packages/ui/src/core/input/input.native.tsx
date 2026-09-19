@@ -1,26 +1,10 @@
 import { useState } from "react";
 import { Text, TextInput, View, Pressable, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { ThemedIcon } from "../../../../apps/mobile/src/components/ThemedIcon";
+import { ThemedIcon } from "../../../../../apps/mobile/src/components/ThemedIcon";
+import type { InputProps } from "./types";
 
-export type InputType = "text" | "number" | "password" | "date";
-
-export type InputProps = {
-  value?: string;
-  onChangeText?: (value: string) => void;
-  onBlur?: (value?: string) => void;
-  label?: string;
-  placeholder?: string;
-  helperText?: string;
-  error?: string;
-  disabled?: boolean;
-  type?: InputType;
-  allowDecimal?: boolean;
-  startAdornment?: React.ReactNode;
-  endAdornment?: React.ReactNode;
-  returnKeyType?: "next" | "done";
-  className?: string;
-};
+type InputType = "text" | "number" | "password" | "date";
 
 export function Input({
   value = "",
@@ -32,11 +16,12 @@ export function Input({
   error,
   disabled = false,
   type = "text",
-  allowDecimal = true,
+  allowDecimal = false,
   startAdornment,
   endAdornment,
+  returnKeyType,
   className = "",
-}: InputProps) {
+}: InputProps & { type?: InputType; returnKeyType?: "next" | "done" }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -100,7 +85,7 @@ export function Input({
             <Text
               className={`flex-1 text-base ${value ? "text-primary" : "text-muted"}`}
             >
-              {displayDate(value) || placeholder || "Select date"}
+              {displayDate(value.toString()) || placeholder || "Select date"}
             </Text>
             <ThemedIcon name="calendar" size={20} />
             {endAdornment}
@@ -108,7 +93,7 @@ export function Input({
 
           {showDatePicker && (
             <DateTimePicker
-              value={parseDate(value)}
+              value={parseDate(value.toString())}
               mode="date"
               display={Platform.OS === "ios" ? "spinner" : "default"}
               onChange={(_event, selectedDate) => {
@@ -161,6 +146,7 @@ export function Input({
             editable={!disabled}
             keyboardType={isNumeric ? "decimal-pad" : "default"}
             className="flex-1 text-primary h-11"
+            returnKeyType={returnKeyType}
           />
 
           {isPassword && (

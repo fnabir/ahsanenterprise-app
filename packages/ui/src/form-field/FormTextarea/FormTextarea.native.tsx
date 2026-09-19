@@ -1,16 +1,7 @@
-import { Control, FieldValues, Path, useController } from 'react-hook-form';
-import { Text, View } from 'react-native';
-import { Textarea } from '../../textarea';
-
-type FormTextareaProps<T extends FieldValues> = {
-  name: Path<T>;
-  control: Control<T>;
-  label?: string;
-  helperText?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  className?: string;
-};
+import type { FormTextareaProps } from "./types";
+import { FieldValues, useController } from "react-hook-form";
+import { Text, TextInput, View } from "react-native";
+import { Textarea } from "../../core/textarea";
 
 export function FormTextarea<T extends FieldValues>({
   name,
@@ -18,16 +9,16 @@ export function FormTextarea<T extends FieldValues>({
   label,
   helperText,
   placeholder,
-  disabled,
   className,
-}: FormTextareaProps<T>) {
+  ...props
+}: FormTextareaProps<T> & React.ComponentProps<typeof TextInput>) {
   const {
     field,
     fieldState: { error },
   } = useController({ name, control });
 
   return (
-    <View className={`gap-1 ${className ?? ''}`}>
+    <View className={`gap-1 ${className ?? ""}`}>
       {label && (
         <Text className="text-sm text-primary font-medium">{label}</Text>
       )}
@@ -35,10 +26,9 @@ export function FormTextarea<T extends FieldValues>({
       <Textarea
         value={field.value}
         onChangeText={field.onChange}
-        onBlur={field.onBlur}
         placeholder={placeholder}
-        editable={!disabled}
         error={!!error}
+        {...props}
       />
 
       {error ? (
