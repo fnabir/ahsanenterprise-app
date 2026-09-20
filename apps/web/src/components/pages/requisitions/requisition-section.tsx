@@ -8,7 +8,13 @@ import {
   useYear,
 } from "@repo/core";
 import Loading from "@/components/loading";
-import { Button, CardRequisition, Skeleton, Select, Label } from "@repo/ui";
+import {
+  Button,
+  CardRequisition,
+  Select,
+  Label,
+  DialogRequisitionInfo,
+} from "@repo/ui";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaPlus } from "react-icons/fa";
 
@@ -47,12 +53,14 @@ export default function RequisitionSection() {
           options={getYearsRange()}
           className="max-w-28"
         />
-        <Button
-          label="Add Requisition"
-          variant="subtle"
-          Icon={<FaPlus />}
-          className="w-fit"
-        />
+        <DialogRequisitionInfo year={year}>
+          <Button
+            label="Add Requisition"
+            variant="subtle"
+            Icon={<FaPlus />}
+            className="w-fit"
+          />
+        </DialogRequisitionInfo>
       </div>
       <div className="flex-1 overflow-y-auto pt-1.5 lg:pt-3 pb-2 lg:pb-4 px-2 lg:px-4">
         <AnimatePresence mode="wait">

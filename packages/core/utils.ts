@@ -1,4 +1,4 @@
-import { FILE_DB_KEY_PREFIX } from "./constants";
+import { FILE_DB_KEY_PREFIX, REQUISITION_DB_KEY_PREFIX } from "./constants";
 import { parse, isValid, format } from "date-fns";
 
 type ClassValue = string | number | boolean | undefined | null;
@@ -27,9 +27,35 @@ export function toFileDbKey(fileNo: number | string): string {
 }
 
 export function fromFileDbKey(fileKey: string): string {
-  return fileKey.startsWith(FILE_DB_KEY_PREFIX)
-    ? fileKey.slice(FILE_DB_KEY_PREFIX.length)
-    : fileKey;
+  return String(
+    Number(
+      fileKey.startsWith(FILE_DB_KEY_PREFIX)
+        ? fileKey.slice(FILE_DB_KEY_PREFIX.length)
+        : fileKey,
+    ),
+  );
+}
+
+export function fromRequisitionDbKey(requisitionKey: string): string {
+  return String(
+    Number(
+      requisitionKey.startsWith(REQUISITION_DB_KEY_PREFIX)
+        ? requisitionKey.slice(REQUISITION_DB_KEY_PREFIX.length)
+        : requisitionKey,
+    ),
+  );
+}
+
+export function toRequisitionDbKey(requisitionNo: number | string): string {
+  const normalized = String(requisitionNo).trim();
+
+  const raw = normalized.startsWith(REQUISITION_DB_KEY_PREFIX)
+    ? normalized.slice(REQUISITION_DB_KEY_PREFIX.length)
+    : normalized;
+
+  const padded = raw.padStart(3, "0");
+
+  return `${REQUISITION_DB_KEY_PREFIX}${padded}`;
 }
 
 export function getFullFileNo(

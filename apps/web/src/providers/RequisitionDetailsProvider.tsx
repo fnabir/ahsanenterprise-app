@@ -9,13 +9,14 @@ import {
   useRequisitionDetails,
   useRequisitionLoading,
 } from "@repo/core";
-import { Files, RequisitionDetails } from "@repo/types";
+import { Files, RequisitionDetails, RequisitionData } from "@repo/types";
 
 export interface RequisitionDetailsProviderType {
   loading: boolean;
   year: string;
   requisitionNo: string;
   requisitionRef: string;
+  data: RequisitionData | null;
   fileCount: number;
   expenses: RequisitionDetails[];
   lcsString?: string;
@@ -39,26 +40,31 @@ export const RequisitionDetailsProvider = ({
 
   const requisitionRef = getFullRequisitionNo(requisitionNo, year);
   const data = useRequisitionDetails(year, requisitionNo);
+  console.log(requisitionNo);
   const files: Files = useFilesByYear(year);
 
   const fileCount = Object.keys(data?.files ?? {}).length;
 
   const expenses: RequisitionDetails[] =
     fileCount > 0
-      ? Object.entries(data?.files ?? {}).map(([fileNo, fileExpense]) => ({
-          fileNo,
-          itemName: files[fileNo] ? files[fileNo]?.itemName : "N/A",
-          lc: files[fileNo]?.lc,
-          duty: files[fileNo]?.total?.duty ?? 0,
-          ...fileExpense,
-        }))
+      ? Object.entries(data?.files ?? {}).map(([fileNo, fileExpense]) => {
+          const file = files[fileNo];
+
+          return {
+            fileNo,
+            itemName: file ? file?.itemName : "N/A",
+            lc: file?.lc,
+            duty: file?.total?.duty ?? 0,
+            ...fileExpense,
+          };
+        })
       : [];
 
   const lcs = Object.values(expenses).map((file) => file.lc);
   const lcsString = lcs && lcs.length > 0 ? lcs.join(", ") : "-";
 
-  const letter = data?.letterDate
-    ? new Date(data.letterDate).toLocaleDateString("en-GB")
+  const letter = data?.letter
+    ? new Date(data.letter).toLocaleDateString("en-GB")
     : null;
   const arrival = data?.arrival
     ? new Date(data.arrival).toLocaleDateString("en-GB")
@@ -98,6 +104,7 @@ export const RequisitionDetailsProvider = ({
     year,
     requisitionNo,
     requisitionRef,
+    data: data,
     fileCount,
     expenses,
     lcsString,
