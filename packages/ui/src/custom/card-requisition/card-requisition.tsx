@@ -4,9 +4,8 @@ import Link from "next/link";
 import { Button, Card, DialogDelete, RowData } from "../..";
 import { FaRegEye } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
-import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
 import { useState } from "react";
-import { getFullRequisitionNo } from "../../../../core/utils";
+import { getFullRequisitionNo, fromFileDbKey } from "../../../../core/utils";
 
 export function CardRequisition({
   year,
@@ -19,7 +18,6 @@ export function CardRequisition({
 }) {
   const fileNos = data?.files ? Object.keys(data.files) : [];
 
-  const { isAdmin } = useAuth();
   const [open, setOpen] = useState(false);
 
   const onDeleteFile = () => {
@@ -35,7 +33,7 @@ export function CardRequisition({
       <div className="py-1">
         <RowData
           label="Letter Date"
-          value={new Date(data.letterDate).toLocaleDateString("en-GB")}
+          value={new Date(data.letter).toLocaleDateString("en-GB")}
         />
         <RowData
           label="Arrival Date"
@@ -56,7 +54,7 @@ export function CardRequisition({
                 key={fileNo}
                 className={`text-primary bg-primary-subtle py-px px-1.25 w-fit rounded-lg`}
               >
-                #{fileNo}
+                #{fromFileDbKey(fileNo)}
               </div>
             ))}
           </div>
