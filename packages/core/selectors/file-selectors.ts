@@ -44,20 +44,6 @@ const normalizeYearFiles = (yearFiles?: Record<string, FileData> | null) => {
   return normalized;
 };
 
-const getFileByAnyKey = (
-  yearFiles: Record<string, FileData> | undefined,
-  fileNo: string,
-) => {
-  if (!yearFiles) return null;
-
-  return (
-    yearFiles[fileNo] ??
-    yearFiles[toFileDbKey(fileNo)] ??
-    yearFiles[fromFileDbKey(fileNo)] ??
-    null
-  );
-};
-
 const sumExpenseValues = (
   data?:
     | Record<string, { value?: number }>
@@ -153,8 +139,8 @@ export const useFilesByStatus = (status: string) => {
 };
 
 export const useFileTotals = (year: string, fileNo: string) => {
-  const data: FileData | null = useFileStore((s) =>
-    getFileByAnyKey(s.file?.[year], fileNo),
+  const data: FileData | null = useFileStore(
+    (s) => s.file?.[year]?.[toFileDbKey(fileNo)] ?? null,
   );
 
   return useMemo(() => {
@@ -193,7 +179,7 @@ export const useFileTotals = (year: string, fileNo: string) => {
   }, [data]);
 };
 
-export const useFilesByYear = (year: string) => {
+export const useFilesByYear = (year: string | number) => {
   const yearFiles = useFileStore((s) => s.file?.[year]);
 
   return useMemo(() => normalizeYearFiles(yearFiles), [yearFiles]);
@@ -203,7 +189,7 @@ export const useFileDetails: (
   year: string,
   fileNo: string,
 ) => FileData | null = (year: string, fileNo: string) =>
-  useFileStore((s) => getFileByAnyKey(s.file?.[year], fileNo));
+  useFileStore((s) => s.file?.[year]?.[toFileDbKey(fileNo)] ?? null);
 
 export const useFileLoading = () => useFileStore((s) => s.loading);
 
