@@ -19,7 +19,7 @@ export type RequisitionInfoFormOutput = z.output<
   typeof RequisitionInfoFormSchema
 >;
 
-export const RequisitionChargeFormSchema = z.object({
+export const RequisitionExpenseFormSchema = z.object({
   port: optionalNonNegativeNumberField("Port Expense"),
   noc: optionalNonNegativeNumberField("NOC Expense"),
   examine: optionalNonNegativeNumberField("Examine Expense"),
@@ -30,8 +30,8 @@ export const RequisitionChargeFormSchema = z.object({
 });
 
 export type RequisitionExpenseFormInput = z.input<
-  typeof RequisitionChargeFormSchema
+  typeof RequisitionExpenseFormSchema
 >;
 export type RequisitionExpenseFormOutput = z.output<
-  typeof RequisitionChargeFormSchema
+  typeof RequisitionExpenseFormSchema
 >;

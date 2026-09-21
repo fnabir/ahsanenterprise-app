@@ -1,7 +1,6 @@
-import { FileData, RequisitionData } from "@repo/types";
+import { FileData } from "@repo/types";
 import { getDatabaseReference, sanitizeData } from "./helpers";
-import { remove, set, update, get } from "firebase/database";
-import { REQUISITION_DB_KEY_PREFIX } from "../../core/constants";
+import { remove, set, update } from "firebase/database";
 import { toFileDbKey } from "../../core/utils";
 import { getFullFileNo } from "../../core/utils";
 import { toast } from "../../ui/src/core/toast";
@@ -123,8 +122,6 @@ export async function changeFileNo(
   newFileVal?: FileData,
   copy = false,
 ) {
-  const currentFileNoStr = String(currentFileNo);
-  const newFileNoStr = String(newFileNo);
   const currentFileKey = toFileDbKey(currentFileNo);
   const newFileKey = toFileDbKey(newFileNo);
 
@@ -152,78 +149,6 @@ export async function changeFileNo(
   } catch (error) {
     toast.error(
       `Failed to ${copy ? "copy" : "change"} the file number`,
-      (error as FirebaseError).message,
-    );
-  }
-}
-
-export function toRequisitionDbKey(requisitionNo: number | string): string {
-  const normalized = String(requisitionNo).trim();
-  return normalized.startsWith(REQUISITION_DB_KEY_PREFIX)
-    ? normalized
-    : `${REQUISITION_DB_KEY_PREFIX}${normalized}`;
-}
-
-export async function addNewRequisition(
-  requisitionNo: number | string,
-  requisitionYear: number,
-  data: RequisitionData,
-) {
-  const requisitionKey = toRequisitionDbKey(requisitionNo);
-  const requisitionRef = getDatabaseReference(
-    `requisition/${requisitionYear}/${requisitionKey}`,
-  );
-  try {
-    await set(requisitionRef, data);
-    toast.success("New requisition added successfully.");
-  } catch (error) {
-    toast.error(
-      "Failed to add the new requisition",
-      (error as FirebaseError).message,
-    );
-  }
-}
-
-export async function updateRequisition(
-  requisitionNo: number | string,
-  requisitionYear: number,
-  data: Partial<RequisitionData>,
-) {
-  const requisitionKey = toRequisitionDbKey(requisitionNo);
-  const requisitionRef = getDatabaseReference(
-    `requisition/${requisitionYear}/${requisitionKey}`,
-  );
-  try {
-    await update(requisitionRef, data);
-    toast.success("Requisition updated successfully.");
-  } catch (error) {
-    toast.error(
-      "Failed to update the requisition",
-      (error as FirebaseError).message,
-    );
-  }
-}
-
-export async function deleteRequisition(
-  requisitionNo: number | string,
-  requisitionYear: number | string,
-) {
-  const requisitionNoStr = String(requisitionNo);
-  const prefixedRef = getDatabaseReference(
-    `requisition/${requisitionYear}/${toRequisitionDbKey(requisitionNoStr)}`,
-  );
-  const legacyRef = getDatabaseReference(
-    `requisition/${requisitionYear}/${requisitionNoStr}`,
-  );
-
-  try {
-    await Promise.all([remove(prefixedRef), remove(legacyRef)]);
-
-    toast.success("Deleted the requisition successfully.");
-  } catch (error) {
-    console.error("Failed to delete the requisition:", error);
-    toast.error(
-      "Failed to delete the requisition",
       (error as FirebaseError).message,
     );
   }
