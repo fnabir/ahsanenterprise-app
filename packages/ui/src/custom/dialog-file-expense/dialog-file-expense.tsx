@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import {
   FileExpenseSchema,
   FileExpenseFormInput,
@@ -26,6 +26,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateFileExpense } from "@repo/firebase";
 import { FaPlus, FaTimes } from "react-icons/fa";
+import { FaArrowRightToBracket } from "react-icons/fa6";
 
 export function DialogFileExpense({
   children,
@@ -122,7 +123,7 @@ export function DialogFileExpense({
                   className="text-muted hover:text-primary"
                   aria-label="Insert expense below this row"
                 >
-                  <FaPlus size={14} />
+                  <FaArrowRightToBracket size={14} className="rotate-180" />
                 </button>
                 <button
                   type="button"

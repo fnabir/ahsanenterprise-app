@@ -16,4 +16,6 @@ export * from "./dialog-file-details";
 export * from "./dialog-file-duty";
 export * from "./dialog-file-expense";
 export * from "./dialog-file-total";
+export * from "./dialog-requisition-info";
+export * from "./dialog-requisition-expense";
 export * from "./row-data";

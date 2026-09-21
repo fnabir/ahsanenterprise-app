@@ -5,10 +5,24 @@ import AccountSection from "./account-section";
 import Loading from "@/components/loading";
 import PrintButton from "./print-button";
 import { useRequisitionDetailsContext } from "@/contexts/RequisitionDetailsContext";
+import {
+  Button,
+  DialogRequisitionInfo,
+  DialogRequisitionExpense,
+} from "@repo/ui";
+import { MdOutlineEdit } from "react-icons/md";
 
 export default function RequisitionDetailsSection() {
-  const { loading, requisitionRef, date, lcsString } =
-    useRequisitionDetailsContext();
+  const {
+    loading,
+    year,
+    requisitionNo,
+    requisitionRef,
+    date,
+    lcsString,
+    data,
+    expenses,
+  } = useRequisitionDetailsContext();
   const { letter, arrival, delivery } = date;
 
   if (loading) {
@@ -18,6 +32,29 @@ export default function RequisitionDetailsSection() {
   return (
     <div className="flex-1 h-full flex flex-col divide-y-2">
       <div className="flex gap-2 py-2 px-2 lg:px-4">
+        <DialogRequisitionInfo
+          year={Number(year)}
+          ref={requisitionNo}
+          data={data}
+        >
+          <Button
+            label="Details"
+            variant="primary"
+            Icon={<MdOutlineEdit />}
+            className="w-fit"
+          />
+        </DialogRequisitionInfo>
+        {expenses?.map((expense) => (
+          <DialogRequisitionExpense
+            key={expense.fileNo}
+            year={year}
+            requisitionNo={requisitionNo}
+            fileNo={expense.fileNo}
+            itemName={expense.itemName}
+            expense={expense}
+          />
+        ))}
+        <div className="w-px h-full bg-muted/50" />
         <PrintButton letterpad={false} />
         <PrintButton letterpad />
       </div>

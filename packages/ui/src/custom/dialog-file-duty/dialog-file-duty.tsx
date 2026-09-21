@@ -299,7 +299,7 @@ export function DialogFileDuty({
               />
             </div>
             <div className="flex gap-2">
-              <Label text="CD" className="self-end py-1.75 text-[15px]!" />
+              <Label text="CD" className="pt-7 text-[15px]!" />
               <FormInput
                 name="CD.percentage"
                 control={control}
@@ -322,7 +322,7 @@ export function DialogFileDuty({
               />
             </div>
             <div className="flex gap-2">
-              <Label text="RD" className="self-end py-1.75 text-[15px]!" />
+              <Label text="RD" className="pt-7 text-[15px]!" />
               <FormInput
                 name="RD.percentage"
                 control={control}
@@ -345,7 +345,7 @@ export function DialogFileDuty({
               />
             </div>
             <div className="flex gap-2">
-              <Label text="SD" className="self-end py-1.75 text-[15px]!" />
+              <Label text="SD" className="pt-7 text-[15px]!" />
               <FormInput
                 name="SD.percentage"
                 control={control}
@@ -368,7 +368,7 @@ export function DialogFileDuty({
               />
             </div>
             <div className="flex gap-2">
-              <Label text="VAT" className="self-end py-1.75 text-[15px]!" />
+              <Label text="VAT" className="pt-7 text-[15px]!" />
               <FormInput
                 name="VAT.percentage"
                 control={control}
@@ -391,7 +391,7 @@ export function DialogFileDuty({
               />
             </div>
             <div className="flex gap-2">
-              <Label text="AIT" className="self-end py-1.75 text-[15px]!" />
+              <Label text="AIT" className="pt-7 text-[15px]!" />
               <FormInput
                 name="AIT.percentage"
                 control={control}
@@ -414,7 +414,7 @@ export function DialogFileDuty({
               />
             </div>
             <div className="flex gap-2">
-              <Label text="AT" className="self-end py-1.75 text-[15px]!" />
+              <Label text="AT" className="pt-7 text-[15px]!" />
               <FormInput
                 name="AT.percentage"
                 control={control}
@@ -437,7 +437,7 @@ export function DialogFileDuty({
               />
             </div>
             <div className="flex gap-2">
-              <Label text="DF/VAT" className="self-end py-1.75 text-[15px]!" />
+              <Label text="DF/VAT" className="pt-7 text-[15px]!" />
               <FormInput
                 name="DF.value"
                 control={control}

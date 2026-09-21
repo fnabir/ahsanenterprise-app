@@ -3,6 +3,7 @@ import {
   RequisitionDetailsContext,
 } from "@/contexts/RequisitionDetailsContext";
 import {
+  fromFileDbKey,
   getFullRequisitionNo,
   useFileLoading,
   useFilesByYear,
@@ -40,7 +41,6 @@ export const RequisitionDetailsProvider = ({
 
   const requisitionRef = getFullRequisitionNo(requisitionNo, year);
   const data = useRequisitionDetails(year, requisitionNo);
-  console.log(requisitionNo);
   const files: Files = useFilesByYear(year);
 
   const fileCount = Object.keys(data?.files ?? {}).length;
@@ -48,11 +48,11 @@ export const RequisitionDetailsProvider = ({
   const expenses: RequisitionDetails[] =
     fileCount > 0
       ? Object.entries(data?.files ?? {}).map(([fileNo, fileExpense]) => {
-          const file = files[fileNo];
+          const file = files[fromFileDbKey(fileNo)];
 
           return {
             fileNo,
-            itemName: file ? file?.itemName : "N/A",
+            itemName: file?.itemName ?? requisitionRef,
             lc: file?.lc,
             duty: file?.total?.duty ?? 0,
             ...fileExpense,
