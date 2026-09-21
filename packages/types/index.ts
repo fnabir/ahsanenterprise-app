@@ -99,15 +99,15 @@ export type RequisitionExpense = {
 };
 export interface RequisitionDetails extends RequisitionExpense {
   fileNo: string;
-  itemName?: string;
+  itemName: string;
   lc?: string | null;
   duty?: number;
 }
 
 export type RequisitionData = {
-  arrival: string;
-  delivery: string;
-  letterDate: number;
+  arrival?: string | null;
+  delivery?: string | null;
+  letter?: string | null;
   files: Record<string, RequisitionExpense>;
 };
 
