@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Ahsan Enterprise",
+    "slug": "ahsanenterprise",
+    "scheme": "ahsanenterprise",
+    "version": "1.0.0",
+    "router": { "appDir": "src/app" },
+    "linking": {
+      "prefixes": ["ahsanenterprise://"]
+    },
+    "icon": "./assets/icon.png",
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.asianliftbd.cnf"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-status-bar",
+        {
+          "hidden": false,
+          "style": "dark",
+          "animated": true
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "imageWidth": 578,
+          "resizeMode": "contain",
+          "backgroundColor": "#f7f8fa",
+          "dark": {
+            "image": "./assets/splash-dark.png",
+            "backgroundColor": "#12151b"
+          }
+        }
+      ],
+      ["expo-system-ui"],
+      "@react-native-community/datetimepicker"
+    ],
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": ["**/*"]
+  }
+}

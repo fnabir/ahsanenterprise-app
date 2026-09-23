@@ -1,0 +1,21 @@
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css';
+
+@import 'nativewind/theme';
+
+@import '@repo/styles/token.css';
+@source '../../../../packages/ui/src';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: 'PublicSans_400Regular';
+  --font-sans-semibold: 'PublicSans_600SemiBold';
+  --font-sans-bold: 'PublicSans_700Bold';
+  --font-sans-extrabold: 'PublicSans_800ExtraBold';
+
+  --font-mono: 'IBMPlexMono_400Regular';
+  --font-mono-semibold: 'IBMPlexMono_600SemiBold';
+  --font-mono-bold: 'IBMPlexMono_700Bold';
+}
