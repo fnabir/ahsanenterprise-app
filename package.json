@@ -4,9 +4,11 @@
   "author": "Farhan Noor Abir <fnoor.abir@gmail.com>",
   "dependencies": {
     "@hookform/resolvers": "5.9.1",
+    "clsx": "^2.1.1",
     "firebase": "12.19.0",
     "react-firebase-hooks": "5.1.1",
     "react-hook-form": "7.88.0",
+    "tailwind-merge": "^3.7.0",
     "zod": "4.6.5"
   },
   "devDependencies": {
@@ -14,9 +16,9 @@
     "date-fns": "4.4.0",
     "eslint": "10.11.0",
     "eslint-config-prettier": "10.1.8",
-    "prettier": "3.9.8",
+    "prettier": "3.9.9",
     "prettier-plugin-tailwindcss": "0.8.1",
-    "turbo": "2.11.2",
+    "turbo": "2.11.3",
     "typescript": "6.0.3",
     "zustand": "5.0.15"
   },

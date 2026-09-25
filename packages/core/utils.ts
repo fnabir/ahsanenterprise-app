@@ -1,14 +1,14 @@
 import { FILE_DB_KEY_PREFIX, REQUISITION_DB_KEY_PREFIX } from "./constants";
 import { parse, isValid, format } from "date-fns";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-type ClassValue = string | number | boolean | undefined | null;
-
-export function cn(...inputs: (ClassValue | ClassValue[])[]): string {
-  return inputs
-    .flat(Infinity)
-    .filter((x) => typeof x === "string" && x.length > 0)
-    .join(" ");
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
+
+export const capitalize = (s: string) =>
+  s.replace(/^\w/, (c) => c.toUpperCase());
 
 export function getCurrentYear(): number {
   return new Date().getFullYear();
