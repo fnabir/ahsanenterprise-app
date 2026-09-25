@@ -11,11 +11,11 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
+  useAuth,
 } from "@repo/ui";
 import Breadcrumb from "./breadcrumb";
 import ThemeToggle from "./theme-toggle";
 import { useBreadcrumb } from "@/contexts/BreadcrumbContext";
-import { useAuth } from "@/contexts/AuthContext";
 import { useIsMobile } from "@repo/core";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
 

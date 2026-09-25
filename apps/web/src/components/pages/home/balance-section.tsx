@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@repo/ui";
 import TotalBalanceSection from "./total-balance-section";
 import StaffBalanceSection from "@/components/pages/home/staff-balance-section";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { CardFilesTotal, CardInfo, Skeleton } from "@repo/ui";
+import { CardFilesTotal, CardInfo, Skeleton, useAuth } from "@repo/ui";
 import { useMemo } from "react";
 import {
   ACTIVE_FILE_STATUSES,
@@ -9,7 +9,6 @@ import {
   useFilesGroupedByStatus,
   useFileYears,
 } from "@repo/core";
-import { useAuth } from "@/contexts/AuthContext";
 import StatusFilesList from "./status-files-list";
 
 export default function FilesSection() {

@@ -6,9 +6,9 @@ import {
   useRequisitionStore,
   useImporterStore,
 } from "@repo/core";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "./AuthContext";
 
-export default function StoreInitializer() {
+export function StoreInitializer() {
   const { user, loading } = useAuth();
 
   useEffect(() => {

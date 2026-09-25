@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
 import type { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +7,7 @@ import {
   passwordChangeSchema,
   PasswordChangeFormValues,
 } from "@repo/validators";
-import { Button, FormInput, toast } from "@repo/ui";
+import { Button, FormInput, toast, useAuth } from "@repo/ui";
 import {
   reauthenticateWithCredential,
   EmailAuthProvider,

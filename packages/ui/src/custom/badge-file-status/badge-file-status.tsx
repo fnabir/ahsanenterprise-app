@@ -1,5 +1,5 @@
 import { Badge } from "../../core";
-import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export function BadgeFileStatus({ status }: { status?: string }) {
   const { isAdmin } = useAuth();

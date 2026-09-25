@@ -4,7 +4,7 @@ import { Badge, Card } from "../../core";
 import { changelog } from "@repo/core";
 import packageJson from "../../../../../package.json";
 import { FaAnglesRight } from "react-icons/fa6";
-import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const currentVersion = packageJson.version;
 

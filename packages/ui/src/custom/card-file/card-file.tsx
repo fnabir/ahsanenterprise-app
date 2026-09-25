@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { BadgeFileStatus } from "../badge-file-status";
 import Link from "next/link";
-import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { DialogDelete } from "../dialog-delete";
 import { fromFileDbKey, getFullFileNo } from "@repo/core";
 import { DialogFileInfo } from "../dialog-file-info";

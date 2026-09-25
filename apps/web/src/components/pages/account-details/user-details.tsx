@@ -1,13 +1,12 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
 import { useUpdateProfile } from "react-firebase-hooks/auth";
 import { auth } from "@repo/firebase";
 import { updateUserInfo } from "@repo/firebase";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserDetailsSchema, UserDetailsFormValues } from "@repo/validators";
-import { Button, FormInput, Input, toast } from "@repo/ui";
+import { Button, FormInput, Input, toast, useAuth } from "@repo/ui";
 import { useEffect } from "react";
 
 export default function UserDetailsSection() {

@@ -1,8 +1,7 @@
 "use client";
 
-import { Card } from "@repo/ui";
+import { Card, useAuth } from "@repo/ui";
 import { ACTIVE_FILE_STATUSES, useFilesGroupedByStatus } from "@repo/core";
-import { useAuth } from "@/contexts/AuthContext";
 import { useMemo } from "react";
 import PieChart from "@/components/pie-chart";
 

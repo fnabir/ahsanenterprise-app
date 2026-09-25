@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { Public_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import { AuthProvider } from "@/contexts/AuthContext";
 import { BreadcrumbProvider } from "@/contexts/BreadcrumbContext";
 import Header from "@/components/header";
-import StoreInitializer from "@/components/store-initializer";
-import { ToastProvider } from "@repo/ui";
+import { AuthProvider, StoreInitializer, ToastProvider } from "@repo/ui";
 
 const publicSans = Public_Sans({
   variable: "--font-sans",
