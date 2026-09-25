@@ -1,5 +1,10 @@
 import { TransactionData } from "@repo/types";
-import { Button, DialogDelete, DialogTransaction, Number } from "@repo/ui";
+import {
+  Button,
+  DialogDelete,
+  DialogTransaction,
+  AnimatedNumber,
+} from "@repo/ui";
 import { FaPlus } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { deleteTransaction } from "@repo/firebase";
@@ -50,7 +55,7 @@ export default function TransactionSection({
             )}
           </div>
           <div className="font-bold py-2">
-            <Number
+            <AnimatedNumber
               value={totalBill}
               valueType="currency"
               className="font-bold text-danger"
@@ -85,7 +90,7 @@ export default function TransactionSection({
                       </div>
                     </td>
                     <td className="px-2 py-1">
-                      <Number
+                      <AnimatedNumber
                         value={transaction.value ?? 0}
                         valueType="currency"
                         className={`font-bold justify-end ${style}`}
@@ -131,7 +136,7 @@ export default function TransactionSection({
             </DialogTransaction>
           </div>
           <div className="font-bold py-2">
-            <Number
+            <AnimatedNumber
               value={totalPayment}
               valueType="currency"
               className="font-bold text-success"
@@ -165,7 +170,7 @@ export default function TransactionSection({
                       </div>
                     </td>
                     <td className="px-2 py-1">
-                      <Number
+                      <AnimatedNumber
                         value={transaction.value ?? 0}
                         valueType="currency"
                         className={`font-bold justify-end ${style}`}

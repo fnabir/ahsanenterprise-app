@@ -1,5 +1,5 @@
 import { Card } from "../..";
-import { Number } from "../../animated/number";
+import { AnimatedNumber } from "../../animation/number";
 import Link from "next/link";
 import { getCurrentYear } from "@repo/core";
 
@@ -8,11 +8,12 @@ export function CardFilesTotal({
   count,
   className = "",
 }: {
-  year: number;
+  year: string;
   count: number;
   className?: string;
 }) {
-  const href = year === getCurrentYear() ? `/files` : `/files?year=${year}`;
+  const href =
+    Number(year) === getCurrentYear() ? `/files` : `/files?year=${year}`;
   return (
     <Link href={href} className="w-full">
       <Card
@@ -25,7 +26,7 @@ export function CardFilesTotal({
         </div>
         <div>
           <div className="text-muted">Files</div>
-          <Number
+          <AnimatedNumber
             className="text-2xl font-semibold flex justify-end"
             value={count}
           />

@@ -1,4 +1,4 @@
-import { Number, Card } from "../..";
+import { AnimatedNumber, Card } from "../..";
 import Link from "next/link";
 
 export function CardBalanceTotal({
@@ -26,7 +26,7 @@ export function CardBalanceTotal({
         className={`flex flex-col px-2 lg:px-4 py-1 lg:py-1.5 ${className}`}
       >
         <p className="text-lg capitalize font-medium mb-0 lg:mb-1">{id}</p>
-        <Number
+        <AnimatedNumber
           value={Math.abs(value)}
           valueType="currency"
           className="text-2xl font-medium"

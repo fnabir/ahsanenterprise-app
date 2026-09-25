@@ -1,4 +1,4 @@
-import { Card, Number } from "../..";
+import { Card, AnimatedNumber } from "../..";
 
 export function CardTotal({
   label,
@@ -23,7 +23,7 @@ export function CardTotal({
           )}
         </div>
         <div className="place-items-end">
-          <Number
+          <AnimatedNumber
             value={value || 0}
             valueType="currency"
             signMode={note ? "" : "-"}

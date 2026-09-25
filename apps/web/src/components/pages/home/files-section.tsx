@@ -47,7 +47,7 @@ export default function FilesSection() {
               key={year}
               className="col-span-1"
               count={count}
-              year={parseInt(year, 10)}
+              year={year}
             />
           ))
         )}

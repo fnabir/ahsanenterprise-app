@@ -1,4 +1,4 @@
-import { Number } from "../..";
+import { AnimatedNumber } from "../../animation/number";
 
 export function RowData({
   label,
@@ -26,7 +26,7 @@ export function RowData({
     >
       <div className={`text-muted ${labelClassName}`}>{label}</div>
       {valueType === "currency" && typeof value === "number" ? (
-        <Number
+        <AnimatedNumber
           value={value}
           fractionDigits={2}
           valueType="currency"

@@ -1,5 +1,11 @@
 import { useFileDetailsContext } from "@/contexts/FileDetailsContext";
-import { Button, Card, DialogFileTotal, Number, RowData } from "@repo/ui";
+import {
+  Button,
+  Card,
+  DialogFileTotal,
+  AnimatedNumber,
+  RowData,
+} from "@repo/ui";
 import { MdOutlineEdit } from "react-icons/md";
 
 export default function OverviewSection() {
@@ -63,7 +69,7 @@ export default function OverviewSection() {
             />
           </DialogFileTotal>
         </div>
-        <Number
+        <AnimatedNumber
           value={totals.balance}
           fractionDigits={2}
           valueType="currency"
@@ -71,14 +77,14 @@ export default function OverviewSection() {
         />
         <div className="flex items-center gap-2 mt-2 text-sm">
           Total
-          <Number
+          <AnimatedNumber
             value={totals.grandTotal}
             fractionDigits={2}
             valueType="currency"
             className={"text-foreground"}
           />
           • Paid
-          <Number
+          <AnimatedNumber
             value={totals.paid}
             fractionDigits={2}
             valueType="currency"

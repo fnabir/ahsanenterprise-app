@@ -1,4 +1,4 @@
-import { Motion } from "../../motion/Motion.native";
+import { Motion } from "../../animation/motion/motion.native";
 
 export function Modal({
   open,

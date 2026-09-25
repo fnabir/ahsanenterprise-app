@@ -1,4 +1,4 @@
-import { Card, Number, Button } from "../..";
+import { Card, AnimatedNumber, Button } from "../..";
 import type { ImporterData } from "@repo/types";
 import { DialogImporterInfo } from "../dialog-importer-info";
 import { MdOutlineEdit } from "react-icons/md";
@@ -53,13 +53,16 @@ export function CardInfoImporter({
           {isMinCommissionAvailable && (
             <div className="flex justify-between items-center gap-2">
               <div>Minimum Commission</div>
-              <Number value={data.minCommission!} valueType="currency" />
+              <AnimatedNumber
+                value={data.minCommission!}
+                valueType="currency"
+              />
             </div>
           )}
           {isMiscExpenseAvailable && (
             <div className="flex justify-between items-center gap-2">
               <div>Miscellaneous Expense</div>
-              <Number value={data.miscExpense!} valueType="currency" />
+              <AnimatedNumber value={data.miscExpense!} valueType="currency" />
             </div>
           )}
         </div>

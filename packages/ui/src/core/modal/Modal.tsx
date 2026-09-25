@@ -1,4 +1,4 @@
-import { Motion } from "../../motion";
+import { Motion } from "../../animation/motion";
 
 export function Modal({
   open,

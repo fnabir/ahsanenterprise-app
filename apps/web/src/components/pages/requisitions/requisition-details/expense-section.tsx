@@ -1,6 +1,6 @@
 import { useRequisitionDetailsContext } from "@/contexts/RequisitionDetailsContext";
 import { RequisitionDetails } from "@repo/types";
-import { Number } from "@repo/ui";
+import { AnimatedNumber } from "@repo/ui";
 import { REQUISITION_EXPENSE_FIELDS } from "@repo/core";
 
 export const shouldShowRow = (
@@ -42,7 +42,7 @@ export default function ExpenseSection() {
                     className={`border border-foreground px-2 py-1 ${key === "itemName" ? "font-bold" : ""} text-center`}
                   >
                     {isCurrency ? (
-                      <Number
+                      <AnimatedNumber
                         value={value ?? 0}
                         valueType="currency"
                         fractionDigits={2}
@@ -69,7 +69,7 @@ export default function ExpenseSection() {
               key={"subtotal-" + idx}
               className="border border-foreground px-2 py-1 text-end font-bold"
             >
-              <Number
+              <AnimatedNumber
                 value={total}
                 valueType="currency"
                 fractionDigits={2}
@@ -88,7 +88,7 @@ export default function ExpenseSection() {
 
           <td colSpan={fileCount - 1} className="border-b border-foreground" />
           <td className="border-b border-r border-foreground px-2 py-1 text-end font-bold">
-            <Number
+            <AnimatedNumber
               value={total}
               valueType="currency"
               fractionDigits={2}
