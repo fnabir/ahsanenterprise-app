@@ -119,7 +119,7 @@ export default function FileDetailsSection({
           <div className="font-bold font-mono text-sm lg:text-lg">
             {getFullFileNo(fileNo, year)}
           </div>
-          <BadgeFileStatus status={data.status ?? "unknown"} />
+          <BadgeFileStatus status={data.status ?? "Unknown"} />
           <AnimatePresence mode="popLayout">
             {buttonLabel && (
               <motion.div

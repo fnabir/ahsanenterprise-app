@@ -40,9 +40,7 @@ export function CardFile({
           <div className="text-primary bg-primary-subtle py-px px-1.25 w-fit rounded-lg border border-primary">
             #{fileNo}
           </div>
-          <BadgeFileStatus
-            status={isAdmin && data.status === "Bill" ? "Done" : data.status}
-          />
+          <BadgeFileStatus status={data.status} />
         </div>
         <DialogFileInfo year={Number(year)} fileNo={Number(fileNo)} data={data}>
           <Button

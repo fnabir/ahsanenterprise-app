@@ -1,13 +1,10 @@
 import { Badge } from "../../core";
+import { useAuth } from "../../../../../apps/web/src/contexts/AuthContext";
 
-export function BadgeFileStatus({
-  status,
-  isAdmin,
-}: {
-  status?: string;
-  isAdmin?: boolean;
-}) {
+export function BadgeFileStatus({ status }: { status?: string }) {
+  const { isAdmin } = useAuth();
   if (!status) return null;
+  status = !isAdmin && status === "Bill" ? "Done" : status;
 
   const style = (() => {
     switch (status) {
@@ -47,7 +44,7 @@ export function BadgeFileStatus({
   return (
     <Badge className={`border py-0! ${badgeClassByStyle[style]}`}>
       <div className={`size-1.5 rounded-full ${dotClassByStyle[style]}`} />
-      {!isAdmin && status === "Bill" ? "Done" : status}
+      {status}
     </Badge>
   );
 }
