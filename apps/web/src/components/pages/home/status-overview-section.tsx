@@ -1,7 +1,11 @@
 "use client";
 
-import { Card, useAuth } from "@repo/ui";
-import { ACTIVE_FILE_STATUSES, useFilesGroupedByStatus } from "@repo/core";
+import { Card, Skeleton, useAuth } from "@repo/ui";
+import {
+  ACTIVE_FILE_STATUSES,
+  useFilesGroupedByStatus,
+  useFileLoading,
+} from "@repo/core";
 import { useMemo } from "react";
 import PieChart from "@/components/pie-chart";
 
@@ -10,8 +14,21 @@ export default function StatusOverviewSection() {
   const statusesToShow = isAdmin
     ? ACTIVE_FILE_STATUSES
     : ACTIVE_FILE_STATUSES.filter((status) => status !== "Bill");
-
+  const loading = useFileLoading();
   const filesByStatus = useFilesGroupedByStatus();
+
+  if (loading) {
+    return (
+      <Skeleton>
+        <h3 className="text-center font-semibold bg-transparent!">
+          Status Overview
+        </h3>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div key={i} className="w-full h-2" />
+        ))}
+      </Skeleton>
+    );
+  }
 
   const filteredStatuses = Object.entries(filesByStatus).filter(([status]) =>
     statusesToShow.includes(status),

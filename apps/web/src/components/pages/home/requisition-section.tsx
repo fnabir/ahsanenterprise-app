@@ -1,11 +1,25 @@
 "use client";
 
-import { Card } from "@repo/ui";
+import { Card, Skeleton } from "@repo/ui";
 import Link from "next/link";
-import { useRequisitionYears } from "@repo/core";
+import { useRequisitionLoading, useRequisitionYears } from "@repo/core";
 
 export default function RequisitionSection() {
+  const loading = useRequisitionLoading();
   const years = useRequisitionYears().reverse();
+
+  if (loading) {
+    return (
+      <Skeleton>
+        <h3 className="text-center font-semibold bg-transparent!">
+          P/O Requisition
+        </h3>
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="w-full h-3" />
+        ))}
+      </Skeleton>
+    );
+  }
 
   return (
     <Link href="/requisition">
