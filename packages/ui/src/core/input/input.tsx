@@ -29,7 +29,7 @@ export function Input({
   const isNumber = type === "number";
 
   const sanitizeNumeric = (raw: string) => {
-    let val = raw.replace(/,/g, ".");
+    let val = raw;
 
     if (allowDecimal) {
       val = val.replace(/[^0-9.]/g, "");
