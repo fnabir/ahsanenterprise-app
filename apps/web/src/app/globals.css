@@ -2,8 +2,6 @@
 @import "@repo/styles/token.css";
 @source "../../../../packages/ui/src";
 
-@custom-variant dark (&:is(.dark *));
-
 @font-face {
   font-family: "ChandrabatiMJ";
   src: url("ChandrabatiMJ.ttf") format("truetype");
