@@ -6,6 +6,7 @@ import { BadgeFileStatus, Button } from "@repo/ui";
 import { FaInfoCircle, FaPlus, FaPrint } from "react-icons/fa";
 import { useEffect, useMemo, useState } from "react";
 import {
+  cn,
   getFullFileNo,
   useFileDetails,
   useFileError,
@@ -154,23 +155,27 @@ export default function FileDetailsSection({
           />
         </div>
 
-        {printLayout ? (
+        <div className={printLayout ? "" : "hidden"}>
           <PrintLayout ref={contentRef} />
-        ) : (
-          <div className="flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4">
-            <div>
-              <OverviewSection />
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-              <InfoSection />
-              <DutySection />
-              <ExpenseSection type="port" />
-              <ExpenseSection type="custom" />
-              <ExpenseSection type="delivery" />
-              <ExpenseSection type="other" />
-            </div>
+        </div>
+        <div
+          className={cn(
+            "flex-1 h-full overflow-y-auto px-2 lg:px-4 py-2 lg:py-4",
+            printLayout ? "hidden" : "",
+          )}
+        >
+          <div>
+            <OverviewSection />
           </div>
-        )}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <InfoSection />
+            <DutySection />
+            <ExpenseSection type="port" />
+            <ExpenseSection type="custom" />
+            <ExpenseSection type="delivery" />
+            <ExpenseSection type="other" />
+          </div>
+        </div>
       </div>
     </FileDetailsProvider>
   );
