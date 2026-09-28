@@ -19,3 +19,5 @@ onlyBuiltDependencies:
   - protobufjs
   - sharp
   - unrs-resolver
+
+minimumReleaseAge: 0
