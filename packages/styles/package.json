@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./token.css": "./token.css",
+    "./tokens.css": "./tokens.css",
     "./colors": "./colors.ts"
   },
   "files": [
-    "token.css",
+    "tokens.css",
     "colors.ts"
   ]
 }

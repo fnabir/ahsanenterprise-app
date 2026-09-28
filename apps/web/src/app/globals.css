@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@repo/styles/token.css";
+@import "@repo/styles/tokens.css";
 @source "../../../../packages/ui/src";
 
 @font-face {

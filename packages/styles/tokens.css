@@ -6,8 +6,8 @@
  * can consume without a build step.
  *
  * Import this file directly in each app's globals.css:
- *   apps/web/app/globals.css     -> @import "@repo/styles/tokens.css";
- *   apps/mobile/global.css       -> @import "@repo/styles/tokens.css";
+ *   apps/web/src/app/globals.css     -> @import "@repo/styles/tokens.css";
+ *   apps/mobile/src/global.css       -> @import "@repo/styles/tokens.css";
  * then add platform-specific rules (fonts, resets, safe-area, etc.) after the import.
  *
  * Two color patterns are provided per semantic color:
@@ -22,24 +22,24 @@
  */
 
 :root {
-  /* Surfaces & text */
-  --color-bg: #f7f8fa;
+  --color-background: #f7f8fa;
+  --color-foreground: #171a21;
+
   --color-surface: #ffffff;
   --color-surface-raised: #ffffff;
+
   --color-border: #e2e5ea;
   --color-border-strong: #cbd1da;
   --color-border-focus: #2e5c86;
-  --color-text: #171a21;
+
   --color-text-secondary: #5b6472;
   --color-text-tertiary: #8b93a1;
 
-  /* Primary (brand — buttons, links) */
   --color-primary: #2e5c86;
   --color-primary-hover: #24486b;
   --color-primary-foreground: #ffffff;
   --color-primary-subtle: #e7eff6;
 
-  /* Semantic / status colors — text+subtle pattern (pills, badges) */
   --color-muted: #5b6472;
   --color-muted-subtle: #eef0f3;
   --color-muted-foreground: #ffffff;
@@ -48,9 +48,9 @@
   --color-info-subtle: #e5f1fa;
   --color-info-foreground: #ffffff;
 
-  --color-warning: #97630b; /* darkened from #B8790E to clear AA on warning-subtle */
+  --color-warning: #97630b;
   --color-warning-subtle: #fcf1dc;
-  --color-warning-foreground: #171a21; /* dark text — warning is the one color too light for white text */
+  --color-warning-foreground: #171a21;
 
   --color-accent: #6b4fa0;
   --color-accent-subtle: #efe8f8;
@@ -60,7 +60,7 @@
   --color-secondary-subtle: #fae6ef;
   --color-secondary-foreground: #ffffff;
 
-  --color-success: #2e7a5b; /* darkened from #2F7D5D to clear AA on success-subtle */
+  --color-success: #2e7a5b;
   --color-success-subtle: #e4f3ec;
   --color-success-foreground: #ffffff;
 
@@ -71,19 +71,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #12151b;
+    --color-background: #12151b;
+    --color-foreground: #e7eaef;
+
     --color-surface: #1a1f28;
     --color-surface-raised: #20262f;
+
     --color-border: #2a303b;
     --color-border-strong: #3a4250;
     --color-border-focus: #6fa8d6;
-    --color-text: #e7eaef;
+
     --color-text-secondary: #9aa3b2;
     --color-text-tertiary: #6b7383;
 
     --color-primary: #6fa8d6;
     --color-primary-hover: #8fbbe0;
-    --color-primary-foreground: #0e1520; /* dark-mode accents are light-toned, so foreground flips to dark */
+    --color-primary-foreground: #0e1520;
     --color-primary-subtle: #1f3347;
 
     --color-muted: #9aa3b2;
@@ -112,13 +115,13 @@
 
     --color-danger: #e27575;
     --color-danger-subtle: #341717;
-    --color-danger-foreground: #0e1520; /* only color where dark-text still beats white (6.13:1 vs 2.99:1) */
+    --color-danger-foreground: #0e1520;
   }
 }
 
 @theme inline {
-  --color-background: var(--color-bg);
-  --color-foreground: var(--color-text);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
 
   --color-surface: var(--color-surface);
   --color-surface-raised: var(--color-surface-raised);
