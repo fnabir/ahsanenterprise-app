@@ -155,7 +155,12 @@ export default function FileDetailsSection({
           />
         </div>
 
-        <div className={printLayout ? "" : "hidden"}>
+        <div
+          className={cn(
+            "flex-1 h-full py-4 w-full overflow-y-auto",
+            printLayout ? "" : "hidden",
+          )}
+        >
           <PrintLayout ref={contentRef} />
         </div>
         <div
