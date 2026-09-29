@@ -258,6 +258,7 @@ const PrintLayout = forwardRef<HTMLDivElement>((_, ref) => {
             )}
             <PrintExpenseRow expenseData={data.port} total={totals.port} />
             <PrintExpenseRow expenseData={data.custom} total={totals.custom} />
+            <PrintExpenseRow expenseData={data.other} total={totals.other} />
             <PrintExpenseRow
               expenseData={data.delivery}
               total={totals.delivery}
