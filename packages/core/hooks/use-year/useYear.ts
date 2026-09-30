@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { getCurrentYear } from "../utils";
+import { getCurrentYear } from "../../utils";
 
 export function useYear(validYears: number[]) {
   const router = useRouter();
