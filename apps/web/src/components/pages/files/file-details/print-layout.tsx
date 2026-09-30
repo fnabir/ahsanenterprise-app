@@ -110,7 +110,7 @@ const PrintLayout = forwardRef<HTMLDivElement>((_, ref) => {
                     <p>{importerInfo?.address2}</p>
                     {importerInfo?.address3 && <p>{importerInfo?.address3}</p>}
                   </div>
-                  <div className="w-3/10 p-2 rounded-md border-2 border-foreground flex flex-col items-center justify-center text-[13px]">
+                  <div className="w-3/10 p-2 rounded-md border-2 border-foreground flex flex-col items-center justify-center">
                     <div className="flex flex-row  w-full space-x-2">
                       <div className="grow">BILL NO.</div>
                       <div className="flex-wrap">
@@ -205,7 +205,7 @@ const PrintLayout = forwardRef<HTMLDivElement>((_, ref) => {
                 <table className="w-full border-b-4 border-double border-foreground">
                   <tbody>
                     <tr>
-                      <td className={`w-5/6 h-full text-[10px]`} colSpan={2}>
+                      <td className="w-5/6 text-[10px]" colSpan={2}>
                         <div
                           className="grid items-center justify-center text-center"
                           style={{
@@ -226,7 +226,7 @@ const PrintLayout = forwardRef<HTMLDivElement>((_, ref) => {
                               key={index}
                               className="border-r border-foreground h-full flex flex-col items-center justify-center"
                             >
-                              <div className="w-full py-1 border-b border-foreground">
+                              <div className="w-full py-1 border-b border-foreground h-full">
                                 {label}
                               </div>
                               <div className="py-1">
@@ -238,7 +238,9 @@ const PrintLayout = forwardRef<HTMLDivElement>((_, ref) => {
                       </td>
                       <td className="w-1/6 p-1">
                         {data.dutyPaid && (
-                          <div className="text-center">{data.dutyPaid}</div>
+                          <div className="text-center text-[11.25px]">
+                            {data.dutyPaid}
+                          </div>
                         )}
                         <div className="flex">
                           <div className="flex-1">TK.</div>
