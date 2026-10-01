@@ -1,21 +1,21 @@
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useColorScheme } from 'react-native';
+import { colors } from '@repo/styles/colors';
 
 type ThemedIconProps = {
-  name: keyof typeof Ionicons.glyphMap;
+  name: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   size?: number;
-  lightColor?: string;
-  darkColor?: string;
+  color?: keyof typeof colors.light;
 };
 
-export function ThemedIcon({
-  name,
-  size = 24,
-  lightColor = '#18181b',
-  darkColor = '#fafafa',
-}: ThemedIconProps) {
+export function ThemedIcon({ name, size = 20, color = 'text' }: ThemedIconProps) {
   const colorScheme = useColorScheme();
-  const color = colorScheme === 'dark' ? darkColor : lightColor;
 
-  return <Ionicons name={name} size={size} color={color} />;
+  return (
+    <MaterialDesignIcons
+      name={name}
+      size={size}
+      color={colors[colorScheme === 'dark' ? 'dark' : 'light'][color]}
+    />
+  );
 }
