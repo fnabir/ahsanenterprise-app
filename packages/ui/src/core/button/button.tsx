@@ -1,7 +1,15 @@
 "use client";
 
+import { cn } from "../../../../core/utils";
 import type { ButtonProps } from "./types";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  bgStyle,
+  hoverStyle,
+  borderStyle,
+  loadingStyle,
+  textStyle,
+} from "./styles";
 
 export function Button({
   label,
@@ -13,36 +21,18 @@ export function Button({
   ariaLabel,
   className = "",
   Icon,
-}: ButtonProps & { Icon?: React.ReactNode }) {
-  const variantStyle = {
-    default: "bg-foreground text-background hover:bg-foreground/85",
-    primary: "bg-primary text-background hover:bg-primary/85",
-    danger: "bg-danger text-white hover:bg-danger/85",
-    outline: "border text-foreground hover:bg-card hover:border-muted",
-    transparent: "bg-transparent text-primary hover:bg-background/10",
-    subtle:
-      "bg-primary-subtle text-primary hover:bg-primary/10 border border-primary",
-    muted:
-      "bg-muted-subtle text-muted hover:text-foreground border hover:border-muted",
-    custom: "",
-  };
-
-  const loadingStyle = {
-    default: "border-background",
-    primary: "border-background",
-    danger: "border-white",
-    outline: "border-foreground",
-    transparent: "border-primary",
-    subtle: "border-primary",
-    muted: "border-foreground",
-    custom: "",
-  };
-
-  const style = `flex items-center justify-center gap-1 group
-                px-2 py-1 text-sm font-medium rounded-lg
-                transition-colors ease-in-out duration-200
-                ${disabled || loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-                ${variantStyle[variant]} ${className}`;
+}: ButtonProps) {
+  const style = cn(
+    "flex items-center justify-center gap-1 group",
+    "px-2 py-1 text-sm font-medium rounded-lg",
+    "transition-colors ease-in-out duration-200",
+    disabled || loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
+    bgStyle[variant],
+    hoverStyle[variant],
+    borderStyle[variant],
+    textStyle[variant],
+    className,
+  );
 
   return (
     <motion.button

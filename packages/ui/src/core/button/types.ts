@@ -10,13 +10,12 @@ export type ButtonVariant =
 
 export interface ButtonProps {
   label?: string;
-  loadingLabel?: string;
-
   variant?: ButtonVariant;
   type?: "button" | "submit" | "reset";
 
   loading?: boolean;
   disabled?: boolean;
+  Icon?: React.ReactNode;
 
   onClick?: () => void;
 
