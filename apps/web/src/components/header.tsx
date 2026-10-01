@@ -35,6 +35,12 @@ export default function Header() {
     await signOut();
   };
 
+  const nameSplit = userData?.name?.split(" ") ?? [];
+  const initials =
+    nameSplit.length > 1
+      ? nameSplit[0][0] + (nameSplit[nameSplit.length - 1][0] ?? "")
+      : (nameSplit[0][0] ?? "");
+
   return (
     <header className="w-full flex flex-row items-center justify-between py-2 px-2 lg:px-4">
       {user ? <Breadcrumb items={items} /> : <div />}
@@ -74,6 +80,11 @@ export default function Header() {
                   <Button
                     className="py-1! px-2!"
                     variant="subtle"
+                    Icon={
+                      <span className="bg-primary text-primary-foreground rounded-full p-1">
+                        {initials}
+                      </span>
+                    }
                     label={userData?.name ?? user.displayName ?? "User"}
                   />
                 )
