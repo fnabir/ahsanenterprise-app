@@ -18,6 +18,7 @@ import ThemeToggle from "./theme-toggle";
 import { useBreadcrumb } from "@/contexts/BreadcrumbContext";
 import { useIsMobile } from "@repo/core";
 import { MdAccountCircle, MdLogout } from "react-icons/md";
+import { useMemo } from "react";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -35,11 +36,17 @@ export default function Header() {
     await signOut();
   };
 
-  const nameSplit = userData?.name?.split(" ") ?? [];
-  const initials =
-    nameSplit.length > 1
-      ? nameSplit[0][0] + (nameSplit[nameSplit.length - 1][0] ?? "")
-      : (nameSplit[0][0] ?? "");
+  const nameSplit = useMemo(
+    () => userData?.name?.split(" ") ?? [],
+    [userData?.name],
+  );
+  const initials = useMemo(() => {
+    return nameSplit.length > 0
+      ? nameSplit.length > 1
+        ? nameSplit[0][0] + (nameSplit[nameSplit.length - 1][0] ?? "")
+        : (nameSplit[0][0] ?? "")
+      : "";
+  }, [nameSplit]);
 
   return (
     <header className="w-full flex flex-row items-center justify-between py-2 px-2 lg:px-4">
