@@ -50,7 +50,7 @@ export function CardFileStatusList({ file }: { file: GroupedFileItem }) {
             <Button
               Icon={<MdMoreVert size={18} />}
               className="p-1!"
-              variant="muted"
+              variant="transparent"
             />
           }
         />
