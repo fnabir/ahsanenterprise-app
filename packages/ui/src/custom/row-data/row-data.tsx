@@ -16,7 +16,7 @@ export function RowData({
   if (!label || !value) return null;
 
   const isStringClassName = typeof className === "string";
-  const mainClassName = isStringClassName ? className : { main: className };
+  const mainClassName = isStringClassName ? className : (className?.main ?? "");
   const labelClassName = isStringClassName ? "" : (className?.label ?? "");
   const valueClassName = isStringClassName ? "" : (className?.value ?? "");
 
