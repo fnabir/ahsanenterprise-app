@@ -9,7 +9,7 @@ const Card = ({ children, className, clickable, href }: CardProps) => {
   const body = (
     <View
       className={cn(
-        "bg-surface-raised px-4 py-2 border border-border-strong rounded-lg",
+        "bg-surface-raised px-4 py-2 border border-border-strong rounded-lg shadow-md",
         className ?? "",
       )}
     >
