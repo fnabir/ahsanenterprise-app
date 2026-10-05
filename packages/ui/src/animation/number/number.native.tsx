@@ -26,10 +26,20 @@ export function AnimatedNumber({
   });
 
   return (
-    <View className={`flex-row items-center gap-1 ${className}`}>
+    <View
+      className={cn(
+        "flex-row items-center gap-1",
+        currency ? "py-px" : "-translate-y-1 -py-1 -mb-1",
+        className,
+      )}
+    >
       {valueType === "currency" && (
         <Text
-          className={cn("text-foreground font-sans text-xl", currencyClassName)}
+          className={cn(
+            "text-foreground font-sans-semibold text-xl",
+            currency ? "p-0" : "pt-1",
+            currencyClassName,
+          )}
         >
           {sign ?? ""}
           {currency ?? "৳"}{" "}
@@ -39,13 +49,13 @@ export function AnimatedNumber({
         editable={false}
         underlineColorAndroid="transparent"
         animatedProps={animatedProps}
-        className={cn("text-foreground text-xl font-mono-bold", valueClassName)}
+        className={cn(
+          "text-foreground text-xl font-mono-semibold",
+          valueClassName,
+        )}
         style={{
           padding: 0,
           margin: 0,
-          height: undefined, // let it size to lineHeight below, not a fixed box
-          includeFontPadding: false, // Android only — strips extra ascent/descent space
-          textAlignVertical: "center", // Android only — vertically centers within the box
         }}
       />
     </View>

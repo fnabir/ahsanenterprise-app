@@ -37,7 +37,6 @@ export function RowData({
           fractionDigits={2}
           valueType="currency"
           currency={currency}
-          className="-py-1 -mb-1"
           currencyClassName={cn("text-md font-mono", valueClassName)}
           valueClassName={cn("text-md font-mono", valueClassName)}
         />
