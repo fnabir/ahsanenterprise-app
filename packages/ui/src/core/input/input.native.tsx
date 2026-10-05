@@ -3,172 +3,202 @@ import { Text, TextInput, View, Pressable, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { ThemedIcon } from "../../../../../apps/mobile/src/components/ThemedIcon";
 import type { InputProps } from "./types";
+import { cn } from "../../../../core/utils";
+import { forwardRef } from "react";
 
 type InputType = "text" | "number" | "password" | "date";
 
-export function Input({
-  value = "",
-  onChangeText,
-  onBlur,
-  label,
-  placeholder,
-  helperText,
-  error,
-  disabled = false,
-  type = "text",
-  allowDecimal = false,
-  startAdornment,
-  endAdornment,
-  returnKeyType,
-  className = "",
-}: InputProps & { type?: InputType; returnKeyType?: "next" | "done" }) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [focused, setFocused] = useState(false);
+export const Input = forwardRef<
+  TextInput,
+  InputProps & {
+    type?: InputType;
+  }
+>(
+  (
+    {
+      value = "",
+      onChangeText,
+      onBlur,
+      label,
+      placeholder,
+      helperText,
+      error,
+      disabled = false,
+      type = "text",
+      allowDecimal = false,
+      startAdornment,
+      endAdornment,
+      className = "",
+      onSubmit,
+      onSubmitEditing,
+      submitAction,
+      nextInputRef,
+    },
+    ref,
+  ) => {
+    const [showPassword, setShowPassword] = useState(false);
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [focused, setFocused] = useState(false);
 
-  const borderColor = error
-    ? "border-error"
-    : focused
-      ? "border-accent"
-      : "border-muted";
+    const borderColor = error
+      ? "border-danger"
+      : focused
+        ? "border-primary"
+        : "border-muted";
 
-  const parseDate = (str: string): Date => {
-    if (!str) return new Date();
-    const [yyyy, mm, dd] = str.split("-"); // ← yyyy-MM-dd
-    if (!yyyy || !mm || !dd) return new Date();
-    return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
-  };
+    const parseDate = (str: string): Date => {
+      if (!str) return new Date();
+      const [yyyy, mm, dd] = str.split("-"); // ← yyyy-MM-dd
+      if (!yyyy || !mm || !dd) return new Date();
+      return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
+    };
 
-  const formatDate = (date: Date): string => {
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const dd = String(date.getDate()).padStart(2, "0");
-    return `${yyyy}-${mm}-${dd}`; // ← yyyy-MM-dd to match schema
-  };
+    const formatDate = (date: Date): string => {
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, "0");
+      const dd = String(date.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`; // ← yyyy-MM-dd to match schema
+    };
 
-  const displayDate = (str: string): string => {
-    if (!str) return "";
-    const [yyyy, mm, dd] = str.split("-");
-    if (!yyyy || !mm || !dd) return str;
-    return `${dd}.${mm}.${yyyy}`; // ← dd.MM.yyyy for the user
-  };
+    const displayDate = (str: string): string => {
+      if (!str) return "";
+      const [yyyy, mm, dd] = str.split("-");
+      if (!yyyy || !mm || !dd) return str;
+      return `${dd}.${mm}.${yyyy}`; // ← dd.MM.yyyy for the user
+    };
 
-  const isPassword = type === "password";
-  const isNumeric = type === "number";
-  const isDate = type === "date";
+    const isPassword = type === "password";
+    const isNumeric = type === "number";
+    const isDate = type === "date";
+    const submitHandler = onSubmitEditing ?? onSubmit;
 
-  return (
-    <View className={`gap-1 ${className}`}>
-      {label && (
-        <Text className="text-sm text-primary font-medium">{label}</Text>
-      )}
+    return (
+      <View className={`gap-1 ${className}`}>
+        {label && (
+          <Text className="text-sm text-primary font-medium">{label}</Text>
+        )}
 
-      {/* Date type — pressable that opens DateTimePicker */}
-      {isDate ? (
-        <>
-          <Pressable
-            onPress={() => {
-              if (!disabled) {
-                setFocused(true);
-                if (!showDatePicker && !value)
-                  onChangeText?.(formatDate(new Date()));
-                setShowDatePicker(!showDatePicker);
-              }
-            }}
-            className={`
+        {/* Date type — pressable that opens DateTimePicker */}
+        {isDate ? (
+          <>
+            <Pressable
+              onPress={() => {
+                if (!disabled) {
+                  setFocused(true);
+                  if (!showDatePicker && !value)
+                    onChangeText?.(formatDate(new Date()));
+                  setShowDatePicker(!showDatePicker);
+                }
+              }}
+              className={`
               flex-row items-center border rounded-lg px-3 py-3 bg-background
               ${borderColor}
               ${disabled ? "opacity-50" : ""}
             `}
-          >
-            {startAdornment}
-            <Text
-              className={`flex-1 text-base ${value ? "text-primary" : "text-muted"}`}
             >
-              {displayDate(value.toString()) || placeholder || "Select date"}
-            </Text>
-            <ThemedIcon name="calendar" size={20} />
-            {endAdornment}
-          </Pressable>
+              {startAdornment}
+              <Text
+                className={`flex-1 text-base ${value ? "text-primary" : "text-muted"}`}
+              >
+                {displayDate(value.toString()) || placeholder || "Select date"}
+              </Text>
+              <ThemedIcon name="calendar" size={20} />
+              {endAdornment}
+            </Pressable>
 
-          {showDatePicker && (
-            <DateTimePicker
-              value={parseDate(value.toString())}
-              mode="date"
-              display={Platform.OS === "ios" ? "spinner" : "default"}
-              onChange={(_event, selectedDate) => {
-                setShowDatePicker(Platform.OS === "ios");
-                setFocused(true);
-                if (selectedDate) {
-                  onChangeText?.(formatDate(selectedDate));
-                }
-                if (Platform.OS !== "ios") onBlur?.();
-              }}
-            />
-          )}
-        </>
-      ) : (
-        /* Text / Number / Password */
-        <View
-          className={`
+            {showDatePicker && (
+              <DateTimePicker
+                value={parseDate(value.toString())}
+                mode="date"
+                display={Platform.OS === "ios" ? "spinner" : "default"}
+                onChange={(_event, selectedDate) => {
+                  setShowDatePicker(Platform.OS === "ios");
+                  setFocused(true);
+                  if (selectedDate) {
+                    onChangeText?.(formatDate(selectedDate));
+                  }
+                  if (Platform.OS !== "ios") onBlur?.();
+                }}
+              />
+            )}
+          </>
+        ) : (
+          /* Text / Number / Password */
+          <View
+            className={`
             flex-row items-center border rounded-lg px-2 bg-background
             ${borderColor}
             ${disabled ? "opacity-50" : ""}
           `}
-        >
-          {startAdornment && (
-            <Text className="text-primary text-base mr-1">
-              {startAdornment}
-            </Text>
-          )}
-
-          <TextInput
-            value={String(value ?? "")}
-            onChangeText={(text) => {
-              if (isNumeric) {
-                // Strip non-numeric except decimal separators when allowed.
-                const cleaned = allowDecimal
-                  ? text.replace(/[^0-9.,]/g, "")
-                  : text.replace(/[^0-9]/g, "");
-                onChangeText?.(cleaned);
-              } else {
-                onChangeText?.(text);
-              }
-            }}
-            onBlur={() => {
-              setFocused(false);
-              onBlur?.(String(value ?? ""));
-            }}
-            onFocus={() => setFocused(true)}
-            placeholder={placeholder}
-            placeholderTextColor="#9ca3af"
-            secureTextEntry={isPassword && !showPassword}
-            editable={!disabled}
-            keyboardType={isNumeric ? "decimal-pad" : "default"}
-            className="flex-1 text-primary h-11"
-            returnKeyType={returnKeyType}
-          />
-
-          {isPassword && (
-            <Pressable
-              onPress={() => setShowPassword((p) => !p)}
-              className="ml-2"
-            >
-              <Text className="text-muted text-sm">
-                {showPassword ? "Hide" : "Show"}
+          >
+            {startAdornment && (
+              <Text className="text-primary text-base mr-1">
+                {startAdornment}
               </Text>
-            </Pressable>
-          )}
+            )}
 
-          {endAdornment}
-        </View>
-      )}
+            <TextInput
+              ref={ref}
+              value={String(value ?? "")}
+              onSubmitEditing={() => {
+                if (submitAction === "next") {
+                  nextInputRef?.current?.focus();
+                  return;
+                }
 
-      {helperText || error ? (
-        <Text className={`text-sm text-${error ? "error" : "muted"}`}>
-          {error ?? helperText}
-        </Text>
-      ) : null}
-    </View>
-  );
-}
+                submitHandler?.();
+              }}
+              onChangeText={(text) => {
+                if (isNumeric) {
+                  // Strip non-numeric except decimal separators when allowed.
+                  const cleaned = allowDecimal
+                    ? text.replace(/[^0-9.,]/g, "")
+                    : text.replace(/[^0-9]/g, "");
+                  onChangeText?.(cleaned);
+                } else {
+                  onChangeText?.(text);
+                }
+              }}
+              onBlur={() => {
+                setFocused(false);
+                onBlur?.(String(value ?? ""));
+              }}
+              onFocus={() => setFocused(true)}
+              placeholder={placeholder}
+              placeholderTextColor="#9ca3af"
+              secureTextEntry={isPassword && !showPassword}
+              editable={!disabled}
+              keyboardType={isNumeric ? "decimal-pad" : "default"}
+              className="flex-1 text-primary h-11"
+              returnKeyType={submitAction ?? "done"}
+            />
+
+            {isPassword && (
+              <Pressable
+                onPress={() => setShowPassword((p) => !p)}
+                className="ml-2"
+              >
+                <Text
+                  className={cn(
+                    "font-sans-semibold",
+                    focused ? "text-primary" : "text-muted",
+                  )}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </Text>
+              </Pressable>
+            )}
+
+            {endAdornment}
+          </View>
+        )}
+
+        {helperText || error ? (
+          <Text className={error ? "text-danger" : "text-muted"}>
+            {error ?? helperText}
+          </Text>
+        ) : null}
+      </View>
+    );
+  },
+);

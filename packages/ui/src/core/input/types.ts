@@ -1,9 +1,15 @@
-export type ReturnKeyType = "done" | "go" | "next" | "search" | "send";
+export type InputSubmitAction = "next" | "done" | "go" | "search" | "send";
+
+export type FocusableInputRef = {
+  focus: () => void;
+};
 
 export interface InputProps {
   value?: string | number;
   onChangeText?: (text: string) => void;
   onBlur?: (value?: string) => void;
+  onSubmit?: () => void;
+  onSubmitEditing?: () => void;
 
   label?: string;
   placeholder?: string;
@@ -18,6 +24,7 @@ export interface InputProps {
 
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
-  returnKeyType?: ReturnKeyType;
+  submitAction?: InputSubmitAction;
+  nextInputRef?: React.RefObject<FocusableInputRef | null>;
   className?: string;
 }
