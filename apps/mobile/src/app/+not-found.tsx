@@ -1,5 +1,4 @@
-import { View, Text, Pressable } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button } from '../../../../packages/ui/src/core/button/button.native';
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { CardInfo, CardInfoImporter, Skeleton } from "@repo/ui";
+import { CardInfoImporter } from "@repo/ui";
 import { FaInfoCircle } from "react-icons/fa";
 import {
   useImporterLoading,
