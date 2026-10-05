@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactElement, ReactNode } from "react";
+import { Button } from "../../core/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -10,8 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../..";
+} from "../../core/dialog";
 import { MdDeleteOutline } from "react-icons/md";
+import type { DialogDeleteProps } from "./types";
 
 export function DialogDelete({
   title,
@@ -21,14 +22,8 @@ export function DialogDelete({
   onDelete,
   open,
   setOpen,
-}: {
-  title?: string;
-  description?: string;
+}: DialogDeleteProps & {
   trigger: ReactElement;
-  children: ReactNode;
-  onDelete?: () => void;
-  open: boolean;
-  setOpen: (open: boolean) => void;
 }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>

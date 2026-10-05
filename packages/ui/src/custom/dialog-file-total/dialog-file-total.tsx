@@ -6,8 +6,8 @@ import {
   FileTotalInput,
   FileTotalOutput,
 } from "@repo/validators";
+import { Button } from "../../core/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -15,9 +15,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  FormInput,
-  FormTextarea,
-} from "../..";
+} from "../../core/dialog";
+import { FormInput, FormTextarea } from "../../form-field";
 import { FileData } from "@repo/types";
 import { getFullFileNo, useImporterInfo } from "@repo/core";
 import { useForm } from "react-hook-form";

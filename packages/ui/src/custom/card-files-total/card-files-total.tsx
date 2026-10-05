@@ -7,15 +7,29 @@ export function CardFilesTotal({
   year,
   count,
   className = "",
+  onPress,
+  disabled,
 }: {
   year: string;
   count: number;
   className?: string;
+  onPress?: () => void;
+  disabled?: boolean;
 }) {
   const href =
     Number(year) === getCurrentYear() ? `/files` : `/files?year=${year}`;
   return (
-    <Link href={href} className="w-full">
+    <Link
+      href={disabled ? "#" : href}
+      className="w-full"
+      onClick={(event) => {
+        if (disabled) {
+          event.preventDefault();
+          return;
+        }
+        onPress?.();
+      }}
+    >
       <Card
         className={`flex gap-2 justify-between items-center font-mono ${className}`}
         clickable

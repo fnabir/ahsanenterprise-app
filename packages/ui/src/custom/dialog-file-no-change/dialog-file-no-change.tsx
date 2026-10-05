@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, type ReactElement } from "react";
+import { Button } from "../../core/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -10,8 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  FormInput,
-} from "../..";
+} from "../../core/dialog";
+import { FormInput } from "../../form-field";
 import {
   FileNoChangeSchema,
   FileNoChangeFormInput,

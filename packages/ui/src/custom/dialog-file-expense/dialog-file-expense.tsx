@@ -8,8 +8,8 @@ import {
   expensesRecordToArray,
   expensesArrayToRecord,
 } from "@repo/validators";
+import { Button } from "../../core/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -17,9 +17,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  FormInput,
-  Label,
-} from "../..";
+} from "../../core/dialog";
+import { FormInput } from "../../form-field";
+import { Label } from "../../core/label";
 import { FileData } from "@repo/types";
 import { getFullFileNo } from "@repo/core";
 import { useForm, useFieldArray } from "react-hook-form";

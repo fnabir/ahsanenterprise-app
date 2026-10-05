@@ -85,7 +85,7 @@ export function CardFile({
                 className="text-danger border bg-danger-subtle hover:border-danger"
               />
             }
-            onDelete={() => onDeleteFile()}
+            onDelete={onDeleteFile}
             open={open}
             setOpen={setOpen}
           >

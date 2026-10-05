@@ -1,4 +1,6 @@
-import { Card, AnimatedNumber, Button } from "../..";
+import { AnimatedNumber } from "../../animation/number";
+import { Card } from "../../core/card";
+import { Button } from "../../core/button";
 import type { ImporterData } from "@repo/types";
 import { DialogImporterInfo } from "../dialog-importer-info";
 import { MdOutlineEdit } from "react-icons/md";

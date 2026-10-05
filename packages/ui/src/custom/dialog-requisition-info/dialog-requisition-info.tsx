@@ -28,7 +28,8 @@ import { getFullRequisitionNo, toRequisitionDbKey } from "@repo/core";
 import { FormInput } from "../../form-field/FormInput";
 import { Button } from "../../core/button";
 import { getDatabaseReferenceExists, requisitionInfo } from "@repo/firebase";
-import { FormSelect, toast } from "../..";
+import { FormSelect } from "../../form-field/FormSelect";
+import { toast } from "../../core/toast/useToast";
 import { FaPlus, FaTimes } from "react-icons/fa";
 
 export function DialogRequisitionInfo({

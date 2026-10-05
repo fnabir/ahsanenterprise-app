@@ -9,8 +9,8 @@ import {
 import type { ImporterData } from "@repo/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "../../core/button";
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -18,8 +18,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  FormInput,
-} from "../..";
+} from "../../core/dialog";
+import { FormInput } from "../../form-field";
 import { updateImporterInfo } from "@repo/firebase";
 
 export function DialogImporterInfo({

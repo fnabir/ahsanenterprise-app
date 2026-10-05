@@ -1,4 +1,5 @@
-import { Card, AnimatedNumber } from "../..";
+import { Card } from "../../core/card";
+import { AnimatedNumber } from "../../animation/number";
 
 export function CardTotal({
   label,

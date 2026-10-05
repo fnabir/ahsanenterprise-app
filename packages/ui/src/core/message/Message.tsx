@@ -1,18 +1,16 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import type { MessageProps } from "./types";
 
 export function Message({
   message,
   type = "info",
   variant = "outline",
   className = "",
-}: {
-  message: string;
-  type?: "info" | "success" | "error" | "warning";
-  variant?: "soft" | "outline";
-  className?: string;
-}) {
+}: MessageProps) {
+  if (!message) return null;
+
   const typeStyle = {
     info: "bg-primary-subtle text-primary border-primary",
     success: "bg-success-subtle text-success border-success",
