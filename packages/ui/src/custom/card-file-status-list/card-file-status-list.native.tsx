@@ -23,7 +23,10 @@ const CardFileStatusList = ({ file }: { file: GroupedFileItem }) => {
           {file.data.itemName}
         </Text>
       </View>
-      <Button Icon={<ThemedIcon name="dots-vertical" />} />
+      <Button
+        Icon={<ThemedIcon name="dots-vertical" />}
+        variant="transparent"
+      />
     </View>
   );
 };

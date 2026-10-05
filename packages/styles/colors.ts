@@ -6,8 +6,8 @@ export const colors = {
     textTertiary: "#8B93A1",
     primary: "#2E5C86",
     primarySubtle: "#E7EFF6",
-    primaryForeground: "#FFFFFF",
-    error: "#B23B3B",
+    foreground: "#FFFFFF",
+    danger: "#B23B3B",
     success: "#2E7A5B",
   },
   dark: {
@@ -17,8 +17,8 @@ export const colors = {
     textTertiary: "#6B7383",
     primary: "#6FA8D6",
     primarySubtle: "#1F3347",
-    primaryForeground: "#0E1520",
-    error: "#E27575",
+    foreground: "#0E1520",
+    danger: "#E27575",
     success: "#5FFBF93",
   },
 } as const;
