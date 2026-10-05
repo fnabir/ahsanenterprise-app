@@ -75,12 +75,6 @@ export function useLoginForm(onSuccess?: () => void) {
     if (!error) return;
 
     switch (error.code) {
-      case "auth/invalid-email":
-        setAuthError("Invalid email address!");
-        break;
-      case "auth/wrong-password":
-        setAuthError("Wrong password!");
-        break;
       case "auth/network-request-failed":
         setAuthError("Network connection issue!");
         break;
