@@ -40,8 +40,8 @@ export default function BalanceSection({ id }: { id: string }) {
             ))
           ) : error ? (
             <CardInfo
-              title="File not found"
-              details="No data available for this file. Please check the year and file number."
+              title="Failed to get the importer balance data."
+              details={error.message ?? "An unknown error occurred."}
               Icon={<FaInfoCircle size={24} className="text-danger" />}
               className="mx-2 lg:mx-4 my-2"
             />

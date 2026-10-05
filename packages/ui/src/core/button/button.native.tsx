@@ -23,11 +23,9 @@ export function Button({
     <TouchableOpacity activeOpacity={0.7}>
       <Pressable
         className={cn(
-          "rounded-lg",
+          "rounded-lg py-1",
           loading || disabled ? "opacity-70" : "",
-          iconOnly
-            ? "p-2"
-            : "flex-row items-center justify-center px-4 py-2 gap-2",
+          iconOnly ? "px-1" : "flex-row items-center justify-center px-4 gap-2",
           bgStyle[variant],
           className,
         )}
