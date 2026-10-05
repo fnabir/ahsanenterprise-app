@@ -1,6 +1,6 @@
 import { AnimatedNumber } from "../../animation/number";
 import { Card } from "../../core/card";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { cn } from "@repo/core";
 import { capitalize } from "@repo/core";
 
@@ -22,21 +22,39 @@ export function CardBalanceTotal({
   noteClassName?: string;
 }) {
   return (
-    <Card href={href ?? `/${id}-balance`} className={className}>
-      <Text className="text-foreground font-sans-bold">{capitalize(id)}</Text>
-      <AnimatedNumber value={Math.abs(value)} valueType="currency" />
-      {note ? (
-        <Text
-          className={cn("text-foreground font-semibold text-sm", noteClassName)}
-        >
-          {note}
+    <Card
+      href={href ?? `/${id}-balance`}
+      className={cn("flex-row justify-between gap-2", className)}
+    >
+      <View>
+        <Text className="text-foreground text-lg font-sans-semibold">
+          {capitalize(id)}
         </Text>
-      ) : value > 0 ? (
-        <Text className="text-danger font-semibold text-sm">
-          Outstanding Balance
-        </Text>
-      ) : null}
-      {date && <Text className="text-muted text-sm mt-1">Updated {date}</Text>}
+        {date && <Text className="text-muted">{date}</Text>}
+      </View>
+      <View>
+        <AnimatedNumber
+          value={Math.abs(value)}
+          valueType="currency"
+          className="justify-end"
+          valueClassName="text-xl"
+          currencyClassName="text-xl"
+        />
+        {note ? (
+          <Text
+            className={cn(
+              "text-foreground font-semibold text-right -mt-2",
+              noteClassName,
+            )}
+          >
+            {note}
+          </Text>
+        ) : value > 0 ? (
+          <Text className="text-danger font-semibold text-right -mt-2">
+            Outstanding Balance
+          </Text>
+        ) : null}
+      </View>
     </Card>
   );
 }
