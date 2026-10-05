@@ -1,7 +1,9 @@
+import { Message } from "../../core/message/Message.native";
 import { Button } from "../../core/button";
 import { FormInput } from "../../form-field/FormInput";
 import { useLoginForm } from "./useLoginForm";
-import { View, Text } from "react-native";
+import { TextInput, View } from "react-native";
+import { useRef } from "react";
 
 export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const {
@@ -14,15 +16,18 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
     authError,
   } = useLoginForm(onSuccess);
 
+  const passwordRef = useRef<TextInput>(null);
+
   return (
-    <View>
+    <View className="flex-col gap-4">
       <FormInput
         name="email"
         control={control}
         label="Email"
         placeholder="user@asianliftbd.com"
         disabled={loading}
-        returnKeyType="next"
+        submitAction="next"
+        nextInputRef={passwordRef}
         required
       />
       <FormInput
@@ -31,26 +36,24 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
         label="Password"
         placeholder="••••••••"
         type="password"
-        returnKeyType="done"
+        onSubmitEditing={handleSubmit(onSubmit)}
+        submitAction="done"
         disabled={loading}
         required
+        inputRef={passwordRef}
       />
       <Button
-        type="submit"
         loading={loading || isSubmitting}
         label={buttonLabel}
-        aria-label="Login Button"
         disabled={loading || isSubmitting}
         onClick={handleSubmit(onSubmit)}
-        className="w-full text-base! mt-6"
         variant={
-          ["Login", "Logging in…", "Access granted"].includes(buttonLabel)
-            ? "primary"
-            : "danger"
+          ["Access denied", "Login failed"].includes(buttonLabel)
+            ? "danger"
+            : "primary"
         }
       />
-
-      {authError && <Text className="text-red-500">{authError}</Text>}
+      <Message type="error" message={authError} />
     </View>
   );
 }
