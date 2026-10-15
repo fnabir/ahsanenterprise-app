@@ -30,7 +30,7 @@ const CardFile = ({
   };
 
   return (
-    <Card className="flex-col mb-2">
+    <Card className="flex-col gap-2 py-3">
       <View className="w-full flex-row items-center justify-between gap-2">
         <View className="flex-row items-center gap-2">
           <Text className="w-12 text-center text-primary bg-primary-subtle border-primary border rounded-lg p-0.5">
@@ -38,9 +38,14 @@ const CardFile = ({
           </Text>
           <BadgeFileStatus status={data.status} />
         </View>
-        <ThemedIcon name="pencil-outline" color="textSecondary" />
+        <View className="flex-row gap-4">
+          <Button
+            variant="default"
+            Icon={<ThemedIcon name="pencil-outline" color="surfaceRaised" />}
+          />
+        </View>
       </View>
-      <View className="border-y border-border-strong my-2 py-2">
+      <View className="border-y border-border-strong py-2">
         <Text className="text-foreground font-sans-bold">{data.importer}</Text>
         <Text className="text-muted font-sans-semibold">
           {data.itemName} • {data.itemPackage}
@@ -54,7 +59,7 @@ const CardFile = ({
           <CopyText label="ROT" text={data.rotNo} />
         </View>
       )}
-      <View className="mt-2 flex-row justify-end gap-2">
+      <View className="mt-1 flex-row justify-end gap-2">
         <Button
           variant="default"
           label="View"

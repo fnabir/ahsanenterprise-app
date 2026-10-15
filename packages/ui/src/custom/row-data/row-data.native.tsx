@@ -30,18 +30,22 @@ export function RowData({
         mainClassName ?? "",
       )}
     >
-      <Text className={cn("text-muted", labelClassName)}>{label}</Text>
+      <Text className={cn("text-lg text-muted", labelClassName)}>{label}</Text>
       {valueType === "currency" && typeof value === "number" ? (
         <AnimatedNumber
           value={value}
           fractionDigits={2}
           valueType="currency"
           currency={currency}
-          currencyClassName={cn("text-md font-mono", valueClassName)}
-          valueClassName={cn("text-md font-mono", valueClassName)}
+          currencyClassName={cn("text-lg translate-y-1.5", valueClassName)}
+          valueClassName={cn("text-lg font-mono", valueClassName)}
         />
       ) : (
-        <Text className={cn("text-foreground", valueClassName)}>{value}</Text>
+        <Text
+          className={cn("text-foreground text-lg text-wrap", valueClassName)}
+        >
+          {value}
+        </Text>
       )}
     </View>
   );

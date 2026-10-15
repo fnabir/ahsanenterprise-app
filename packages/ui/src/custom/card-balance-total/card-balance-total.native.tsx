@@ -1,8 +1,7 @@
 import { AnimatedNumber } from "../../animation/number";
 import { Card } from "../../core/card";
 import { Text, View } from "react-native";
-import { cn } from "@repo/core";
-import { capitalize } from "@repo/core";
+import { cn, capitalize } from "@repo/core";
 
 export function CardBalanceTotal({
   id,
@@ -43,14 +42,14 @@ export function CardBalanceTotal({
         {note ? (
           <Text
             className={cn(
-              "text-foreground font-semibold text-right -mt-2",
+              "text-foreground font-semibold text-right",
               noteClassName,
             )}
           >
             {note}
           </Text>
         ) : value > 0 ? (
-          <Text className="text-danger font-semibold text-right -mt-2">
+          <Text className="text-danger font-semibold text-right">
             Outstanding Balance
           </Text>
         ) : null}

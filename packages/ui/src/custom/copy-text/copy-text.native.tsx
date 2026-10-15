@@ -28,8 +28,8 @@ export function CopyText({
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onCopyText}
-      className={`flex-row h-8 items-center py-1 px-2 rounded-md border font-mono bg-muted-subtle
-        ${copied ? "border-success" : "border-muted-foreground"}
+      className={`flex-row h-8 items-center py-1 px-2 rounded-md border font-mono bg-background
+        ${copied ? "border-success" : "border-muted"}
       `}
     >
       <Text className="w-16 text-[13px] text-muted">{label}</Text>

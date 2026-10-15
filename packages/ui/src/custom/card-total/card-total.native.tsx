@@ -59,7 +59,7 @@ export function CardTotal({
       )}
     >
       <View>
-        <Text className="text-foreground text-lg font-sans-semibold">
+        <Text className="text-foreground text-xl font-sans-semibold">
           {label ?? "Total Balance"}
         </Text>
         {date && <Text className="text-muted">{date}</Text>}
@@ -73,7 +73,7 @@ export function CardTotal({
         {totalBalanceAttributes.note && (
           <Text
             className={cn(
-              "text-foreground font-semibold text-right -mt-2",
+              "text-foreground font-semibold text-right",
               totalBalanceAttributes.noteClassName,
             )}
           >
