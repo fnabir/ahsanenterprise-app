@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { cn } from "@repo/core";
 import { CardProps } from "./types";
 
 const Card = ({ children, className, clickable, href }: CardProps) => {
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsNavigating(false);
+    }, []),
+  );
 
   const body = (
     <View
@@ -25,13 +31,10 @@ const Card = ({ children, className, clickable, href }: CardProps) => {
         activeOpacity={0.7}
         disabled={isNavigating}
         onPress={() => {
-          if (isNavigating) return;
+          if (isNavigating || !href) return;
 
-          if (href) {
-            setIsNavigating(true);
-            router.push(href);
-            return;
-          }
+          setIsNavigating(true);
+          router.push(href);
         }}
       >
         {body}
