@@ -60,6 +60,18 @@ export default function RootLayout() {
         <NavigationLoadingProvider>
           <AuthGuard>
             <StoreInitializer />
+            <Stack
+              screenOptions={{
+                headerStyle: {
+                  backgroundColor: theme === 'dark' ? '#20262f' : '#fff',
+                },
+                headerTitleStyle: {
+                  fontFamily: 'PublicSans_600SemiBold',
+                },
+                headerTintColor: theme === 'dark' ? '#fff' : '#000',
+                headerBackButtonDisplayMode: 'generic',
+              }}
+            />
             <ToastProvider />
             <StatusBar animated={true} />
           </AuthGuard>

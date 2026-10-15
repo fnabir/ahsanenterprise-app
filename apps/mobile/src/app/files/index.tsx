@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { getCurrentYear, useFileLoading, useFilesByYear, useFileError, useYear } from '@repo/core';
-import HeaderBar from '@/components/HeaderBar';
+import { Stack } from 'expo-router';
 import Loading from '@/components/Loading';
 import Error from '@/components/Error';
 import Empty from '@/components/Empty';
@@ -22,31 +22,39 @@ const FilesScreen = () => {
   const isEmpty = !loading && Object.keys(files).length === 0;
 
   return (
-    <View className="bg-background py-safe h-full">
-      <HeaderBar title="Files" />
-      <View className="h-full flex-col items-center justify-center">
-        {loading ? (
-          <Loading text="Loading files..." />
-        ) : error ? (
-          <Error message={error} />
-        ) : isEmpty ? (
-          <Empty text={`No files found for year ${year}`} />
-        ) : (
-          <Motion.ScrollView
-            key={year}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="mb-safe h-full flex-col px-3 pt-2 pb-4">
-            {Object.entries(files)
-              .reverse()
-              .map(([fileKey, data]) => (
-                <CardFile key={fileKey} year={year} fileKey={fileKey} data={data} />
-              ))}
-          </Motion.ScrollView>
-        )}
+    <>
+      <Stack.Screen
+        options={{
+          title: 'Files',
+        }}
+      />
+      <View className="bg-background py-safe h-full flex-col">
+        <View className="flex-1 flex-col items-center justify-center">
+          {loading ? (
+            <Loading text="Loading files..." />
+          ) : error ? (
+            <Error message={error} />
+          ) : isEmpty ? (
+            <Empty text={`No files found for year ${year}`} />
+          ) : (
+            <Motion.ScrollView
+              key={year}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="h-full">
+              <View className="flex-1 flex-col gap-2 p-4">
+                {Object.entries(files)
+                  .reverse()
+                  .map(([fileKey, data]) => (
+                    <CardFile key={fileKey} year={year} fileKey={fileKey} data={data} />
+                  ))}
+              </View>
+            </Motion.ScrollView>
+          )}
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 

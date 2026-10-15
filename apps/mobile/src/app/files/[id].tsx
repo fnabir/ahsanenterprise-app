@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import {
   useFileLoading,
   useFileError,
@@ -12,7 +12,7 @@ import Loading from '@/components/Loading';
 import Error from '@/components/Error';
 import Empty from '@/components/Empty';
 import { Motion } from '../../../../../packages/ui/src/animation/motion/motion.native';
-import { useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { RowData } from '../../../../../packages/ui/src/custom/row-data/row-data.native';
 import { Card } from '../../../../../packages/ui/src/core/card';
 import { AnimatedNumber } from '../../../../../packages/ui/src/animation/number/number.native';
@@ -96,95 +96,99 @@ export default function FileScreen() {
   }, [data]);
 
   return (
-    <View className="bg-background py-safe h-full">
-      <HeaderBar title={fullFileNo} />
-      <View className="h-full flex-col items-center justify-center">
-        {loading ? (
-          <Loading text="Loading file details..." />
-        ) : error ? (
-          <Error title="Failed to load file details" message={error} />
-        ) : !data ? (
-          <Empty text={`No data found for file ${fullFileNo}.`} />
-        ) : (
-          <Motion.ScrollView
-            key={year}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="h-full p-4">
-            <View className="flex-col gap-2">
-              <Card className={balanceStyle.cardClassName}>
-                <View className="flex-row justify-between">
-                  <View>
-                    <Text className={cn('font-sans-semibold text-lg', balanceStyle.textClassName)}>
-                      {balanceStyle.title}
-                    </Text>
-                    <AnimatedNumber
-                      value={totals.balance}
-                      valueType="currency"
-                      fractionDigits={2}
-                      currencyClassName={cn('text-3xl', balanceStyle.textClassName)}
-                      valueClassName={cn('text-3xl', balanceStyle.textClassName)}
-                    />
+    <>
+      <Stack.Screen
+        options={{
+          title: fullFileNo,
+        }}
+      />
+      <View className="bg-background py-safe h-full">
+        <View className="h-full flex-col items-center justify-center">
+          {loading ? (
+            <Loading text="Loading file details..." />
+          ) : error ? (
+            <Error title="Failed to load file details" message={error} />
+          ) : !data ? (
+            <Empty text={`No data found for file ${fullFileNo}.`} />
+          ) : (
+            <ScrollView className="h-full p-4">
+              <View className="flex-col gap-2">
+                <Card className={balanceStyle.cardClassName}>
+                  <View className="flex-row justify-between">
+                    <View>
+                      <Text
+                        className={cn('font-sans-semibold text-lg', balanceStyle.textClassName)}>
+                        {balanceStyle.title}
+                      </Text>
+                      <AnimatedNumber
+                        value={totals.balance}
+                        valueType="currency"
+                        fractionDigits={2}
+                        currencyClassName={cn('text-3xl', balanceStyle.textClassName)}
+                        valueClassName={cn('text-3xl', balanceStyle.textClassName)}
+                      />
+                    </View>
+                    <Button Icon={<ThemedIcon name="pencil" size={16} />} variant="outline" />
                   </View>
-                  <Button Icon={<ThemedIcon name="pencil" size={16} />} variant="outline" />
-                </View>
 
-                <RowData label="Total" value={totals.grandTotal} valueType="currency" />
-                <RowData
-                  label="Paid"
-                  value={totals.paid ?? 0}
-                  valueType="currency"
-                  className={{ value: 'text-success' }}
-                />
-              </Card>
-              {isValuesAvailable && (
+                  <RowData label="Total" value={totals.grandTotal} valueType="currency" />
+                  <RowData
+                    label="Paid"
+                    value={totals.paid ?? 0}
+                    valueType="currency"
+                    className={{ value: 'text-success' }}
+                  />
+                </Card>
+                {isValuesAvailable && (
+                  <Card>
+                    {Object.entries(values).map(([label, { value, currency }]) => (
+                      <RowData
+                        key={label}
+                        label={label}
+                        value={value}
+                        valueType="currency"
+                        currency={currency}
+                      />
+                    ))}
+                  </Card>
+                )}
+                {isDatesAvailable && (
+                  <Card className="flex-col gap-1">
+                    {Object.entries(dates).map(([label, value]) => (
+                      <RowData key={label} label={label} value={value} />
+                    ))}
+                  </Card>
+                )}
                 <Card>
-                  {Object.entries(values).map(([label, { value, currency }]) => (
+                  <View className="border-muted flex-row items-center justify-between gap-2 border-b pb-2">
+                    <Text className="text-foreground font-sans-semibold text-xl">File Details</Text>
+                    <Button Icon={<ThemedIcon name="pencil" />} variant="outline" />
+                  </View>
+                  {Object.entries(info).map(([label, value], index) => (
                     <RowData
                       key={label}
                       label={label}
                       value={value}
-                      valueType="currency"
-                      currency={currency}
+                      className={{
+                        main: cn(
+                          'py-0.5',
+                          index === Object.entries(info).length - 1
+                            ? ''
+                            : 'border-border-strong border-b'
+                        ),
+                        value: label === 'Importer' ? 'font-sans-bold' : '',
+                      }}
                     />
                   ))}
                 </Card>
-              )}
-              {isDatesAvailable && (
-                <Card className="flex-col gap-1">
-                  {Object.entries(dates).map(([label, value]) => (
-                    <RowData key={label} label={label} value={value} />
-                  ))}
-                </Card>
-              )}
-              <Card>
-                <View className="border-muted flex-row items-center justify-between gap-2 border-b pb-2">
-                  <Text className="font-sans-semibold">File Details</Text>
-                  <Button Icon={<ThemedIcon name="pencil" size={16} />} variant="outline" />
-                </View>
-                {Object.entries(info).map(([label, value], index) => (
-                  <RowData
-                    key={label}
-                    label={label}
-                    value={value}
-                    className={{
-                      main: cn(
-                        'py-0.5',
-                        index === Object.entries(info).length - 1
-                          ? ''
-                          : 'border-border-strong border-b'
-                      ),
-                      value: label === 'Importer' ? 'font-sans-bold' : '',
-                    }}
-                  />
-                ))}
-              </Card>
-              {data?.remarks && <RowData label="Remarks" value={data.remarks} />}
-            </View>
-          </Motion.ScrollView>
-        )}
+                {data?.remarks && (
+                  <RowData label="Remarks" value={data.remarks} className={{ value: 'text-sm' }} />
+                )}
+              </View>
+            </ScrollView>
+          )}
+        </View>
       </View>
-    </View>
+    </>
   );
 }

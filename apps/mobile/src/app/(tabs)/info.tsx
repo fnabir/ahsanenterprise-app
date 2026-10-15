@@ -1,6 +1,6 @@
 import { View, Text, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Card } from '../../../../../packages/ui/src/core/card';
 
 type itemProps = {
   href?: string;
@@ -12,36 +12,33 @@ type itemProps = {
 
 const items: itemProps[] = [
   {
-    href: '/project-info',
+    href: '/importer-info',
     icon: 'business',
-    title: 'Project Info',
+    title: 'Importer Info',
     details: 'Details, Contact',
-    color: '#4ade80',
-  },
-  {
-    href: '/payment-info',
-    icon: 'card',
-    title: 'Payment Info',
-    details: 'Method, Details',
-    color: '#3b82f6',
-  },
-  {
-    href: '/callback',
-    icon: 'build-outline',
-    title: 'Callback',
-    details: 'Details, Status',
-    color: '#ef4444',
+    color: '#1583e9',
   },
 ];
 
-export default function ProjectsScreen() {
+export default function InfoScreen() {
   return (
-    <SafeAreaView>
-      <ScrollView className="p-4">
-        <View className="gap-4">
-          <Text className="text-primary text-center text-2xl font-medium">Info</Text>
+    <View className="bg-background py-safe h-full">
+      <ScrollView className="h-full flex-col px-4">
+        <View className="gap-4 py-4">
+          {items.map(({ href, icon, title, details, color }) => (
+            <Card
+              key={title}
+              className="border-border-strong flex-row items-center gap-4"
+              href={href}>
+              <Ionicons name={icon} size={24} color={color} />
+              <View>
+                <Text className="text-foreground font-sans-semibold text-lg">{title}</Text>
+                {details && <Text className="text-muted">{details}</Text>}
+              </View>
+            </Card>
+          ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

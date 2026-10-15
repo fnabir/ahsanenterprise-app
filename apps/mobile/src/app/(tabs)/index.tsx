@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useAuth } from '../../../../../packages/ui/src/contexts/AuthContext';
 import { Card } from '../../../../../packages/ui/src/core/card';
 import {
@@ -9,16 +9,20 @@ import {
   useFileError,
   useFileYears,
   useFilesGroupedByStatus,
-  FILE_STATUSES,
 } from '@repo/core';
-import { useMemo } from 'react';
-import { Motion, AnimatePresence } from '../../../../../packages/ui/src/motion/motion.native';
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
-import { Button } from '../../../../../packages/ui/src/core/button';
-import ContextMenu from 'react-native-context-menu-view';
-import { updateFileStatus } from '../../../../../packages/firebase/src/file';
+import {
+  Motion,
+  AnimatePresence,
+} from '../../../../../packages/ui/src/animation/motion/motion.native';
+import { CardFilesTotal } from '../../../../../packages/ui/src/custom/card-files-total';
+import { ThemedIcon } from '@/components/ThemedIcon';
+import { CardFileStatusList } from '../../../../../packages/ui/src';
+import { useNavigationLoading } from '@/contexts/NavigationLoadingContext';
+import { useNavigationWithLoading } from '@/hooks/useNavigationWithLoading';
 
 export default function HomeScreen() {
+  const { isNavigating } = useNavigationLoading();
+  const { navigate } = useNavigationWithLoading();
   const [showStatus, setShowStatus] = useState<string | null>(null);
 
   const loading = useFileLoading();
@@ -70,23 +74,21 @@ export default function HomeScreen() {
   };
 
   return (
-    <View className="bg-background pt-safe">
-      <ScrollView className="h-full flex-col px-4">
-        <View className="mt-2">
-          <Text className="text-foreground font-sans-semibold mb-2 text-xl">Files</Text>
+    <View className="bg-background py-safe h-full">
+      <ScrollView className="h-full flex-1 flex-col p-4">
+        <View className="flex-col gap-2">
           {orderedYears.map(({ year, count }) => (
-            <Card
+            <CardFilesTotal
               key={year}
-              className={`mb-2 flex-row justify-between ${Number(year) === currentYear ? 'border-primary' : 'border-border'}`}>
-              <View className="flex-row items-end gap-2">
-                <Text className="text-foreground -translate-y-0.75 font-sans">YEAR</Text>
-                <Text className="text-foreground font-mono-bold text-2xl">{year}</Text>
-              </View>
-              <View className="flex-row items-end gap-2">
-                <Text className="text-foreground font-mono-bold text-2xl">{count}</Text>
-                <Text className="text-foreground -translate-y-0.75 font-sans">FILES</Text>
-              </View>
-            </Card>
+              year={year}
+              count={count}
+              disabled={isNavigating}
+              onPress={() => {
+                if (isNavigating) return;
+                const href = Number(year) === currentYear ? '/files' : `/files?year=${year}`;
+                navigate(href);
+              }}
+            />
           ))}
         </View>
         <View className="bg-muted mt-4 h-px w-full opacity-50" />
@@ -107,11 +109,11 @@ export default function HomeScreen() {
                     <Motion.View
                       animate={{ rotate: showStatus === status ? '180deg' : '0deg' }}
                       transition={{ type: 'spring', stiffness: 200, damping: 20 }}>
-                      <MaterialDesignIcons name="chevron-down" size={20} />
+                      <ThemedIcon name="chevron-down" />
                     </Motion.View>
                   </View>
                   <View
-                    className={`h-7 w-10 flex-row items-center justify-center rounded-full border ${statusStyle[status]?.bg ?? ''} ${statusStyle[status]?.border ?? ''}`}>
+                    className={`w-10 flex-row items-center justify-center rounded-full border ${statusStyle[status]?.bg ?? ''} ${statusStyle[status]?.border ?? ''}`}>
                     <Text className={`font-mono-bold ${statusStyle[status]?.text ?? ''}`}>
                       {files.length}
                     </Text>
@@ -123,44 +125,7 @@ export default function HomeScreen() {
                     transition={{ type: 'timing' }}
                     style={{ overflow: 'hidden' }}>
                     {files.map((file) => (
-                      <View
-                        className="border-muted -mx-4 h-[66px] flex-row items-center justify-between border-t px-4"
-                        key={file.fileNo}>
-                        <View>
-                          <Text className="text-foreground bg-muted-subtle w-14 rounded-lg px-2 py-px text-center font-mono text-sm">
-                            #{file.fileNo}
-                          </Text>
-                          <Text className="text-foreground font-sans-bold rounded-lg px-2 py-px text-sm">
-                            {file.data.importer}
-                          </Text>
-                          <Text className="text-foreground rounded-lg px-2 py-px font-sans text-sm">
-                            {file.data.itemName}
-                          </Text>
-                        </View>
-                        <Button Icon={<MaterialDesignIcons name="dots-vertical" size={20} />} />
-                        <ContextMenu
-                          title="Status"
-                          actions={FILE_STATUSES.map((status) => ({
-                            title: status,
-                          }))}
-                          onPress={(event) => {
-                            const newStatus = event.nativeEvent.name;
-                            console.log('Updating file status:', {
-                              fileNo: file.fileNo,
-                              year: file.year,
-                              oldStatus: file?.data?.status ?? 'New',
-                              newStatus,
-                            });
-                            /*updateFileStatus(
-                              file.fileNo,
-                              file.year,
-                              file?.data?.status ?? 'New',
-                              newStatus
-                            );*/
-                          }}>
-                          <Button Icon={<MaterialDesignIcons name="dots-vertical" size={20} />} />
-                        </ContextMenu>
-                      </View>
+                      <CardFileStatusList key={file.fileNo} file={file} />
                     ))}
                   </Motion.View>
                 </AnimatePresence>
