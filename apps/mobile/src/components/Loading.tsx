@@ -12,6 +12,11 @@ const Loading = ({ text }: { text?: string }) => {
 
   useEffect(() => {
     rotation.value = withRepeat(withTiming(360, { duration: 800 }), -1, false);
+
+    return () => {
+      rotation.value = 0;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -20,16 +25,18 @@ const Loading = ({ text }: { text?: string }) => {
 
   return (
     <View>
-      <Image
-        source={require('../../assets/adaptive-icon.png')}
-        className="m-2 h-20 w-20"
-        resizeMode="contain"
-      />
-      <Animated.View
-        style={animatedStyle}
-        className="border-primary absolute h-24 w-24 rounded-full border-r-2 border-b-2 p-2"
-      />
-      <Text className="text-foreground font-sans-semibold mt-4 text-xl">
+      <View className="relative mx-auto">
+        <Image
+          source={require('../../assets/adaptive-icon.png')}
+          className="m-2 h-20 w-20"
+          resizeMode="contain"
+        />
+        <Animated.View
+          style={animatedStyle}
+          className="border-primary absolute h-24 w-24 rounded-full border-r-2 border-b-2 p-2"
+        />
+      </View>
+      <Text className="text-foreground font-sans-semibold mt-4 text-center text-xl">
         {text ?? 'Loading...'}
       </Text>
     </View>

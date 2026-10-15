@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Button } from '../../../../packages/ui/src/core/button/button.native';
+import { useNavigationWithLoading } from '@/hooks/useNavigationWithLoading';
 
 export default function NotFoundScreen() {
-  const router = useRouter();
+  const { navigate, back } = useNavigationWithLoading();
   return (
     <View className="bg-background p-safe h-full flex-col items-center justify-center">
       <Text className="text-foreground font-mono-bold mb-2 text-4xl">404</Text>
@@ -16,14 +16,14 @@ export default function NotFoundScreen() {
           label="Go Home"
           variant="primary"
           onClick={() => {
-            router.push('/');
+            navigate('/');
           }}
         />
         <Button
           label="Go Back"
           variant="muted"
           onClick={() => {
-            router.back();
+            back();
           }}
         />
       </View>
