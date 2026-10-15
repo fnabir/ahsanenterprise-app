@@ -50,3 +50,5 @@ export const REQUISITION_EXPENSE_FIELDS = [
   { label: "Truck", key: "truck", isCurrency: true },
   { label: "Assessment / Delivery", key: "assessment", isCurrency: true },
 ];
+
+export const THEME_KEY = "theme-app";

@@ -19,6 +19,6 @@ export const colors = {
     primarySubtle: "#1F3347",
     foreground: "#0E1520",
     danger: "#E27575",
-    success: "#5FFBF93",
+    success: "#5FBF93",
   },
 } as const;

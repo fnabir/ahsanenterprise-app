@@ -6,7 +6,7 @@ export const styleVariant = {
     bg-primary-subtle text-primary
   `,
   outline: `
-    text-foreground bg-transparent border border-foreground
+    text-foreground bg-transparent
   `,
   success: `
     text-success bg-success-subtle
@@ -17,4 +17,13 @@ export const styleVariant = {
   error: `
     text-error bg-error-subtle
   `,
+};
+
+export const borderVariant = {
+  default: `border-foreground`,
+  info: `border-primary`,
+  outline: `border-foreground`,
+  success: `border-success`,
+  warning: `border-warning`,
+  error: `border-error`,
 };
